@@ -53,7 +53,7 @@ const jsCustomDestination = './js/';
 // Compiled JS custom file name. Default set to custom i.e. custom.js.
 const jsCustomFile = 'custom';
 
-// NOTE: JS files outside of these two folders won't be compiled. 
+// NOTE: JS files outside of these two folders won't be compiled.
 // That may be what you want if they are enqueued separately. =)
 
 // Images options.
@@ -113,16 +113,16 @@ const zipIgnoreGlob = [
 
 // >>>>> Translation options.
 // Your text domain here.
-const textDomain = 'icenine-portfolio';
+const textDomain = 'pitchfork-people';
 
 // Name of the translation file.
-const translationFile = 'icenine-portfolio.pot';
+const translationFile = 'pitchfork-people.pot';
 
 // Where to save the translation files.
 const translationDestination = './languages';
 
 // Package name.
-const packageName = 'icenine-portfolio';
+const packageName = 'pitchfork-people';
 
 // Where can users report bugs.
 const bugReport = 'https://engineering.asu.edu';

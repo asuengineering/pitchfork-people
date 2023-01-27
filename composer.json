@@ -1,5 +1,5 @@
 {
-	"name": "asuengineering/icenine-portfolio",
+	"name": "asuengineering/pitchfork-people",
 	"description": "Pitchfork blocks plugin for the Pitchfork theme",
 	"type": "wordpress-plugin",
 	"license": "GPL-2.0-only",
@@ -9,7 +9,7 @@
 		"theme",
 		"bootstrap"
 	],
-	"homepage": "https://github.com/asuengineering/icenine-portfolio",
+	"homepage": "https://github.com/asuengineering/pitchfork-people",
 	"require": {
 		"composer/installers": "^1.9",
 		"php": ">=5.6"

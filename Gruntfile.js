@@ -9,7 +9,7 @@ module.exports = function( grunt ) {
 
 		addtextdomain: {
 			options: {
-				textdomain: 'icenine-portfolio',
+				textdomain: 'pitchfork-people',
 			},
 			update_all_domains: {
 				options: {
@@ -32,8 +32,8 @@ module.exports = function( grunt ) {
 				options: {
 					domainPath: '/languages',
 					exclude: [ '\.git/*', 'bin/*', 'node_modules/*', 'tests/*' ],
-					mainFile: 'icenine-portfolio.php',
-					potFilename: 'icenine-portfolio.pot',
+					mainFile: 'pitchfork-people.php',
+					potFilename: 'pitchfork-people.pot',
 					potHeaders: {
 						poedit: true,
 						'x-poedit-keywordslist': true

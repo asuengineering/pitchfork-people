@@ -50,7 +50,7 @@
 
 	<rule ref="WordPress.WP.I18n">
 		<properties>
-			<property name="text_domain" type="array" value="icenine-portfolio"/>
+			<property name="text_domain" type="array" value="pitchfork-people"/>
 		</properties>
 
 		<exclude name="WordPress.WP.I18n.NoEmptyStrings"/>
