@@ -32,6 +32,42 @@ require_once PITCHFORK_PEOPLE_BASE_PATH . '/tgmpa/dependency-check.php';
 // Enqueue scripts.
 require_once PITCHFORK_PEOPLE_BASE_PATH . '/inc/enqueue-scripts.php';
 
+// Create CPT for Pitchfork People
+require_once PITCHFORK_PEOPLE_BASE_PATH . '/inc/cpt-people.php';
+
 // ACF configurations.
-require_once PITCHFORK_PEOPLE_BASE_PATH . '/inc/acf-config.php';
-require_once PITCHFORK_PEOPLE_BASE_PATH . '/inc/acf-register-blocks.php';
+// require_once PITCHFORK_PEOPLE_BASE_PATH . '/inc/acf-config.php';
+// require_once PITCHFORK_PEOPLE_BASE_PATH . '/inc/acf-register-blocks.php';
+
+// https://www.advancedcustomfields.com/resources/acf-update_value/
+// function pfpeople_lookup_from_search( $value, $post_id, $field, $original ) {
+// 	do_action('qm/debug', $value);
+// 	return $value;
+// }
+// add_filter('acf/validate_value/name=pfpeople_asurite', 'pfpeople_lookup_from_search', 10, 4);
+
+// function pfpeople_lookup_from_search() {
+//     ?>
+//     <script type="text/javascript">
+//     jQuery(document).ready(function ($) {
+
+// 		$(".acf-field-63d4433b4c456 input").focusout(function(){
+
+// 			console.log( "Steve: " + $(this).val() );
+
+// 			var value = $(this).val();
+// 			var asuSearchAPI = "https://search.asu.edu/api/v1/webdir-profiles/faculty-staff?size=1&query=" + value;
+// 			$.getJSON( asuSearchAPI, {
+// 				format: "json"
+// 			})
+// 			.done(function( data ) {
+// 				console.log(data);
+// 			});
+// 		})
+
+//     });
+//     </script>
+//     <?php
+// }
+
+// add_action('acf/input/admin_footer', 'pfpeople_lookup_from_search');
