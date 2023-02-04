@@ -39,35 +39,26 @@ require_once PITCHFORK_PEOPLE_BASE_PATH . '/inc/cpt-people.php';
 // require_once PITCHFORK_PEOPLE_BASE_PATH . '/inc/acf-config.php';
 // require_once PITCHFORK_PEOPLE_BASE_PATH . '/inc/acf-register-blocks.php';
 
-// https://www.advancedcustomfields.com/resources/acf-update_value/
-// function pfpeople_lookup_from_search( $value, $post_id, $field, $original ) {
-// 	do_action('qm/debug', $value);
-// 	return $value;
-// }
-// add_filter('acf/validate_value/name=pfpeople_asurite', 'pfpeople_lookup_from_search', 10, 4);
-
-// function pfpeople_lookup_from_search() {
-//     ?>
-//     <script type="text/javascript">
-//     jQuery(document).ready(function ($) {
-
-// 		$(".acf-field-63d4433b4c456 input").focusout(function(){
-
-// 			console.log( "Steve: " + $(this).val() );
-
-// 			var value = $(this).val();
-// 			var asuSearchAPI = "https://search.asu.edu/api/v1/webdir-profiles/faculty-staff?size=1&query=" + value;
-// 			$.getJSON( asuSearchAPI, {
-// 				format: "json"
-// 			})
-// 			.done(function( data ) {
-// 				console.log(data);
-// 			});
-// 		})
-
-//     });
-//     </script>
-//     <?php
+// function pfpeople_disable_data_fields( $field ) {
+// 	$field['disabled'] = 1;
+// 	return $field;
 // }
 
-// add_action('acf/input/admin_footer', 'pfpeople_lookup_from_search');
+// function pfpeople_toggle_read_only_fields( $value, $post_id, $field, $original ) {
+
+// 	do_action('qm/debug', "yep");
+
+// 	// Set the disabled value of the following fields equal to the value of this control.
+// 	$dataFields = array('pfpeople_name', 'pfpeople_url');
+
+// 	foreach ( $data_fields as $data_field ) {
+// 		$data = get_field( $data_field, $post_id);
+// 		do_action('qm/debug', $data);
+// 		$data['disabled'] = $value;
+// 	}
+
+// 	return $field;
+
+// }
+// add_filter('acf/update_field', 'pfpeople_toggle_read_only_fields', 10, 4);
+

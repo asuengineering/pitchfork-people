@@ -1,0 +1,53 @@
+/*--------------------------------------------------------------
+# Admin SASS
+- Contains additional rules for rules for the admin area of WP.
+--------------------------------------------------------------*/
+
+@import "../src/sass/design-tokens/variables";
+@import 'media-queries';
+
+/*--------------------------------------------------------------
+# Profile block preview within admin area.
+- Modeled after uds-person-profile is-style-mini
+--------------------------------------------------------------*/
+.uds-profile-preview {
+	display: grid;
+	grid-template-columns: auto 1fr;
+	grid-template-rows: 1fr;
+	grid-column-gap: 1.5rem;
+	grid-row-gap: 0px;
+
+	padding:1.5rem;
+
+	max-width:400px;
+	border:1px solid #d0d0d0;
+
+	img {
+		grid-column: 1;
+		height: 100px;
+		width: auto;
+		overflow: hidden;
+		border-radius: 50%;
+
+	}
+
+	.display-contents {
+		grid-column: 2;
+
+		p {
+			font-size: 1rem;
+			font-weight: 700;
+			line-height: 1;
+			margin:.75rem 0;
+
+			&:first-child {
+				margin-top:0;
+				font-size:1.25rem;
+			}
+
+			&:last-child {
+				font-weight:400;
+			}
+		}
+	}
+}
