@@ -407,3 +407,39 @@ gulp.task(
 		gulp.watch(config.imgSRC, gulp.series('images', reload)); // Reload on customJS file changes.
 	})
 );
+
+/**
+ * Copy Assets from node_modules.
+ *
+ * Does the following:
+ * 1. Copies files from bootstrap4-theme to /src
+ * 2. Copies files from component-cookie-consent to /src
+ * 3. Copies files from component-header to /src
+ *
+ *
+ */
+
+gulp.task("upboot", function (done) {
+
+	var paths = {
+		"node": "./node_modules",
+		"dev": "./src",
+	}
+
+	// Copy UDS Bootstrap SCSS files, possibly useful for design system token values.
+	gulp
+	.src(paths.node + "/@asu/bootstrap4-theme/src/scss/**/*.scss")
+		.pipe(gulp.dest(paths.dev + "/sass"));
+
+	// Copy app-webdir-ui JS files
+	gulp
+	.src(paths.node + "/@asu/app-webdir-ui/dist/*.js")
+		.pipe(gulp.dest(paths.dev + "/app-webdir-ui/js"));
+
+	// Copy components core JS files
+	gulp
+	.src(paths.node + "/@asu/components-core/dist/*.js")
+		.pipe(gulp.dest(paths.dev + "/components-core/js"));
+
+	done();
+});

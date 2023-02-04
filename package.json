@@ -1,8 +1,8 @@
 {
-	"name": "your-project",
-	"description": "A WPGulp based project.",
+	"name": "pitchfork-people",
+	"description": "ASU Engineering plugin for WordPress",
 	"version": "0.0.1",
-	"repository": "ahmadawais/WPGulp",
+	"repository": "ASUEngineering/pitchfork-people",
 	"license": "MIT",
 	"devDependencies": {
     "@asu/bootstrap4-theme": "latest",
