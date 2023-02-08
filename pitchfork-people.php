@@ -36,29 +36,5 @@ require_once PITCHFORK_PEOPLE_BASE_PATH . '/inc/enqueue-scripts.php';
 require_once PITCHFORK_PEOPLE_BASE_PATH . '/inc/cpt-people.php';
 
 // ACF configurations.
-// require_once PITCHFORK_PEOPLE_BASE_PATH . '/inc/acf-config.php';
-// require_once PITCHFORK_PEOPLE_BASE_PATH . '/inc/acf-register-blocks.php';
-
-// function pfpeople_disable_data_fields( $field ) {
-// 	$field['disabled'] = 1;
-// 	return $field;
-// }
-
-// function pfpeople_toggle_read_only_fields( $value, $post_id, $field, $original ) {
-
-// 	do_action('qm/debug', "yep");
-
-// 	// Set the disabled value of the following fields equal to the value of this control.
-// 	$dataFields = array('pfpeople_name', 'pfpeople_url');
-
-// 	foreach ( $data_fields as $data_field ) {
-// 		$data = get_field( $data_field, $post_id);
-// 		do_action('qm/debug', $data);
-// 		$data['disabled'] = $value;
-// 	}
-
-// 	return $field;
-
-// }
-// add_filter('acf/update_field', 'pfpeople_toggle_read_only_fields', 10, 4);
-
+require_once PITCHFORK_PEOPLE_BASE_PATH . '/inc/acf-config.php';
+require_once PITCHFORK_PEOPLE_BASE_PATH . '/inc/acf-register-blocks.php';
