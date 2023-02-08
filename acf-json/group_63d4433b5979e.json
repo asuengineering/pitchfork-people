@@ -1,0 +1,101 @@
+{
+    "key": "group_63d4433b5979e",
+    "title": "PF People: Identity",
+    "fields": [
+        {
+            "key": "field_63d4433b4c456",
+            "label": "ASURITE ID",
+            "name": "pfpeople_asurite",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Please enter the ASURITE of the faculty or staff member.<br>\r\nThe preview card will update as soon as you move the focus away from this field.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_63d588390fddc",
+            "label": "Preview card",
+            "name": "",
+            "aria-label": "",
+            "type": "message",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": "preview-results"
+            },
+            "message": "",
+            "new_lines": "wpautop",
+            "esc_html": 0
+        },
+        {
+            "key": "field_63d44f52a46e2",
+            "label": "Override data?",
+            "name": "pfpeople_sync_data",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "Activate this switch to override search data with your manual updates below.<br>\r\nThis will prevent further automated syncing of this profile.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "message": "",
+            "default_value": 0,
+            "ui_on_text": "Manual Data",
+            "ui_off_text": "Search Data",
+            "ui": 1
+        },
+        {
+            "key": "field_63dd9c765b15e",
+            "label": "Update fields",
+            "name": "",
+            "aria-label": "",
+            "type": "message",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "40",
+                "class": "",
+                "id": ""
+            },
+            "message": "Click to manually update the profile fields with data from ASU Search.",
+            "new_lines": "wpautop",
+            "esc_html": 0
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "pitchfork-people"
+            }
+        ]
+    ],
+    "menu_order": 10,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "modified": 1675494759
+}
