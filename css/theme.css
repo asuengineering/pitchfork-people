@@ -1,4 +1,65 @@
+/*--------------------------------------------------------------
+# Theme SASS
+- Contains additional rules for blocks in the editor.
+--------------------------------------------------------------*/
+/*--------------------------------------------------------------
+Media queries modeled on those found in Bootstrap 4.
+--------------------------------------------------------------*/
+/*--------------------------------------------------------------
+# UDS Profiles
 
-/*# sourceMappingURL=data:application/json;charset=utf8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiIiwic291cmNlcyI6WyJ0aGVtZS5zY3NzIl0sImZpbGUiOiJ0aGVtZS5jc3MifQ== */
+1. UDS Profile (Manual)
+2. Mobile version
+3. UDS Profiles (grid container)
+--------------------------------------------------------------*/
+.uds-person-profile { --max-width:none; }
+
+.uds-person-profile.is-style-small { --pic-size: 120px; }
+
+.uds-person-profile.is-style-micro { --pic-size: 78px; --person-name-size: 20px; --name-top-margin: 0; --person-profession-bottom-margin:0px; -webkit-box-orient: horizontal; -webkit-box-direction: normal; -ms-flex-direction: row; flex-direction: row; }
+
+.uds-person-profile.is-style-micro .person-name { margin-top: 0; }
+
+.uds-person-profile.is-style-micro .person-profession a { font-weight: 400; text-decoration: none; }
+
+.uds-person-profile.fill-white { background-color: #ffffff; border-bottom: 1px solid #d0d0d0; padding: 1rem; }
+
+.uds-person-profile.fill-white .person { margin-bottom: 1rem; }
+
+.uds-person-profile.has-default-img .profile-img-placeholder { background-image: url("https://ui-avatars.com/api/?background=D0D0D0&color=191919&size=256&name=AZ&rounded=true&format=png"); }
+
+.uds-person-profile[class*="is-style"] .person { margin-left: 0; }
+
+.uds-person-profile[class*="is-style"] .profile-img-container { margin-right: 1.5rem; }
+
+.uds-person-profile .person ul.person-contact-info { -webkit-box-orient: horizontal !important; -webkit-box-direction: normal !important; -ms-flex-direction: row !important; flex-direction: row !important; -webkit-column-gap: 1rem; -moz-column-gap: 1rem; column-gap: 1rem; -ms-flex-wrap: wrap; flex-wrap: wrap; }
+
+.uds-person-profile .person ul.person-contact-info li { margin: 0; }
+
+/*--------------------------------------------------------------
+2. Profile block, mobile styles.
+--------------------------------------------------------------*/
+@media (max-width: calc(992px - .02px)) { .uds-person-profile { max-width: none; } }
+
+@media (min-width: calc(540px)) { .uds-person-profile.fill-white { border: 1px solid #d0d0d0; padding: 2rem; }
+  .uds-person-profile.fill-white .person { margin-bottom: 0; } }
+
+@media (min-width: calc(540px)) { .uds-person-profile .person ul.person-contact-info { -webkit-box-orient: horizontal; -webkit-box-direction: normal; -ms-flex-direction: row; flex-direction: row; gap: 1rem; } }
+
+/*--------------------------------------------------------------
+3. Profile grid, mobile-first.
+
+Better support for :has() or container queries would allow for
+more specific layout choices based on container columns + object size.
+For now, this is what works for all size/column combos.
+--------------------------------------------------------------*/
+.uds-profile-grid { display: grid; grid-template-columns: 1fr; grid-template-rows: 1fr; gap: 2rem; }
+
+@media (min-width: calc(768px)) { .uds-profile-grid.col-one { grid-template-columns: minmax(0, 800px); }
+  .uds-profile-grid.col-two, .uds-profile-grid.col-three { grid-template-columns: repeat(2, 1fr); } }
+
+@media (min-width: calc(1224px)) { .uds-profile-grid.col-three { grid-template-columns: repeat(3, 1fr); } }
+
+/*# sourceMappingURL=data:application/json;charset=utf8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoidGhlbWUuY3NzIiwic291cmNlcyI6WyJ0aGVtZS5zY3NzIiwiLi4vc3JjL3Nhc3MvZGVzaWduLXRva2Vucy9fdmFyaWFibGVzLnNjc3MiLCJfbWVkaWEtcXVlcmllcy5zY3NzIiwiX3Byb2ZpbGUuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTs7O2dFQUdnRTtBRUhoRTs7Z0VBRWdFO0FDRmhFOzs7Ozs7Z0VBTWdFO0FBRWhFLEFBQUEsbUJBQW1CLENBQUMsRUFFbkIsV0FBVyxDQUFBLElBQUMsR0FnRVo7O0FBbEVELEFBS0MsbUJBTGtCLEFBS2pCLGVBQWUsQ0FBQyxFQUNoQixVQUFVLENBQUEsTUFBQyxHQUNYOztBQVBGLEFBU0MsbUJBVGtCLEFBU2pCLGVBQWUsQ0FBQyxFQUNoQixVQUFVLENBQUEsS0FBQyxFQUNYLGtCQUFrQixDQUFBLEtBQUMsRUFDbkIsaUJBQWlCLENBQUEsRUFBQyxFQUNsQixpQ0FBaUMsQ0FBQSxHQUFDLEVBR2xDLGNBQWMsRUFBRSxHQUFHLEdBV25COztBQTNCRixBQWtCRSxtQkFsQmlCLEFBU2pCLGVBQWUsQ0FTZixZQUFZLENBQUMsRUFDWixVQUFVLEVBQUMsQ0FBQyxHQUNaOztBQXBCSCxBQXVCRSxtQkF2QmlCLEFBU2pCLGVBQWUsQ0FjZixrQkFBa0IsQ0FBQyxDQUFDLENBQUMsRUFDcEIsV0FBVyxFQUFDLEdBQUcsRUFDZixlQUFlLEVBQUMsSUFBSSxHQUNwQjs7QUExQkgsQUE4QkMsbUJBOUJrQixBQThCakIsV0FBVyxDQUFDLEVBQ1osZ0JBQWdCLEVBQUUsT0FBTyxFQUN6QixhQUFhLEVBQUUsR0FBRyxDQUFDLEtBQUssQ0ZBRixPQUFPLEVFQzdCLE9BQU8sRUZvRVksSUFBSSxHRS9EdkI7O0FBdENGLEFBbUNFLG1CQW5DaUIsQUE4QmpCLFdBQVcsQ0FLWCxPQUFPLENBQUMsRUFDUCxhQUFhLEVGaUVLLElBQUksR0VoRXRCOztBQXJDSCxBQXlDQyxtQkF6Q2tCLEFBeUNqQixnQkFBZ0IsQ0FBQyx3QkFBd0IsQ0FBQyxFQUMxQyxnQkFBZ0IsRUFBRSwwR0FBMEcsR0FDNUg7O0FBM0NGLEFBZ0RFLG1CQWhEaUIsQ0ErQ2pCLEFBQUEsS0FBQyxFQUFPLFVBQVUsQUFBakIsRUFDRCxPQUFPLENBQUMsRUFDUCxXQUFXLEVBQUUsQ0FBQyxHQUNkOztBQWxESCxBQW9ERSxtQkFwRGlCLENBK0NqQixBQUFBLEtBQUMsRUFBTyxVQUFVLEFBQWpCLEVBS0Qsc0JBQXNCLENBQUMsRUFDdEIsWUFBWSxFRmlETSxNQUFNLEdFaER4Qjs7QUF0REgsQUEwREMsbUJBMURrQixDQTBEbEIsT0FBTyxDQUFDLEVBQUUsQUFBQSxvQkFBb0IsQ0FBQyxFQUM5QixjQUFjLEVBQUUsY0FBYyxFQUM5QixVQUFVLEVGeUNTLElBQUksRUV4Q3ZCLFNBQVMsRUFBRSxJQUFJLEdBSWY7O0FBakVGLEFBOERFLG1CQTlEaUIsQ0EwRGxCLE9BQU8sQ0FBQyxFQUFFLEFBQUEsb0JBQW9CLENBSTdCLEVBQUUsQ0FBQyxFQUNGLE1BQU0sRUFBQyxDQUFDLEdBQ1I7O0FBS0g7O2dFQUVnRTtBRHJFNUQsTUFBTSxFQUFFLFNBQVMsRUFBRSxJQUFtQixDQUFELGFBQUMsS0N5RXpDLEFBQUEsbUJBQW1CLENBQUMsRUFDbkIsU0FBUyxFQUFFLElBQUksR0FDZjs7QUR2RUUsTUFBTSxFQUFFLFNBQVMsRUFBRSxJQUFXLENBQUQsS0FBQyxLQzJFakMsQUFBQSxtQkFBbUIsQUFBQSxXQUFXLENBQUMsRUFDOUIsTUFBTSxFQUFFLEdBQUcsQ0FBQyxLQUFLLENGbERLLE9BQU8sRUVtRDdCLE9BQU8sRUZvQlksSUFBSSxHRWZ2QjtFQVBELEFBSUMsbUJBSmtCLEFBQUEsV0FBVyxDQUk3QixPQUFPLENBQUMsRUFDUCxhQUFhLEVBQUUsQ0FBQyxHQUNoQjs7QURqRkMsTUFBTSxFQUFFLFNBQVMsRUFBRSxJQUFXLENBQUQsS0FBQyxLQ3NGakMsQUFBQSxtQkFBbUIsQ0FBQyxPQUFPLENBQUMsRUFBRSxBQUFBLG9CQUFvQixDQUFDLEVBQ2xELGNBQWMsRUFBRSxHQUFHLEVBQ25CLEdBQUcsRUZPZ0IsSUFBSSxHRU52Qjs7QUFHRjs7Ozs7O2dFQU1nRTtBQUVoRSxBQUFBLGlCQUFpQixDQUFDLEVBQ2pCLE9BQU8sRUFBRSxJQUFJLEVBQ2IscUJBQXFCLEVBQUUsR0FBRyxFQUMxQixrQkFBa0IsRUFBRSxHQUFHLEVBQ3ZCLEdBQUcsRUZQaUIsSUFBSSxHRVF4Qjs7QUR6R0csTUFBTSxFQUFFLFNBQVMsRUFBRSxJQUFXLENBQUQsS0FBQyxLQzRHakMsQUFDQyxpQkFEZ0IsQUFDZixRQUFRLENBQUMsRUFBRSxxQkFBcUIsRUFBRSxnQkFBZ0IsR0FBRztFQUR2RCxBQUVDLGlCQUZnQixBQUVmLFFBQVEsRUFGVixpQkFBaUIsQUFFSixVQUFVLENBQUMsRUFBRSxxQkFBcUIsRUFBRSxjQUFjLEdBQUk7O0FEOUdoRSxNQUFNLEVBQUUsU0FBUyxFQUFFLElBQVksQ0FBRCxNQUFDLEtDcUhsQyxBQUNDLGlCQURnQixBQUNmLFVBQVUsQ0FBQyxFQUFFLHFCQUFxQixFQUFFLGNBQWMsR0FBSSJ9 */
 
 /*# sourceMappingURL=theme.css.map */

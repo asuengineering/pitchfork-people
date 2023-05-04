@@ -33,8 +33,9 @@ require_once PITCHFORK_PEOPLE_BASE_PATH . '/tgmpa/dependency-check.php';
 require_once PITCHFORK_PEOPLE_BASE_PATH . '/inc/enqueue-scripts.php';
 
 // Create CPT for Pitchfork People
-require_once PITCHFORK_PEOPLE_BASE_PATH . '/inc/cpt-people.php';
+// require_once PITCHFORK_PEOPLE_BASE_PATH . '/inc/cpt-people.php';
 
 // ACF configurations.
 require_once PITCHFORK_PEOPLE_BASE_PATH . '/inc/acf-config.php';
+require_once PITCHFORK_PEOPLE_BASE_PATH . '/inc/acf-block-utilities.php';
 require_once PITCHFORK_PEOPLE_BASE_PATH . '/inc/acf-register-blocks.php';
