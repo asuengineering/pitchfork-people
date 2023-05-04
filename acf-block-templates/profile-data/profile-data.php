@@ -147,32 +147,116 @@ if ( ! empty( $description ) ) {
 /**
  * Check if there's a profile image and create the markup for it.
 */
-$profileimg = '';
-do_action( 'qm/debug', $image );
-if ( ( ! empty( $image ) ) || ( in_array( 'has-default-img', $block_classes ) ) ) {
-		$profileimg .= '<div class="profile-img-container"><div class="profile-img-placeholder">';
-		$profileimg .= wp_get_attachment_image( $image['ID'], 'thumbnail', false, array( 'class' => 'profile-img' ) );
-		$profileimg .= '</div></div>';
-}
+// $profileimg = '';
+// do_action( 'qm/debug', $image );
+// if ( ( ! empty( $image ) ) || ( in_array( 'has-default-img', $block_classes ) ) ) {
+// 		$profileimg .= '<div class="profile-img-container"><div class="profile-img-placeholder">';
+// 		$profileimg .= wp_get_attachment_image( $image['ID'], 'thumbnail', false, array( 'class' => 'profile-img' ) );
+// 		$profileimg .= '</div></div>';
+// }
+
+// Function Profile Image
+// Function Display Name
+// Function Title
+// Function Profile, needs display size
+// Function render, calls the other functions, return the result.
 
 /**
  * Render the block
  */
-$profile  = '<div class="' . implode( ' ', $block_classes ) . '" style="' . $spacing . '">';
-$profile .= $profileimg;
-$profile .= '<div class="person"><div class="person-name">' . $displayname . '</div>';
-$profile .= '<div class="person-profession">' . $title . $department . '</div>';
+// $profile  = '<div class="' . implode( ' ', $block_classes ) . '" style="' . $spacing . '">';
+// $profile .= $profileimg;
+// $profile .= '<div class="person"><div class="person-name">' . $displayname . '</div>';
+// $profile .= '<div class="person-profession">' . $title . $department . '</div>';
 
-if ( 'micro' !== $display_size ) {
-	$profile .= $contactlist;
-}
+// if ( 'micro' !== $display_size ) {
+// 	$profile .= $contactlist;
+// }
 
-if ( 'large' === $display_size ) {
-	$profile .= $description . $social_list;
-} elseif ( ( 'small' === $display_size ) && ( ! empty( $searchURL ) ) ) {
-	$profile .= '<a href="' . $searchURL . '" class="btn btn-maroon btn-md">View profile</a>';
-}
+// if ( 'large' === $display_size ) {
+// 	$profile .= $description . $social_list;
+// } elseif ( ( 'small' === $display_size ) && ( ! empty( $searchURL ) ) ) {
+// 	$profile .= '<a href="' . $searchURL . '" class="btn btn-maroon btn-md">View profile</a>';
+// }
 
-$profile .= '</div></div>';
+// $profile .= '</div></div>';
 
 echo $profile;
+
+function profile_wrap_block_image( $image, $placeholder = false ) {
+
+	$profileimg .= '<div class="profile-img-container"><div class="profile-img-placeholder">';
+
+	if (! $placeholder) {
+		$profileimg .= wp_get_attachment_image( $image['ID'], 'thumbnail', false, array( 'class' => 'profile-img' ) );
+	}
+
+	$profileimg .= '</div></div>';
+
+}
+
+function profile_wrap_block_name( $displayname, $size, $url = '' ) {
+
+	/**
+	 * Manipulate displayname, title and department to include wrapper <h#> elements and check for blanks.
+	 */
+
+	if ( ( 'small' !== $display_size ) && ( ! empty( $searchURL ) ) ) {
+		// Is this a large profile, and is there a URL present?
+		$displayname = '<h3 class="person-name"><a href="' . $searchURL . '">' . $displayname . '</a></h3>';
+	} else {
+		// If there's no link or if it's a display size other than large.
+		$displayname = '<h3 class="person-name">' . $displayname . '</h3>';
+	}
+
+	return $displayname
+}
+
+
+/**
+ * Used to return the department and title strings wrapped in the needed <h4><span> tags.
+ *
+ * With the added $striptags arguement, can also return the email address, stripped of tags.
+ * Used with the micro style in place of the department.
+ */
+function profile_wrap_block_title_dept( $title, $striptags = false) {
+
+	if (! $striptags) {
+		$title = '<h4><span>' . $title . '</span></h4>';
+	} else {
+		$title = strip_tags( $title, '<a>' );
+		$title = '<h4>' . $title . '</h4>';
+	}
+
+	return $title;
+}
+
+function profile_wrap_block_description( $desc ) {
+	return $desc = '<p class="person-description">' . $desc . '</p>';
+}
+
+function profile_block_render() {
+
+	$profile .= profile_wrap_block_image();
+	$profile .= '<div class="person">';
+	$profile .= profile_wrap_block_name();
+	$profile .= '<div class="person-profession">';
+	$profile .= profile_wrap_block_title_dept($title) . profile_wrap_block_title_dept($dept) . '</div>';
+
+	if ( 'micro' !== $display_size ) {
+		$profile .= $contactlist;
+	}
+
+	if ( 'large' === $display_size ) {
+		$profile .= $description . $social_list;
+	} elseif ( ( 'small' === $display_size ) && ( ! empty( $searchURL ) ) ) {
+		$profile .= '<a href="' . $searchURL . '" class="btn btn-maroon btn-md">View profile</a>';
+	}
+
+	$profile .= '</div>';
+}
+
+$profiledetails = profile_block_render();
+$profiledetails = '<div class="' . implode( ' ', $block_classes ) . '" style="' . $spacing . '">' . $profiledetails . '</div>';
+
+
