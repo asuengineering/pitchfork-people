@@ -5,5 +5,6 @@
 .editor-styles-wrapper .wp-block-acf-profile-manual .person-contact-info a,.editor-styles-wrapper .wp-block-acf-profile-data .person-contact-info a{pointer-events:none}
 .editor-styles-wrapper .wp-block-acf-profile-manual a.btn,.editor-styles-wrapper .wp-block-acf-profile-data a.btn{pointer-events:none}
 .editor-styles-wrapper .wp-block-acf-profile-manual .person-social-medias a,.editor-styles-wrapper .wp-block-acf-profile-data .person-social-medias a{pointer-events:none}
+.editor-styles-wrapper .wp-block-acf-profile-manual .person-profession a,.editor-styles-wrapper .wp-block-acf-profile-data .person-profession a{pointer-events:none}
 .editor-styles-wrapper .wp-block-acf-profile-manual:not(.acf-block-preview),.editor-styles-wrapper .wp-block-acf-profile-data:not(.acf-block-preview){min-width:400px}
 .editor-styles-wrapper .uds-profile-grid .acf-innerblocks-container{display:contents}
