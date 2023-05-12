@@ -49,25 +49,34 @@ function pitchfork_people_acf_blocks_init() {
 		PITCHFORK_PEOPLE_BASE_PATH . 'acf-block-templates/profiles',
 		array(
 			'icon'     => $block_icon->users_rectangle,
-			'category' => 'pitchfork-blocks',
+			'category' => 'pitchfork-people',
 		)
 	);
 
-	// UDS Profile (Person), manual data entry edition.
+	// UDS Profile (Manual), manual data entry edition.
 	register_block_type(
 		PITCHFORK_PEOPLE_BASE_PATH . 'acf-block-templates/profile-manual',
 		array(
 			'icon'     => $block_icon->image_user,
-			'category' => 'pitchfork-blocks',
+			'category' => 'pitchfork-people',
 		)
 	);
 
-	// UDS Profile (Person), manual data entry edition.
+	// UDS Profile (Data), powered by ASU Search
 	register_block_type(
 		PITCHFORK_PEOPLE_BASE_PATH . 'acf-block-templates/profile-data',
 		array(
 			'icon'     => $block_icon->image_user,
-			'category' => 'pitchfork-blocks',
+			'category' => 'pitchfork-people',
+		)
+	);
+
+	// UDS Profile (Data), powered by ASU Search
+	register_block_type(
+		PITCHFORK_PEOPLE_BASE_PATH . 'acf-block-templates/web-directory',
+		array(
+			'icon'     => $block_icon->address_book,
+			'category' => 'pitchfork-people',
 		)
 	);
 }

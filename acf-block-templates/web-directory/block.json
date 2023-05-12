@@ -1,0 +1,32 @@
+{
+	"name": "acf/web-directory",
+	"title": "UDS Web Directory",
+	"description": "Deploy an entire directory based on results from ASU Search",
+	"category": "pitchfork-blocks",
+	"icon": "grid-view",
+	"keywords": [
+		"directory",
+		"person"
+	],
+	"acf": {
+		"mode": "preview",
+		"renderTemplate": "web-directory.php"
+	},
+	"supports": {
+		"anchor": true,
+		"spacing": {
+			"margin": [
+				"top",
+				"bottom"
+			],
+			"padding": false
+		},
+		"classname": false,
+		"align": false,
+		"color": {
+			"background": false,
+			"text": false,
+			"link": false
+		}
+	}
+}
