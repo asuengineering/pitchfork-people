@@ -11,27 +11,27 @@ Media queries modeled on those found in Bootstrap 4.
 1. (Manual block)
 --------------------------------------------------------------*/
 /* Set profile photos to correct size. */
-.editor-styles-wrapper .uds-person-profile.is-style-small { --pic-size: 120px; }
+.editor-styles-wrapper .uds-person-profile.is-style-small, .editor-styles-wrapper .uds-person-data.is-style-small { --pic-size: 120px; }
 
-.editor-styles-wrapper .uds-person-profile.is-style-micro { --pic-size: 78px; --person-name-size: 20px; --name-top-margin: 0; }
+.editor-styles-wrapper .uds-person-profile.is-style-micro, .editor-styles-wrapper .uds-person-data.is-style-micro { --pic-size: 78px; --person-name-size: 20px; --name-top-margin: 0; }
 
 /* Remove has-background class from background color selection in the block editor. */
-.editor-styles-wrapper .acf-block-preview.wp-block-acf-profile-manual.has-fill-background-color { background-color: transparent !important; }
+.editor-styles-wrapper .acf-block-preview.wp-block-acf-profile-manual.has-fill-background-color, .editor-styles-wrapper .acf-block-preview.wp-block-acf-profile-data.has-fill-background-color { background-color: transparent !important; }
 
 /* Prevent accidental clicking of linked elements within the editor */
-.editor-styles-wrapper .wp-block-acf-profile-manual .person-name a { pointer-events: none; }
+.editor-styles-wrapper .wp-block-acf-profile-manual .person-name a, .editor-styles-wrapper .wp-block-acf-profile-data .person-name a { pointer-events: none; }
 
-.editor-styles-wrapper .wp-block-acf-profile-manual .person-contact-info a { pointer-events: none; }
+.editor-styles-wrapper .wp-block-acf-profile-manual .person-contact-info a, .editor-styles-wrapper .wp-block-acf-profile-data .person-contact-info a { pointer-events: none; }
 
-.editor-styles-wrapper .wp-block-acf-profile-manual a.btn { pointer-events: none; }
+.editor-styles-wrapper .wp-block-acf-profile-manual a.btn, .editor-styles-wrapper .wp-block-acf-profile-data a.btn { pointer-events: none; }
 
-.editor-styles-wrapper .wp-block-acf-profile-manual .person-social-medias a { pointer-events: none; }
+.editor-styles-wrapper .wp-block-acf-profile-manual .person-social-medias a, .editor-styles-wrapper .wp-block-acf-profile-data .person-social-medias a { pointer-events: none; }
 
 /* Establish a minimum width when block is in edit mode. */
-.editor-styles-wrapper .wp-block-acf-profile-manual:not(.acf-block-preview) { min-width: 400px; }
+.editor-styles-wrapper .wp-block-acf-profile-manual:not(.acf-block-preview), .editor-styles-wrapper .wp-block-acf-profile-data:not(.acf-block-preview) { min-width: 400px; }
 
 .editor-styles-wrapper .uds-profile-grid .acf-innerblocks-container { display: contents; }
 
-/*# sourceMappingURL=data:application/json;charset=utf8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiZWRpdG9yLmNzcyIsInNvdXJjZXMiOlsiZWRpdG9yLnNjc3MiLCIuLi9zcmMvc2Fzcy9kZXNpZ24tdG9rZW5zL192YXJpYWJsZXMuc2NzcyIsIl9tZWRpYS1xdWVyaWVzLnNjc3MiLCJlZGl0b3IvX3Byb2ZpbGUuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTs7O2dFQUdnRTtBRUhoRTs7Z0VBRWdFO0FDRmhFOzs7O2dFQUlnRTtBQUNoRSx5Q0FBeUM7QUFDekMsQUFDQyxzQkFEcUIsQ0FBQyxtQkFBbUIsQUFDeEMsZUFBZSxDQUFDLEVBQ2hCLFVBQVUsQ0FBQSxNQUFDLEdBQ1g7O0FBSEYsQUFJQyxzQkFKcUIsQ0FBQyxtQkFBbUIsQUFJeEMsZUFBZSxDQUFDLEVBQ2hCLFVBQVUsQ0FBQSxLQUFDLEVBQ1gsa0JBQWtCLENBQUEsS0FBQyxFQUNuQixpQkFBaUIsQ0FBQSxFQUFDLEdBQ2xCOztBQUlGLHNGQUFzRjtBQUN0RixBQUFBLHNCQUFzQixDQUFDLGtCQUFrQixBQUFBLDRCQUE0QixBQUFBLDBCQUEwQixDQUFDLEVBQy9GLGdCQUFnQixFQUFDLHNCQUFzQixHQUN2Qzs7QUFFRCxzRUFBc0U7QUFDdEUsQUFDQyxzQkFEcUIsQ0FBQyw0QkFBNEIsQ0FDbEQsWUFBWSxDQUFDLENBQUMsQ0FBQyxFQUFFLGNBQWMsRUFBRSxJQUFJLEdBQUk7O0FBRDFDLEFBRUMsc0JBRnFCLENBQUMsNEJBQTRCLENBRWxELG9CQUFvQixDQUFDLENBQUMsQ0FBQyxFQUFFLGNBQWMsRUFBRSxJQUFJLEdBQUk7O0FBRmxELEFBR0Msc0JBSHFCLENBQUMsNEJBQTRCLENBR2xELENBQUMsQUFBQSxJQUFJLENBQUMsRUFBRSxjQUFjLEVBQUUsSUFBSSxHQUFJOztBQUhqQyxBQUlDLHNCQUpxQixDQUFDLDRCQUE0QixDQUlsRCxxQkFBcUIsQ0FBQyxDQUFDLENBQUMsRUFBRSxjQUFjLEVBQUUsSUFBSSxHQUFJOztBQUduRCwyREFBMkQ7QUFDM0QsQUFBQSxzQkFBc0IsQ0FBQyw0QkFBNEIsQUFBQSxJQUFLLENBQUEsa0JBQWtCLEVBQUUsRUFDM0UsU0FBUyxFQUFDLEtBQUssR0FDZjs7QUFHRCxBQUNDLHNCQURxQixDQUFDLGlCQUFpQixDQUN2QywwQkFBMEIsQ0FBQyxFQUMxQixPQUFPLEVBQUUsUUFBUSxHQUNqQiJ9 */
+/*# sourceMappingURL=data:application/json;charset=utf8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiZWRpdG9yLmNzcyIsInNvdXJjZXMiOlsiZWRpdG9yLnNjc3MiLCIuLi9zcmMvc2Fzcy9kZXNpZ24tdG9rZW5zL192YXJpYWJsZXMuc2NzcyIsIl9tZWRpYS1xdWVyaWVzLnNjc3MiLCJlZGl0b3IvX3Byb2ZpbGUuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTs7O2dFQUdnRTtBRUhoRTs7Z0VBRWdFO0FDRmhFOzs7O2dFQUlnRTtBQUNoRSx5Q0FBeUM7QUFDekMsQUFJRSxzQkFKb0IsQ0FFckIsbUJBQW1CLEFBRWpCLGVBQWUsRUFKbEIsc0JBQXNCLENBR3JCLGdCQUFnQixBQUNkLGVBQWUsQ0FBQyxFQUNoQixVQUFVLENBQUEsTUFBQyxHQUNYOztBQU5ILEFBUUUsc0JBUm9CLENBRXJCLG1CQUFtQixBQU1qQixlQUFlLEVBUmxCLHNCQUFzQixDQUdyQixnQkFBZ0IsQUFLZCxlQUFlLENBQUMsRUFDaEIsVUFBVSxDQUFBLEtBQUMsRUFDWCxrQkFBa0IsQ0FBQSxLQUFDLEVBQ25CLGlCQUFpQixDQUFBLEVBQUMsR0FDbEI7O0FBS0gsc0ZBQXNGO0FBQ3RGLEFBQUEsc0JBQXNCLENBQUMsa0JBQWtCLEFBQUEsNEJBQTRCLEFBQUEsMEJBQTBCLEVBQy9GLHNCQUFzQixDQUFDLGtCQUFrQixBQUFBLDBCQUEwQixBQUFBLDBCQUEwQixDQUFDLEVBQzdGLGdCQUFnQixFQUFFLHNCQUFzQixHQUN4Qzs7QUFFRCxzRUFBc0U7QUFDdEUsQUFFQyxzQkFGcUIsQ0FBQyw0QkFBNEIsQ0FFbEQsWUFBWSxDQUFDLENBQUMsRUFEZixzQkFBc0IsQ0FBQywwQkFBMEIsQ0FDaEQsWUFBWSxDQUFDLENBQUMsQ0FBQyxFQUNkLGNBQWMsRUFBRSxJQUFJLEdBQ3BCOztBQUpGLEFBTUMsc0JBTnFCLENBQUMsNEJBQTRCLENBTWxELG9CQUFvQixDQUFDLENBQUMsRUFMdkIsc0JBQXNCLENBQUMsMEJBQTBCLENBS2hELG9CQUFvQixDQUFDLENBQUMsQ0FBQyxFQUN0QixjQUFjLEVBQUUsSUFBSSxHQUNwQjs7QUFSRixBQVVDLHNCQVZxQixDQUFDLDRCQUE0QixDQVVsRCxDQUFDLEFBQUEsSUFBSSxFQVROLHNCQUFzQixDQUFDLDBCQUEwQixDQVNoRCxDQUFDLEFBQUEsSUFBSSxDQUFDLEVBQ0wsY0FBYyxFQUFFLElBQUksR0FDcEI7O0FBWkYsQUFjQyxzQkFkcUIsQ0FBQyw0QkFBNEIsQ0FjbEQscUJBQXFCLENBQUMsQ0FBQyxFQWJ4QixzQkFBc0IsQ0FBQywwQkFBMEIsQ0FhaEQscUJBQXFCLENBQUMsQ0FBQyxDQUFDLEVBQ3ZCLGNBQWMsRUFBRSxJQUFJLEdBQ3BCOztBQUdGLDJEQUEyRDtBQUMzRCxBQUFBLHNCQUFzQixDQUFDLDRCQUE0QixBQUFBLElBQUssQ0FBQSxrQkFBa0IsR0FDMUUsc0JBQXNCLENBQUMsMEJBQTBCLEFBQUEsSUFBSyxDQUFBLGtCQUFrQixFQUFFLEVBQ3pFLFNBQVMsRUFBRSxLQUFLLEdBQ2hCOztBQUdELEFBQ0Msc0JBRHFCLENBQUMsaUJBQWlCLENBQ3ZDLDBCQUEwQixDQUFDLEVBQzFCLE9BQU8sRUFBRSxRQUFRLEdBQ2pCIn0= */
 
 /*# sourceMappingURL=editor.css.map */
