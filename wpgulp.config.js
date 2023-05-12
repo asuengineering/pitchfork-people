@@ -21,7 +21,7 @@ const injectChanges = true;
 
 // >>>>> Style options.
 // Path to main .scss file.
-const styleSRC = ['./sass/theme.scss', './sass/admin.scss'];
+const styleSRC = ['./sass/pfpeople.scss', './sass/admin.scss', './sass/editor.scss'];
 
 // Path to place the compiled CSS file. Default set to root folder.
 const styleDestination = './css/';
@@ -68,7 +68,7 @@ const imgDST = './img/';
 
 // >>>>> Watch files paths.
 // Path to all *.scss files inside css folder and inside them.
-const watchStyles = './sass/*.scss';
+const watchStyles = './sass/**/*.scss';
 
 // Path to all vendor JS files.
 const watchJsVendor = './js/vendor/*.js';
