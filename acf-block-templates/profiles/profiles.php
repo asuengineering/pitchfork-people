@@ -21,7 +21,7 @@ if ( ! empty( $block['className'] ) ) {
 }
 
 // Sets InnerBlocks with a pair of foldable cards both containing an H4 and a paragraph.
-$allowed_blocks = array( 'acf/profile-manual' );
+$allowed_blocks = array( 'acf/profile-manual', 'acf/profile-data' );
 $template       = array(
 	array(
 		'acf/profile-manual',

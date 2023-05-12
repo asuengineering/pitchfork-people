@@ -32,6 +32,12 @@ require_once PITCHFORK_PEOPLE_BASE_PATH . '/tgmpa/dependency-check.php';
 // Enqueue scripts.
 require_once PITCHFORK_PEOPLE_BASE_PATH . '/inc/enqueue-scripts.php';
 
+// PHP function to pull data from ASU Search API for a single ASURITE.
+require_once PITCHFORK_PEOPLE_BASE_PATH . '/inc/asu-search.php';
+
+// Functions used to render the profile-data block correctly.
+require_once PITCHFORK_PEOPLE_BASE_PATH . '/acf-block-templates/profile-data/profile-data-functions.php';
+
 // Create CPT for Pitchfork People
 // require_once PITCHFORK_PEOPLE_BASE_PATH . '/inc/cpt-people.php';
 

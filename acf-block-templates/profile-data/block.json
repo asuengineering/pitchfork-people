@@ -1,18 +1,25 @@
 {
-    "name": "acf/profile-data",
-    "title": "UDS Profile (Data)",
-    "description": "A profile card to represent a person at ASU. Data captured from ASU Search.",
-    "category": "pitchfork-blocks",
-    "icon": "grid-view",
-    "keywords": ["profile", "person", "card"],
-    "acf": {
-        "mode": "preview",
-        "renderTemplate": "profile-data.php"
-    },
+	"name": "acf/profile-data",
+	"title": "UDS Profile (Data)",
+	"description": "A profile card to represent a person at ASU. Data captured from ASU Search.",
+	"category": "pitchfork-blocks",
+	"icon": "grid-view",
+	"keywords": [
+		"profile",
+		"person",
+		"card"
+	],
+	"acf": {
+		"mode": "preview",
+		"renderTemplate": "profile-data.php"
+	},
 	"supports": {
 		"anchor": true,
 		"spacing": {
-			"margin": ["top", "bottom"],
+			"margin": [
+				"top",
+				"bottom"
+			],
 			"padding": false
 		},
 		"classname": false,

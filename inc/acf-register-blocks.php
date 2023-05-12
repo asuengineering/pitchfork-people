@@ -36,5 +36,14 @@ function pitchfork_people_acf_blocks_init() {
 			'category' => 'pitchfork-blocks',
 		)
 	);
+
+	// UDS Profile (Person), manual data entry edition.
+	register_block_type(
+		PITCHFORK_PEOPLE_BASE_PATH . 'acf-block-templates/profile-data',
+		array(
+			'icon'     => $block_icon->image_user,
+			'category' => 'pitchfork-blocks',
+		)
+	);
 }
 add_action( 'acf/init', 'pitchfork_people_acf_blocks_init' );

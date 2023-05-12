@@ -8,18 +8,11 @@
  */
 
 /**
- * Get fields.
+ * Get ACF fields and profile data from Search endpoint.
  */
-$displayname = get_field( 'uds_profilemanual_name' );
-$title       = get_field( 'uds_profilemanual_title' );
-$dept        = get_field( 'uds_profilemanual_department' );
-$searchURL   = get_field( 'uds_profilemanual_url' );
-$image       = get_field( 'uds_profilemanual_image' );
-$email       = get_field( 'uds_profilemanual_email' );
-$phone       = get_field( 'uds_profilemanual_phone' );
-$address     = get_field( 'uds_profilemanual_address' );
-$description = get_field( 'uds_profilemanual_description' );
-$social      = get_field( 'uds_profilemanual_social' );
+$asurite = get_field( 'uds_profiledata_asuriteid' );
+$asurite_details = get_asu_search_single_profile_results($asurite);
+// do_action('qm/debug', $asurite_details);
 
 /**
  * Retrieve spacing settings from editor.
@@ -62,201 +55,29 @@ if ( ! empty( $block['backgroundColor'] ) ) {
 }
 
 /**
- * Get contact details, check for blanks. Wrap with <li> elements initially.
- * Check to see if at least one of these is rendered. Then wrap in the <ul> element.
- * If not, return an empty string for the whole thing.
- */
-
-if ( ! empty( $email ) ) {
-	$email = '<li><a href="mailto:' . $email . '" aria-label="Email user" data-ga-event="link" data-ga-action="click" data-ga-name="onclick" data-ga-type="internal link" data-ga-region="main content" data-ga-section="' . $displayname . '" data-ga="' . $email . '">' . $email . '</a></li>';
-}
-
-
-if ( ! empty( $phone ) ) {
-	$phone = '<li><a href="tel:' . $phone . '" aria-label="Call user" data-ga-event="link" data-ga-action="click" data-ga-name="onclick" data-ga-type="internal link" data-ga-region="main content" data-ga-section="' . $displayname . '" data-ga="' . $phone . '">' . $phone . '</a></li>';
-}
-
-// Address field: No way to validate what kind of information will happen within this text box.
-// Therefore, this won't be linked at all. Can be an address or a room/building number.
-if ( ! empty( $address ) ) {
-	$address = '<li>' . $address . '</li>';
-}
-
-$contactlist = '';
-$contactlist = $email . $phone . $address;
-if ( ! empty( $contactlist ) ) {
-	$contactlist = '<ul class="person-contact-info">' . $contactlist . '</ul>';
-}
-
-/**
- * Gather social media icons and links from ACF.
- */
-$social_list = '';
-if ( have_rows( 'uds_profilemanual_social' ) ) :
-	while ( have_rows( 'uds_profilemanual_social' ) ) :
-		the_row();
-		$social_icon = get_sub_field( 'icon' );
-		$social_url  = get_sub_field( 'link' );
-
-		$social_list .= '<li><a href="' . esc_url( $social_url ) . '" aria-label="Go to user social media accouunt: ' . $social_icon->id . '" data-ga-event="link" data-ga-action="click" data-ga-name="onclick" data-ga-type="external link" data-ga-region="main content" data-ga-section="' . $displayname . '" data-ga="' . $social_icon->id . '">' . $social_icon->element . '</a></li>';
-
-	endwhile;
-	$social_list = '<ul class="person-social-medias">' . $social_list . '</ul>';
-else :
-	// no rows found
-endif;
-
-/**
- * Manipulate displayname, title and department to include wrapper <h#> elements and check for blanks.
- */
-if ( ( 'small' !== $display_size ) && ( ! empty( $searchURL ) ) ) {
-	// Is this a large profile, and is there a URL present?
-	$displayname = '<h3 class="person-name"><a href="' . $searchURL . '">' . $displayname . '</a></h3>';
-} else {
-	// If there's no link or if it's a display size other than large.
-	$displayname = '<h3 class="person-name">' . $displayname . '</h3>';
-}
-
-if ( ! empty( $title ) ) {
-	$title = '<h4><span>' . $title . '</span></h4>';
-}
-
-// Set the department to the typed in value.
-// Override this value if the block style is "micro"
-$department = '';
-if ( ! empty( $dept ) ) {
-	$department = '<h4><span>' . $dept . '</span></h4>';
-}
-
-$micro_contact = '';
-if ( 'micro' === $display_size ) {
-	// If there is an email address, grab it. Overwrite department string with address.
-	if ( ! empty( $email ) ) {
-		$micro_contact = strip_tags( $email, '<a>' );
-		$department    = '<h4>' . $micro_contact . '</h4>';
-	}
-}
-
-/**
- * Check if there's a description and wrap it.
-*/
-if ( ! empty( $description ) ) {
-	$description = '<div><p class="person-description">' . $description . '</p></div>';
-}
-
-/**
- * Check if there's a profile image and create the markup for it.
-*/
-// $profileimg = '';
-// do_action( 'qm/debug', $image );
-// if ( ( ! empty( $image ) ) || ( in_array( 'has-default-img', $block_classes ) ) ) {
-// 		$profileimg .= '<div class="profile-img-container"><div class="profile-img-placeholder">';
-// 		$profileimg .= wp_get_attachment_image( $image['ID'], 'thumbnail', false, array( 'class' => 'profile-img' ) );
-// 		$profileimg .= '</div></div>';
-// }
-
-// Function Profile Image
-// Function Display Name
-// Function Title
-// Function Profile, needs display size
-// Function render, calls the other functions, return the result.
-
-/**
  * Render the block
  */
-// $profile  = '<div class="' . implode( ' ', $block_classes ) . '" style="' . $spacing . '">';
-// $profile .= $profileimg;
-// $profile .= '<div class="person"><div class="person-name">' . $displayname . '</div>';
-// $profile .= '<div class="person-profession">' . $title . $department . '</div>';
+$profile  = '<div class="' . implode( ' ', $block_classes ) . '" style="' . $spacing . '">';
 
-// if ( 'micro' !== $display_size ) {
-// 	$profile .= $contactlist;
-// }
+// Display a default image if there is none available. Omit if this class is missing.
+if ( in_array( 'has-default-img', $block_classes ) ) {
+	$profile .= pfpeople_disply_profile_image($asurite_details, true);
+} else {
+	$profile .= pfpeople_disply_profile_image($asurite_details, false);
+}
 
-// if ( 'large' === $display_size ) {
-// 	$profile .= $description . $social_list;
-// } elseif ( ( 'small' === $display_size ) && ( ! empty( $searchURL ) ) ) {
-// 	$profile .= '<a href="' . $searchURL . '" class="btn btn-maroon btn-md">View profile</a>';
-// }
+$profile .= '<div class="person">';
+$profile .= pfpeople_card_displayname($asurite_details, $display_size);
 
-// $profile .= '</div></div>';
+if ( 'micro' !== $display_size ) {
+	$profile .= pfpeople_card_profile_contacts($asurite_details);
+	$profile .= pfpeople_card_description( $asurite_details, $display_size );
+}
 
+if ( 'large' === $display_size ) {
+	$profile .= pfpeople_card_social_icons( $asurite_details );
+}
+
+$profile .= '</div></div>';
 echo $profile;
-
-function profile_wrap_block_image( $image, $placeholder = false ) {
-
-	$profileimg .= '<div class="profile-img-container"><div class="profile-img-placeholder">';
-
-	if (! $placeholder) {
-		$profileimg .= wp_get_attachment_image( $image['ID'], 'thumbnail', false, array( 'class' => 'profile-img' ) );
-	}
-
-	$profileimg .= '</div></div>';
-
-}
-
-function profile_wrap_block_name( $displayname, $size, $url = '' ) {
-
-	/**
-	 * Manipulate displayname, title and department to include wrapper <h#> elements and check for blanks.
-	 */
-
-	if ( ( 'small' !== $display_size ) && ( ! empty( $searchURL ) ) ) {
-		// Is this a large profile, and is there a URL present?
-		$displayname = '<h3 class="person-name"><a href="' . $searchURL . '">' . $displayname . '</a></h3>';
-	} else {
-		// If there's no link or if it's a display size other than large.
-		$displayname = '<h3 class="person-name">' . $displayname . '</h3>';
-	}
-
-	return $displayname
-}
-
-
-/**
- * Used to return the department and title strings wrapped in the needed <h4><span> tags.
- *
- * With the added $striptags arguement, can also return the email address, stripped of tags.
- * Used with the micro style in place of the department.
- */
-function profile_wrap_block_title_dept( $title, $striptags = false) {
-
-	if (! $striptags) {
-		$title = '<h4><span>' . $title . '</span></h4>';
-	} else {
-		$title = strip_tags( $title, '<a>' );
-		$title = '<h4>' . $title . '</h4>';
-	}
-
-	return $title;
-}
-
-function profile_wrap_block_description( $desc ) {
-	return $desc = '<p class="person-description">' . $desc . '</p>';
-}
-
-function profile_block_render() {
-
-	$profile .= profile_wrap_block_image();
-	$profile .= '<div class="person">';
-	$profile .= profile_wrap_block_name();
-	$profile .= '<div class="person-profession">';
-	$profile .= profile_wrap_block_title_dept($title) . profile_wrap_block_title_dept($dept) . '</div>';
-
-	if ( 'micro' !== $display_size ) {
-		$profile .= $contactlist;
-	}
-
-	if ( 'large' === $display_size ) {
-		$profile .= $description . $social_list;
-	} elseif ( ( 'small' === $display_size ) && ( ! empty( $searchURL ) ) ) {
-		$profile .= '<a href="' . $searchURL . '" class="btn btn-maroon btn-md">View profile</a>';
-	}
-
-	$profile .= '</div>';
-}
-
-$profiledetails = profile_block_render();
-$profiledetails = '<div class="' . implode( ' ', $block_classes ) . '" style="' . $spacing . '">' . $profiledetails . '</div>';
-
 
