@@ -10,6 +10,31 @@
  */
 
 /**
+ * Register a custom block category for our blocks to live in. We hook into
+ * the block_categories_all() filter to do this.
+ */
+if ( ! function_exists( 'pitchfork_people_custom_category' ) ) {
+	/**
+	 * Merges our custom category in with the others.
+	 *
+	 * @param array                   $categories The existing block categories.
+	 * @param WP_Block_Editor_Context $editor_context Editor context.
+	 */
+	function pitchfork_people_custom_category( $categories, $editor_context ) {
+		return array_merge(
+			$categories,
+			array(
+				array(
+					'slug'  => 'pitchfork-people',
+					'title' => __( 'Pitchfork People', 'pitchfork-people' ),
+				),
+			)
+		);
+	}
+}
+add_filter( 'block_categories_all', 'pitchfork_people_custom_category', 10, 2 );
+
+/**
  * Note: Blocks appear in the block picker IN THE ORDER THEY ARE LISTED HERE.
  * When adding a new block, please make sure to insert it an alphabetical order.
  */

@@ -2,7 +2,7 @@
 	"name": "acf/profile-data",
 	"title": "UDS Profile (Data)",
 	"description": "A profile card to represent a person at ASU. Data captured from ASU Search.",
-	"category": "pitchfork-blocks",
+	"category": "pitchfork-people",
 	"icon": "grid-view",
 	"keywords": [
 		"profile",
