@@ -1,0 +1,10 @@
+/*--------------------------------------------------------------
+# Editor SASS
+- Contains additional rules for rules for the block editor of WP.
+--------------------------------------------------------------*/
+
+@import "../src/sass/design-tokens/variables";
+@import 'media-queries';
+
+// Additional block editor markup.
+@import 'editor/profile';
