@@ -12,7 +12,6 @@
  */
 $asurite = get_field( 'uds_profiledata_asuriteid' );
 $asurite_details = get_asu_search_single_profile_results($asurite);
-// do_action('qm/debug', $asurite_details);
 
 /**
  * Retrieve spacing settings from editor.
