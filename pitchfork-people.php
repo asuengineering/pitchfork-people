@@ -36,7 +36,10 @@ require_once PITCHFORK_PEOPLE_BASE_PATH . '/inc/enqueue-scripts.php';
 require_once PITCHFORK_PEOPLE_BASE_PATH . '/inc/asu-search.php';
 
 // Functions used to render the profile-data block correctly.
-require_once PITCHFORK_PEOPLE_BASE_PATH . '/acf-block-templates/profile-data/profile-data-functions.php';
+require_once PITCHFORK_PEOPLE_BASE_PATH . '/inc/profile-data-functions.php';
+
+// Functions used to render the profile-data block correctly.
+// require_once PITCHFORK_PEOPLE_BASE_PATH . '/inc/profile-data-functions.php';
 
 // Create CPT for Pitchfork People
 // require_once PITCHFORK_PEOPLE_BASE_PATH . '/inc/cpt-people.php';
