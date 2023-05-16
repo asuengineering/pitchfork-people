@@ -5,10 +5,11 @@ window.addEventListener("DOMContentLoaded", event => {
 	const webDirTarget = document.querySelector("#pfpeople-web-directory");
 	const searchType = webDirTarget.dataset.searchtype;
 	const deptIDs = webDirTarget.dataset.depts;
+	const pagination = webDirTarget.dataset.pagination;
 
 	const display = {
 		defaultSort: "last_name",
-		profilesPerPage: "20",
+		profilesPerPage: pagination,
 		usePager: "1",
 	};
 	const filters = {
