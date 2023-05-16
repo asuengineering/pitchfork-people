@@ -4,12 +4,12 @@
  * - Creates a wrapper for acf/profile-manual and (data block) to organize the profiles
  * - into a grid. Suitable for building an ad-hoc direectory page.
  *
- * @package Pitchfork_Blocks
+ * @package Pitchfork_People
  */
 
 $columns = get_field( 'uds_profiles_columns' );
 
-$spacing = pitchfork_blocks_acf_calculate_spacing( $block );
+$spacing = pitchfork_people_acf_calculate_spacing( $block );
 
 /**
  * Retrieve additional classes from the 'advanced' field in the editor for inline styles.

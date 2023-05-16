@@ -4,7 +4,7 @@
  * - All fields are represented in the block, except individual social media icons.
  * - The rendered profile size is controled by block style panel.
  *
- * @package Pitchfork_Blocks
+ * @package Pitchfork_People
  */
 
 /**
@@ -24,7 +24,7 @@ $social      = get_field( 'uds_profilemanual_social' );
 /**
  * Retrieve spacing settings from editor.
  */
-$spacing = pitchfork_blocks_acf_calculate_spacing( $block );
+$spacing = pitchfork_people_acf_calculate_spacing( $block );
 
 /**
  * Retrieve additional classes from the 'advanced' field in the editor for inline styles.
@@ -148,7 +148,6 @@ if ( ! empty( $description ) ) {
  * Check if there's a profile image and create the markup for it.
 */
 $profileimg = '';
-do_action( 'qm/debug', $image );
 if ( ( ! empty( $image ) ) || ( in_array( 'has-default-img', $block_classes ) ) ) {
 		$profileimg .= '<div class="profile-img-container"><div class="profile-img-placeholder">';
 		$profileimg .= wp_get_attachment_image( $image['ID'], 'thumbnail', false, array( 'class' => 'profile-img' ) );

@@ -4,7 +4,7 @@
  * - All fields are represented in the block, except individual social media icons.
  * - The rendered profile size is controled by block style panel.
  *
- * @package Pitchfork_Blocks
+ * @package Pitchfork_People
  */
 
 /**
@@ -16,7 +16,7 @@ $asurite_details = get_asu_search_single_profile_results($asurite);
 /**
  * Retrieve spacing settings from editor.
  */
-$spacing = pitchfork_blocks_acf_calculate_spacing( $block );
+$spacing = pitchfork_people_acf_calculate_spacing( $block );
 
 /**
  * Retrieve additional classes from the 'advanced' field in the editor for inline styles.

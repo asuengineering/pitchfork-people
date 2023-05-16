@@ -17,7 +17,7 @@
  * @param  mixed $block
  * @return $style as string
  */
-function pitchfork_blocks_acf_calculate_spacing( $block ) {
+function pitchfork_people_acf_calculate_spacing( $block ) {
 
 	if ( ! empty( $block['style'] ) ) {
 		$style_engine = wp_style_engine_get_styles( $block['style'] );
