@@ -60,8 +60,8 @@ function pfpeople_flatten_webdir_departments_json($json, &$result = [], $depth =
 
 		// Add the current node to the result array, with its depth and any other attributes you want to include
 		$result[] = [
-			'name' => $node['name'] . ' (' . $node['id'] . ')',
-			'id' => $node['id'],
+			'name' => $node['name'] . ' (' . $node['dept_id'] . ')',
+			'id' => $node['dept_id'],
 			'depth' => $depth,
 		];
 	}

@@ -27,6 +27,8 @@
 			"background": false,
 			"text": false,
 			"link": false
-		}
-	}
+		},
+		"multiple": false
+	},
+	"script": "app-webdir-init"
 }

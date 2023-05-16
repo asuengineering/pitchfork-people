@@ -142,3 +142,15 @@ For now, this is what works for all size/column combos.
 		}
 	}
 }
+
+.web-directory-placeholder {
+	height: 400px;
+	width: auto;
+	background-image: url(../img/placeholder_webdir.png);
+	background-color: aliceblue;
+	background-size: contain;
+	background-position-y: 4rem;
+	background-repeat: no-repeat;
+	border: 1px solid #747474;
+	padding: 1rem 2rem;
+}
