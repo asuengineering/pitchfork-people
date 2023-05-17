@@ -8,7 +8,6 @@
  */
 
 $columns = get_field( 'uds_profiles_columns' );
-
 $spacing = pitchfork_people_acf_calculate_spacing( $block );
 
 /**
