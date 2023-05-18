@@ -1471,7 +1471,7 @@
             {
                 "param": "block",
                 "operator": "==",
-                "value": "all"
+                "value": "acf\/web-directory"
             }
         ]
     ],
@@ -1484,5 +1484,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1684278321
+    "modified": 1684427018
 }
