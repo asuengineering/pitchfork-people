@@ -1,9 +1,10 @@
 /*--------------------------------------------------------------
-# UDS Profiles
+# UDS Profiles, UDS Web Directory
 
 1. UDS Profile (Manual)
 2. Mobile version
 3. UDS Profiles (grid container)
+4. Web Directory
 --------------------------------------------------------------*/
 
 .uds-person-profile {
@@ -142,6 +143,16 @@ For now, this is what works for all size/column combos.
 		}
 	}
 }
+
+/*--------------------------------------------------------------
+4. Web Directory
+--------------------------------------------------------------*/
+#pfpeople-web-directory .uds-person-profile {
+	// Within the returned results from the Unity web dir block
+	// the person-profile blocks need to have a constrained width.
+	--max-width: 800px;
+}
+
 
 .web-directory-placeholder {
 	height: 400px;
