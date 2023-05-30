@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+### Version 1.1
+
+A function which filtered the output of `acf/profiles` was redelared in both the Pitchfork People and Pitchfork Blocks plugins with different expected outputs. The result was a layout problem within the `acf/hero` block when the Pitchfork People plugin was also activated.
+
+- FIX: Removed the duplicate ACF block filter function.
+
 ### Version 1.0
 
 Initial release of the plugin. Adds four blocks to the native block editor.
