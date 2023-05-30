@@ -31,30 +31,6 @@ function pitchfork_people_acf_calculate_spacing( $block ) {
 }
 
 /**
- * Create filter to remove ACF inner blocks wrapper.
- *
- * Note that some additional CSS to "ignore" the wrapper in a grid context is required
- * for any of these blocks to function correctly in the block editor. The wrapper is
- * non-removable in that context.
- *
- * Removed here for greater transparency and compliance with actual markup for Unity elements.
- *
- * See: https://www.advancedcustomfields.com/resources/whats-new-with-acf-blocks-in-acf-6/#block-versioning
- */
-add_filter( 'acf/blocks/wrap_frontend_innerblocks', 'pitchfork_people_acf_remove_wrap_innerblocks', 10, 2 );
-function pitchfork_people_acf_remove_wrap_innerblocks( $wrap, $name ) {
-
-	$nowrap_block_names = array( 'acf/profiles' );
-
-	// Loop through the array above. If located, remove the wrapper.
-	if ( in_array( $name, $nowrap_block_names ) ) {
-		return false;
-	}
-
-	return true;
-}
-
-/**
  * Add choices to ACF select field for department name/ID.
  * Used within acf/web-directory block.
  * Field ID: field_645f173cb76ff
