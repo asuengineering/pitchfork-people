@@ -1,6 +1,0 @@
-.uds-profile-preview{display:grid;grid-template-columns:auto 1fr;grid-template-rows:1fr;grid-column-gap:1.5rem;grid-row-gap:0;padding:1.5rem;max-width:400px;border:1px solid #d0d0d0}
-.uds-profile-preview img{grid-column:1;height:100px;width:auto;overflow:hidden;border-radius:50%}
-.uds-profile-preview .display-contents{grid-column:2}
-.uds-profile-preview .display-contents p{font-size:1rem;font-weight:700;line-height:1;margin:.75rem 0}
-.uds-profile-preview .display-contents p:first-child{margin-top:0;font-size:1.25rem}
-.uds-profile-preview .display-contents p:last-child{font-weight:400}
