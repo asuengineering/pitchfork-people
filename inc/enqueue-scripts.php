@@ -12,10 +12,10 @@ function pfpeople_enqueue_block_styles() {
 
 	$the_plugin         = get_plugin_data( plugin_dir_path( __DIR__ ) . 'pitchfork-people.php' );
 	$the_version        = $the_plugin['Version'];
-	$plugin_version     = $the_version . '.' . filemtime( plugin_dir_path( __DIR__ ) . 'dist/css/pfpeople.min.css' );
+	$plugin_version     = $the_version . '.' . filemtime( plugin_dir_path( __DIR__ ) . 'dist/css/pfpeople.css' );
 
 	// Main plugin stylesheet.
-	wp_enqueue_style( 'pfpeople-block-styles', plugin_dir_url( __DIR__ ) . 'dist/css/pfpeople.min.css', array( 'pitchfork-styles' ), $plugin_version );
+	wp_enqueue_style( 'pfpeople-block-styles', plugin_dir_url( __DIR__ ) . 'dist/css/pfpeople.css', array( 'pitchfork-styles' ), $plugin_version );
 
 }
 
@@ -25,13 +25,13 @@ function pfpeople_enqueue_block_editor_styles() {
 
 	$the_plugin               = get_plugin_data( plugin_dir_path( __DIR__ ) . 'pitchfork-people.php' );
 	$the_version              = $the_plugin['Version'];
-	$block_editor_version     = $the_version . '.' . filemtime( plugin_dir_path( __DIR__ ) . 'dist/css/editor.min.css' );
-	$block_styles_version     = $the_version . '.' . filemtime( plugin_dir_path( __DIR__ ) . 'dist/css/pfpeople.min.css' );
+	$block_editor_version     = $the_version . '.' . filemtime( plugin_dir_path( __DIR__ ) . 'dist/css/editor.css' );
+	$block_styles_version     = $the_version . '.' . filemtime( plugin_dir_path( __DIR__ ) . 'dist/css/pfpeople.css' );
 	$plugin_version 		  = $the_version . '.' . filemtime( plugin_dir_path( __DIR__ ) . 'dist/js/block-variations.js' );
 
 	wp_enqueue_script( 'pfpeople-block-variations', plugin_dir_url( __DIR__ ) . 'dist/js/block-variations.js',  array( 'wp-blocks', 'wp-dom' ), $plugin_version , true );
-	wp_enqueue_style( 'pfpeople-block-styles', plugin_dir_url( __DIR__ ) . 'dist/css/pfpeople.min.css', array(), $block_styles_version );
-	wp_enqueue_style( 'pfpeople-block-editor-styles', plugin_dir_url( __DIR__ ) . 'dist/css/editor.min.css', array(), $block_editor_version );
+	wp_enqueue_style( 'pfpeople-block-styles', plugin_dir_url( __DIR__ ) . 'dist/css/pfpeople.css', array(), $block_styles_version );
+	wp_enqueue_style( 'pfpeople-block-editor-styles', plugin_dir_url( __DIR__ ) . 'dist/css/editor.css', array(), $block_editor_version );
 
 }
 
