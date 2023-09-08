@@ -12,10 +12,10 @@ function pfpeople_enqueue_block_styles() {
 
 	$the_plugin         = get_plugin_data( plugin_dir_path( __DIR__ ) . 'pitchfork-people.php' );
 	$the_version        = $the_plugin['Version'];
-	$plugin_version     = $the_version . '.' . filemtime( plugin_dir_path( __DIR__ ) . 'css/pfpeople.min.css' );
+	$plugin_version     = $the_version . '.' . filemtime( plugin_dir_path( __DIR__ ) . 'dist/css/pfpeople.min.css' );
 
 	// Main plugin stylesheet.
-	wp_enqueue_style( 'pfpeople-block-styles', plugin_dir_url( __DIR__ ) . 'css/pfpeople.min.css', array( 'pitchfork-styles' ), $plugin_version );
+	wp_enqueue_style( 'pfpeople-block-styles', plugin_dir_url( __DIR__ ) . 'dist/css/pfpeople.min.css', array( 'pitchfork-styles' ), $plugin_version );
 
 }
 
@@ -25,25 +25,21 @@ function pfpeople_enqueue_block_editor_styles() {
 
 	$the_plugin               = get_plugin_data( plugin_dir_path( __DIR__ ) . 'pitchfork-people.php' );
 	$the_version              = $the_plugin['Version'];
-	$block_editor_version     = $the_version . '.' . filemtime( plugin_dir_path( __DIR__ ) . 'css/editor.min.css' );
-	$block_styles_version     = $the_version . '.' . filemtime( plugin_dir_path( __DIR__ ) . 'css/pfpeople.min.css' );
-	$plugin_version 		  = $the_version . '.' . filemtime( plugin_dir_path( __DIR__ ) . 'js/block-variations.js' );
+	$block_editor_version     = $the_version . '.' . filemtime( plugin_dir_path( __DIR__ ) . 'dist/css/editor.min.css' );
+	$block_styles_version     = $the_version . '.' . filemtime( plugin_dir_path( __DIR__ ) . 'dist/css/pfpeople.min.css' );
+	$plugin_version 		  = $the_version . '.' . filemtime( plugin_dir_path( __DIR__ ) . 'dist/js/block-variations.js' );
 
-	wp_enqueue_script( 'pfpeople-block-variations', plugin_dir_url( __DIR__ ) . 'js/block-variations.js',  array( 'wp-blocks', 'wp-dom' ), $plugin_version , true );
-	wp_enqueue_style( 'pfpeople-block-styles', plugin_dir_url( __DIR__ ) . 'css/pfpeople.min.css', array(), $block_styles_version );
-	wp_enqueue_style( 'pfpeople-block-editor-styles', plugin_dir_url( __DIR__ ) . 'css/editor.min.css', array(), $block_editor_version );
+	wp_enqueue_script( 'pfpeople-block-variations', plugin_dir_url( __DIR__ ) . 'dist/js/block-variations.js',  array( 'wp-blocks', 'wp-dom' ), $plugin_version , true );
+	wp_enqueue_style( 'pfpeople-block-styles', plugin_dir_url( __DIR__ ) . 'dist/css/pfpeople.min.css', array(), $block_styles_version );
+	wp_enqueue_style( 'pfpeople-block-editor-styles', plugin_dir_url( __DIR__ ) . 'dist/css/editor.min.css', array(), $block_editor_version );
 
 }
 
 add_action( 'enqueue_block_assets', 'pfpeople_enqueue_webdir_block_styles' );
 function pfpeople_enqueue_webdir_block_styles() {
 
-	$the_plugin         = get_plugin_data( plugin_dir_path( __DIR__ ) . 'pitchfork-people.php' );
-	$the_version        = $the_plugin['Version'];
-	$plugin_version     = $the_version . '.' . filemtime( plugin_dir_path( __DIR__ ) . 'css/pfpeople.min.css' );
-
 	// app-webdir-ui + init.
 	wp_register_script ( 'app-webdir', plugin_dir_url( __DIR__ ) . 'src/app-webdir-ui/js/webdirUI.umd.js', array( 'wp-element', 'wp-components' ), null, false );
-	wp_register_script ( 'app-webdir-init', plugin_dir_url( __DIR__ ) . 'js/app-webdir-init.js', array( 'app-webdir' ), null, false );
+	wp_register_script ( 'app-webdir-init', plugin_dir_url( __DIR__ ) . 'dist/js/app-webdir-init.js', array( 'app-webdir' ), null, false );
 
 }
