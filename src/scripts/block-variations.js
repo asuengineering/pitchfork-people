@@ -64,4 +64,12 @@ wp.domReady(() => {
 		}]
 	);
 
+	wp.blocks.registerBlockStyle(
+		'acf/profile-data', [{
+			name: 'vertical',
+			label: 'Vertical',
+			isDefault: false,
+		}]
+	);
+
 });
