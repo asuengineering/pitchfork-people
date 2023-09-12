@@ -23,6 +23,11 @@ wp.domReady(() => {
     label: 'Micro',
     isDefault: false
   }]);
+  wp.blocks.registerBlockStyle('acf/profile-manual', [{
+    name: 'vertical',
+    label: 'Vertical',
+    isDefault: false
+  }]);
 
   /**
    * Register styles associated with acf/profile-data
@@ -41,6 +46,11 @@ wp.domReady(() => {
   wp.blocks.registerBlockStyle('acf/profile-data', [{
     name: 'micro',
     label: 'Micro',
+    isDefault: false
+  }]);
+  wp.blocks.registerBlockStyle('acf/profile-data', [{
+    name: 'vertical',
+    label: 'Vertical',
     isDefault: false
   }]);
 });

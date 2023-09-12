@@ -49,5 +49,8 @@
   },
   "dependencies": {
     "gulp-wp": "^0.6.6"
+  },
+  "volta": {
+    "node": "14.21.3"
   }
 }
