@@ -8,7 +8,7 @@
 
 	.uds-person-profile,
 	.uds-person-data {
-		&.is-style-small {
+		&.is-style-small, &.is-style-vertical {
 			--pic-size: 120px;
 		}
 
