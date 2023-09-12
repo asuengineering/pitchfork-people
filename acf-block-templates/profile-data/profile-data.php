@@ -71,13 +71,32 @@ if ( in_array( 'has-default-img', $block_classes ) ) {
 $profile .= '<div class="person">';
 $profile .= pfpeople_card_displayname($asurite_details, $display_size);
 
-if ( 'micro' !== $display_size ) {
-	$profile .= pfpeople_card_profile_contacts($asurite_details);
-	$profile .= pfpeople_card_description( $asurite_details, $display_size );
-}
-
-if ( 'large' === $display_size ) {
-	$profile .= pfpeople_card_social_icons( $asurite_details );
+/**
+ * All profile sizes render: image, name, title, department, and email when
+ * those items are provided. Different sizes will add to, or alter, that basic
+ * list of information.
+ *
+ * Here we test for those sizes and add/modify accordingly. Since the micro
+ * does not add anything to the default list, it is not included here.
+ */
+switch ($display_size) {
+	case 'small':
+		// 'Small' is the normal size and adds full contact and short bio information.
+		$profile .= pfpeople_card_profile_contacts($asurite_details);
+		$profile .= pfpeople_card_description( $asurite_details, $display_size );
+		break;
+	case 'large':
+		// 'Large' is the deluxe and adds full contact, short bio, and social media links.
+		$profile .= pfpeople_card_profile_contacts($asurite_details);
+		$profile .= pfpeople_card_description( $asurite_details, $display_size );
+		$profile .= pfpeople_card_social_icons( $asurite_details );# code...
+		break;
+	case 'vertical':
+		// 'Vertical' is not accounted for the default rendering code.
+		// Calls its own function to add only an email link below name and department.
+		$profile .= pfpeople_card_email_only( $asurite_details );
+	default:
+		break;
 }
 
 $profile .= '</div></div>';
