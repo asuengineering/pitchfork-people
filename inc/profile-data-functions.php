@@ -131,6 +131,22 @@ function pfpeople_card_profile_contacts($data) {
 }
 
 /**
+ * Render only the email address for vertical profiles.
+ */
+function pfpeople_card_email_only ( $data ) {
+
+	$contact_data 	= '';
+	$email 			= $data->email_address->raw ?? '';
+	$asurite 	 	= $data->asurite_id->raw ?? '';
+
+	if ( ! empty( $email ) ) {
+		$contact_data = '<a href="mailto:' . $email . '" aria-label="Email user" data-ga-event="link" data-ga-action="click" data-ga-name="onclick" data-ga-type="internal link" data-ga-region="main content" data-ga-section="' . $asurite . '" data-ga="' . $email . '">' . $email . '</a>';
+	}
+
+	return $contact_data;
+}
+
+/**
  * Render description from data feed.
 */
 function pfpeople_card_description($data, $display_size) {
