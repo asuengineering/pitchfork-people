@@ -28,6 +28,14 @@ wp.domReady(() => {
 		}]
 	);
 
+	wp.blocks.registerBlockStyle(
+		'acf/profile-manual', [{
+			name: 'vertical',
+			label: 'Vertical',
+			isDefault: false,
+		}]
+	);
+
 	/**
 	 * Register styles associated with acf/profile-data
 	*/
