@@ -140,6 +140,7 @@ For now, this is what works for all size/column combos.
 }
 
 @include media-breakpoint-up($sm) {
+	// At small screen size, a four-column layout looks better with only two.
 	.uds-profile-grid {
 		&.col-four {
 			grid-template-columns: repeat(2, 1fr);
@@ -158,6 +159,7 @@ For now, this is what works for all size/column combos.
 			grid-template-columns: repeat(2, 1fr);
 		}
 
+		// Four columns is too much here, even with vertical layouts.
 		&.col-four {
 			grid-template-columns: repeat(3, 1fr);
 		}
@@ -172,6 +174,7 @@ For now, this is what works for all size/column combos.
 			grid-template-columns: repeat(3, 1fr);
 		}
 
+		// Expand the four-column layout to all four columns at XL.
 		&.col-four {
 			grid-template-columns: repeat(4, 1fr);
 		}
