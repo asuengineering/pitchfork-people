@@ -52,6 +52,9 @@ if ( in_array( 'is-style-small', $block_classes ) ) {
 if ( in_array( 'is-style-micro', $block_classes ) ) {
 	$display_size = 'micro';
 }
+if ( in_array( 'is-style-vertical', $block_classes ) ) {
+	$display_size = 'vertical';
+}
 
 /**
  * Check to see if there is a background color selected.
