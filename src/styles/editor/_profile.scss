@@ -8,7 +8,7 @@
 
 	.uds-person-profile,
 	.uds-person-data {
-		&.is-style-small, &.is-style-vertical {
+		&.is-style-small {
 			--pic-size: 120px;
 		}
 
@@ -16,6 +16,10 @@
 			--pic-size: 78px;
 			--person-name-size: 20px;
 			--name-top-margin: 0;
+		}
+
+		&.is-style-vertical {
+			--pic-size: 120px;
 		}
 	}
 }
@@ -61,5 +65,18 @@
 .editor-styles-wrapper .uds-profile-grid {
 	.acf-innerblocks-container {
 		display: contents;
+	}
+}
+
+/**
+ * Remove content area left margin when profiles are vertical. This margin
+ * separates the image and the text on other layouts, but is not needed when
+ * images are above the text.
+ */
+.editor-styles-wrapper {
+	.uds-person-profile.is-style-vertical {
+		.person {
+			margin-left: 0;
+		}
 	}
 }
