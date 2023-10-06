@@ -65,3 +65,25 @@ function pitchfork_people_acf_load_directory_select( $field ) {
     return $field;
 
 }
+
+/**
+ * Create filter to remove ACF inner blocks wrapper from the profiles (wrapper) block.
+ *
+ * Note that some additional CSS to "ignore" the wrapper in a grid context is required
+ * for any of these blocks to function correctly in the block editor. The wrapper is
+ * non-removable in that context.
+ *
+ * See: https://www.advancedcustomfields.com/resources/whats-new-with-acf-blocks-in-acf-6/#block-versioning
+ */
+add_filter( 'acf/blocks/wrap_frontend_innerblocks', 'pfpeople_acf_remove_wrap_innerblocks', 10, 2 );
+function pfpeople_acf_remove_wrap_innerblocks( $wrap, $name ) {
+
+	$nowrap_block_names = array( 'acf/profiles' );
+
+	// Loop through the array above. If located, remove the wrapper.
+	if ( in_array( $name, $nowrap_block_names ) ) {
+		return false;
+	}
+
+	return true;
+}

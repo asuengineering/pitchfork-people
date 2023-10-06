@@ -19,7 +19,8 @@
             "choices": {
                 "col-one": "1 column",
                 "col-two": "2 columns",
-                "col-three": "3 columns"
+                "col-three": "3 columns",
+                "col-four": "4 columns"
             },
             "default_value": "col-two",
             "return_format": "value",
@@ -47,5 +48,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1674232980
+    "modified": 1694475738
 }

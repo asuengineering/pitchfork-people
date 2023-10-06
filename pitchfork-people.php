@@ -6,7 +6,11 @@
  * Author:          Steve Ryan
  * Author URI:      https://engineering.asu.edu
  * Text Domain:     pitchfork_people
+<<<<<<< HEAD
  * Version:         1.2.0
+=======
+ * Version:         1.2
+>>>>>>> develop
  *
  * @package         pitchfork_people
  *
