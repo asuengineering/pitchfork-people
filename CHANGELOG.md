@@ -12,7 +12,7 @@ This release adds support for a fourth block style for both the `acf/profile-man
 - ADD: Add vertical style option for `acf/profile-manual` and `acf/profile-data` blocks.
 - ADD: Add support for four column layout with the `acf/profiles` container block.
 
-Props to @wmcconnell for the vertical style implementation.
+Props to [@wmcconnell](https://github.com/wmcconnell) for the vertical style implementation.
 
 - FIX: Removed `acf-innerblocks-container` wrapper from `acf/profiles` block. The function performing this task was located within [Pitchfork Blocks](https://github.com/asuengineering/pitchfork-blocks) and was relocated to this plugin for better comptability.
 
