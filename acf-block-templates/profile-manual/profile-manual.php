@@ -85,8 +85,15 @@ if ( ! empty( $address ) ) {
 	$address = '<li>' . $address . '</li>';
 }
 
+// Check display size. If vertical profile, only include email address in output.
 $contactlist = '';
-$contactlist = $email . $phone . $address;
+if ( 'vertical' == $display_size ) {
+	$contactlist = $email;
+} else {
+	$contactlist = $email . $phone . $address;
+}
+
+// Wrap contact list in <ul> for proper display.
 if ( ! empty( $contactlist ) ) {
 	$contactlist = '<ul class="person-contact-info">' . $contactlist . '</ul>';
 }
