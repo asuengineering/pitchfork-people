@@ -20,6 +20,7 @@
 $display 			= get_field( 'uds_webdir_display' );
 $department_ids 	= get_field( 'uds_webdir_select_dept' );
 $pagination 		= get_field( 'uds_webdir_profiles_per_page' );
+$alpha 				= get_field( 'uds_webdir_include_alpha' );
 
 $spacing = pitchfork_people_acf_calculate_spacing( $block );
 
@@ -31,6 +32,13 @@ $data_attributes = '';
 $data_attributes .= 'data-searchtype="' . $display . '"';
 $data_attributes .=  ' data-depts="' . $dept_string . '"';
 $data_attributes .=  ' data-pagination="' . $pagination . '"';
+
+// Convert boolean control to "true" or "false" strings for react props.
+if ( $alpha ) {
+	$data_attributes .=  ' data-alphaFilter="true"';
+} else {
+	$data_attributes .=  ' data-alphaFilter="false"';
+}
 
 
 // Echos either a placeholder graphic in the editor or the container div + data attributes for init.
