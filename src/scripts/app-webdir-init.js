@@ -6,6 +6,7 @@ window.addEventListener("DOMContentLoaded", event => {
 	const searchType = webDirTarget.dataset.searchtype;
 	const deptIDs = webDirTarget.dataset.depts;
 	const pagination = webDirTarget.dataset.pagination;
+	const alphaFilter = webDirTarget.dataset.alphafilter;
 
 	const display = {
 		defaultSort: "last_name",
@@ -27,7 +28,8 @@ window.addEventListener("DOMContentLoaded", event => {
 			API_URL: 'https://search.asu.edu/',
 			searchApiVersion: 'api/v1/',
 			filters: filters,
-			display: display
+			display: display,
+			alphaFilter: alphaFilter
 		},
 	});
 

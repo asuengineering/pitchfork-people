@@ -1,4 +1,4 @@
-/******/ (function() { // webpackBootstrap
+/******/ (() => { // webpackBootstrap
 var __webpack_exports__ = {};
 /*!****************************************!*\
   !*** ./src/scripts/app-webdir-init.js ***!
@@ -10,6 +10,7 @@ window.addEventListener("DOMContentLoaded", event => {
   const searchType = webDirTarget.dataset.searchtype;
   const deptIDs = webDirTarget.dataset.depts;
   const pagination = webDirTarget.dataset.pagination;
+  const alphaFilter = webDirTarget.dataset.alphafilter;
   const display = {
     defaultSort: "last_name",
     profilesPerPage: pagination,
@@ -29,7 +30,8 @@ window.addEventListener("DOMContentLoaded", event => {
       API_URL: 'https://search.asu.edu/',
       searchApiVersion: 'api/v1/',
       filters: filters,
-      display: display
+      display: display,
+      alphaFilter: alphaFilter
     }
   });
 
