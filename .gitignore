@@ -36,6 +36,10 @@ Thumbs.db
 ######################
 *.un~
 
+# Translation files, via gulp-wp #
+##########
+/languages
+
 # SASS #
 ##########
 **/.sass-cache
