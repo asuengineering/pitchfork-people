@@ -1,7 +1,6 @@
 {
   "name": "pitchfork-people",
   "description": "ASU Engineering plugin for WordPress",
-<<<<<<< HEAD
   "version": "1.2.0",
   "repository": "ASUEngineering/pitchfork-people",
   "license": "MIT",
@@ -12,17 +11,6 @@
     "@babel/core": "^7.0.0",
     "@babel/register": "^7.0.0",
     "@babel/preset-env": "^7.12.1",
-=======
-  "version": "1.2",
-  "repository": "ASUEngineering/pitchfork-people",
-  "license": "MIT",
-  "devDependencies": {
-    "@asu/unity-bootstrap-theme": "^1.5.6",
-    "@asu/app-webdir-ui": "latest",
-    "@babel/core": "^7.0.0",
-    "@babel/preset-env": "^7.12.1",
-    "@babel/register": "^7.0.0",
->>>>>>> develop
     "beepbeep": "^1.2.2",
     "browser-sync": "^2.11.1",
     "eslint": "^7.12.0",
@@ -59,14 +47,5 @@
     "translate": "gulp translate",
     "styles-rtl": "gulp stylesRTL",
     "cache-clear": "gulp clearCache"
-<<<<<<< HEAD
-=======
-  },
-  "dependencies": {
-    "gulp-wp": "^0.6.6"
-  },
-  "volta": {
-    "node": "14.21.3"
->>>>>>> develop
   }
 }
