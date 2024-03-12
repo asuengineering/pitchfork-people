@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+### Version 1.3
+
+This release updates the app-webdir-ui package from the ASU Unity project. This release increments the package to `"@asu/app-webdir-ui": "^3.4.0"`.
+
+- UPDATE: Uses latest react components for the web directory and faculty rank directory blocks.
+- ADD: Add support for toggling on/off the "alpha filter" UI control within the web directory block.
+- DELETE: Removed a few unused temporary files from the repository.
+
 ### Version 1.2
 
 This release adds support for a fourth block style for both the `acf/profile-manual` and `acf/profile-data` blocks. The new style defines a vertical layout allowing for a very lightweight approach to building directory pages.
