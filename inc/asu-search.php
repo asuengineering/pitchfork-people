@@ -11,6 +11,10 @@ function get_asu_search_single_profile_results($asurite) {
 	// Get Search data from ASURITE ID.
 	$search_json = 'https://search.asu.edu/api/v1/webdir-profiles/faculty-staff/filtered?asurite_ids=' . $asurite . '&size=1&client=pitchfork_people';
 
+	$args = array(
+		'timeout'     => 45,
+		'sslverify' => false
+	);
 	$search_request = wp_safe_remote_get( $search_json );
 
 	// Error check for invalid JSON.
@@ -33,7 +37,11 @@ function get_asu_search_webdir_departments() {
 	// Get Search data from ASURITE ID.
 	$search_json = 'https://search.asu.edu/api/v1/webdir-departments?format=flat';
 
-	$search_request = wp_safe_remote_get( $search_json );
+	$args = array(
+		'timeout'     => 45,
+		'sslverify' => false
+	);
+	$search_request = wp_safe_remote_get( $search_json, $args );
 
 	// Error check for invalid JSON.
 	if ( is_wp_error( $search_request ) ) {
