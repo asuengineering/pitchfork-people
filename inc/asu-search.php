@@ -48,6 +48,11 @@ function get_asu_search_webdir_departments() {
 
 function pfpeople_flatten_webdir_departments_json($json, &$result = [], $depth = 0) {
 
+	// if $json variable is called when empty, it will be false. Bail early.
+	if (! is_array($json)) {
+		return;
+	}
+
 	// Loop through each node in the JSON object
 	foreach ($json as $node) {
 
