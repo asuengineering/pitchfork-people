@@ -13,9 +13,8 @@ function get_asu_search_single_profile_results($asurite) {
 
 	$args = array(
 		'timeout'     => 45,
-		'sslverify' => false
 	);
-	$search_request = wp_safe_remote_get( $search_json );
+	$search_request = wp_safe_remote_get( $search_json, $args );
 
 	// Error check for invalid JSON.
 	if ( is_wp_error( $search_request ) ) {
@@ -39,7 +38,6 @@ function get_asu_search_webdir_departments() {
 
 	$args = array(
 		'timeout'     => 45,
-		'sslverify' => false
 	);
 	$search_request = wp_safe_remote_get( $search_json, $args );
 
