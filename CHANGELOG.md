@@ -12,6 +12,7 @@ This release updates the app-webdir-ui package from the ASU Unity project. This 
 - UPDATE: Uses latest react components for the web directory and faculty rank directory blocks.
 - ADD: Add support for toggling on/off the "alpha filter" UI control within the web directory block.
 - DELETE: Removed a few unused temporary files from the repository.
+- CHANGE: Increased timeout for ASU Search API calls to allow a grace period for occasional service slowing.
 
 ### Version 1.2
 
