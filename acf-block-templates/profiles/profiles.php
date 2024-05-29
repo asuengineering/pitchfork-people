@@ -10,6 +10,10 @@
 $columns = get_field( 'uds_profiles_columns' );
 $spacing = pitchfork_people_acf_calculate_spacing( $block );
 
+// do_action('qm/debug', $block);
+
+pfpeople_build_innerblock_asuriteid_list();
+
 /**
  * Retrieve additional classes from the 'advanced' field in the editor for inline styles.
  * Explode given string into an array so we can search it later.

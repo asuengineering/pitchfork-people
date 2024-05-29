@@ -232,3 +232,33 @@ function pfpeople_card_social_icons($data) {
 
 	return $social_list;
 }
+
+
+/**
+ * Grabs the list of InnerBlocks within an acf/profiles block and
+ * compiles a string of the ASURITE IDs needed for a composite query.
+ *
+ * InnerBlocks can't directly pass data to the parent block as a rule.
+ * But, since ACF stores the field data as block meta, the data is available.
+ *
+ * Called during the inital block render script for acf/profiles.
+*/
+function pfpeople_build_innerblock_asuriteid_list() {
+
+	$inner = array();
+	global $post;
+
+	$blocks = parse_blocks( $post->post_content );
+
+	foreach( $blocks as $block ) {
+
+		if ($block['blockName'] == 'acf/profiles') {
+			do_action('qm/debug', $block['innerBlocks']);
+			$inner = $block['innerBlocks'];
+
+
+		}
+	}
+
+	// Do something with the results?
+}
