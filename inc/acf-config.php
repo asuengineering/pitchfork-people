@@ -31,14 +31,10 @@ add_filter( 'acf/settings/load_json', 'pitchfork_people_acf_json_load_point' );
  * - UDS Block: Profiles - group_63c98c0738345
  * - UDS Block: Web Directory - group_645ebe42aaa12
  *
- * In Development (/temp, not currently loaded or needed)
- * - PF People: Identity - group_63d4433b5979e
- * - PF People: Data - group_63d842cf6ed0d
- *
  * @return $paths
  */
 function pitchfork_people_acf_json_save_point( $path ) {
-    $path = get_stylesheet_directory() . '/acf-json';
+    $path = PITCHFORK_PEOPLE_BASE_PATH . '/acf-json';
     return $path;
 }
 add_filter( 'acf/settings/save_json/key=group_63e3e25f75f79', 'pitchfork_people_acf_json_save_point' );
