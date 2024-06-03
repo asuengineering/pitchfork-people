@@ -28,6 +28,39 @@
             "other_choice": 0,
             "layout": "vertical",
             "save_other_choice": 0
+        },
+        {
+            "key": "field_665a64cf2d0ff",
+            "label": "Query Results",
+            "name": "uds_profiles_query_results",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_63c98c07e138e",
+                        "operator": "==",
+                        "value": "col-one"
+                    },
+                    {
+                        "field": "field_63c98c07e138e",
+                        "operator": "==",
+                        "value": "col-two"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
         }
     ],
     "location": [
@@ -48,5 +81,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1717089990
+    "modified": 1717450154
 }

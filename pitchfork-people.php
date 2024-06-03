@@ -6,11 +6,7 @@
  * Author:          Steve Ryan
  * Author URI:      https://engineering.asu.edu
  * Text Domain:     pitchfork_people
-<<<<<<< HEAD
  * Version:         1.3.0
-=======
- * Version:         1.2
->>>>>>> develop
  *
  * @package         pitchfork_people
  *
@@ -52,3 +48,22 @@ require_once PITCHFORK_PEOPLE_BASE_PATH . '/inc/profile-data-functions.php';
 require_once PITCHFORK_PEOPLE_BASE_PATH . '/inc/acf-config.php';
 require_once PITCHFORK_PEOPLE_BASE_PATH . '/inc/acf-block-utilities.php';
 require_once PITCHFORK_PEOPLE_BASE_PATH . '/inc/acf-register-blocks.php';
+
+/**
+ * ACF field extensions.
+ * Included here as a fallback in case this plugin is being used outside of the Pitchfork theme.
+ *
+ * Default mode is to check for the existence of the class and if not found, instantiate it.
+ *
+ * (ACF_Field_Unique_ID.php)
+ * Adds field that assigns a random ID to a block.
+ * Initalized by following init() function.
+ * See: https://github.com/philipnewcomer/ACF-Unique-ID-Field
+ * - Used in PF People - acf/profiles, acf/profile-data
+ */
+
+// if (class_exists('ASUEngineering\ACF_Unique_ID_Field\ACF_Field_Unique_ID')) {
+//     require PITCHFORK_PEOPLE_BASE_PATH . '/inc/ACF_Field_Unique_ID.php';
+// 	ASUEngineering\ACF_Unique_ID_Field\ACF_Field_Unique_ID::init();
+// }
+

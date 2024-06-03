@@ -8,11 +8,18 @@
  */
 
 $columns = get_field( 'uds_profiles_columns' );
+$blockID = get_field( 'uds_profiles_query_id');
+$queryresults = get_field( 'uds_profiles_query_results');
+
+do_action('qm/debug', $block);
+
 $spacing = pitchfork_people_acf_calculate_spacing( $block );
 
 // do_action('qm/debug', $block);
 
-pfpeople_build_innerblock_asuriteid_list();
+// $people_list = pfpeople_build_innerblock_asuriteid_list($blockID);
+// $asurite_details = get_asu_search_profile_results($people_list);
+// do_action('qm/debug', $asurite_details);
 
 /**
  * Retrieve additional classes from the 'advanced' field in the editor for inline styles.
