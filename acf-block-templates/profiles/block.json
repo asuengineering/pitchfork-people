@@ -1,17 +1,24 @@
 {
-    "name": "acf/profiles",
-    "title": "UDS Profiles",
-    "description": "A container for building a grid of profiles",
-    "category": "pitchfork-blocks",
-    "icon": "grid-view",
-    "keywords": ["directory", "profile", "grid"],
-    "acf": {
-        "mode": "preview",
-        "renderTemplate": "profiles.php"
-    },
+	"name": "acf/profiles",
+	"title": "UDS Profiles",
+	"description": "A container for building a grid of profiles",
+	"category": "pitchfork-blocks",
+	"icon": "grid-view",
+	"keywords": [
+		"directory",
+		"profile",
+		"grid"
+	],
+	"acf": {
+		"mode": "preview",
+		"renderTemplate": "profiles.php"
+	},
 	"supports": {
 		"spacing": {
-			"margin": ["top", "bottom"],
+			"margin": [
+				"top",
+				"bottom"
+			],
 			"padding": false
 		},
 		"classname": false,
@@ -21,5 +28,8 @@
 			"text": false,
 			"link": false
 		}
+	},
+	"providesContext": {
+		"acf/fields": "data"
 	}
 }

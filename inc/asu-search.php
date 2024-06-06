@@ -27,12 +27,10 @@ function get_asu_search_profile_results($asurite_string) {
 	$search_data   = json_decode( $search_body );
 
 	if ( ! empty( $search_data ) ) {
-		// do_action('qm/debug', $search_data);
 		$path = $search_data->results;
 	}
 
-	$serialdata = maybe_serialize($search_data);
-	// do_action('qm/debug', $serialdata);
+	$serialdata = maybe_serialize($path);
 	return $serialdata;
 }
 
