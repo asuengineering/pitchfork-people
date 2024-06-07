@@ -75,7 +75,7 @@ function pitchfork_people_acf_load_directory_select( $field ) {
  *
  * See: https://www.advancedcustomfields.com/resources/whats-new-with-acf-blocks-in-acf-6/#block-versioning
  */
-add_filter( 'acf/blocks/wrap_frontend_innerblocks', 'pfpeople_acf_remove_wrap_innerblocks', 10, 2 );
+add_filter( 'acf/blocks/wrap_frontend_innerblocks', 'pfpeople_acf_remove_wrap_innerblocks', 33, 2 );
 function pfpeople_acf_remove_wrap_innerblocks( $wrap, $name ) {
 
 	$nowrap_block_names = array( 'acf/profiles' );
@@ -85,5 +85,7 @@ function pfpeople_acf_remove_wrap_innerblocks( $wrap, $name ) {
 		return false;
 	}
 
-	return true;
+	// If not located, leave the results untouched.
+	// NOTE: return true; here can potentialy undo other plugins attempting to filter this setting.
+	return;
 }
