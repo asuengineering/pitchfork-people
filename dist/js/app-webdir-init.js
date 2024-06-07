@@ -13,6 +13,7 @@ window.addEventListener("DOMContentLoaded", event => {
   const alphaFilter = webDirTarget.dataset.alphafilter;
   const display = {
     defaultSort: "last_name",
+    doNotDisplayProfiles: "",
     profilesPerPage: pagination,
     usePager: "1"
   };
@@ -34,6 +35,21 @@ window.addEventListener("DOMContentLoaded", event => {
       alphaFilter: alphaFilter
     }
   });
+
+  // webdirUI.initWebDirectory({
+  // 	targetSelector: "#pfpeople-web-directory",
+  // 	props: {
+  // 		// searchType: 'departments',
+  // 		searchType: 'people',
+  // 		// ids: 'zcholman:1663, zcholman:454517, zcholman:1405',
+  // 		deptIds: '1405',
+  // 		API_URL: 'https://search.asu.edu/',
+  // 		searchApiVersion: 'api/v1/',
+  // 		filters: filters,
+  // 		display: display,
+  // 		alphaFilter: alphaFilter,
+  // 	},
+  // });
 
   // console.log(udsWebdirVars);
 });

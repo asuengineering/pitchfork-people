@@ -6,6 +6,32 @@
  * @package pitchfork_people
  */
 
+ function get_asu_directory_people_list($dept_string) {
+
+	// Get Search data from ASURITE ID.
+	$search_json = 'https://search.asu.edu/api/v1/webdir-profiles/faculty-staff/filtered?dept_ids=' . $dept_string . '&size=999&client=pitchfork_people';
+
+	$args = array(
+		'timeout'     => 45,
+	);
+	$search_request = wp_safe_remote_get( $search_json, $args );
+
+	// Error check for invalid JSON.
+	if ( is_wp_error( $search_request ) ) {
+		return false; // Bail early.
+	}
+
+	$search_body   = wp_remote_retrieve_body( $search_request );
+	$search_data   = json_decode( $search_body );
+
+	if ( ! empty( $search_data ) ) {
+		$path = $search_data->results;
+		// $path = $search_data;
+	}
+
+	return $path;
+}
+
 function get_asu_search_profile_results($asurite_string) {
 
 	do_action('qm/debug', $asurite_string);
@@ -23,15 +49,16 @@ function get_asu_search_profile_results($asurite_string) {
 		return false; // Bail early.
 	}
 
-	$search_body   = wp_remote_retrieve_body( $search_request );
-	$search_data   = json_decode( $search_body );
-
-	if ( ! empty( $search_data ) ) {
-		$path = $search_data->results;
+	// Error check for invalid JSON.
+	if ( is_wp_error( $search_request ) ) {
+		return false; // Bail early.
 	}
 
-	$serialdata = maybe_serialize($path);
-	return $serialdata;
+	$search_body   = wp_remote_retrieve_body( $search_request );
+	$search_data   = json_decode( $search_body, true );
+
+	return $search_data;
+
 }
 
 function get_asu_search_single_profile_results($asurite) {
