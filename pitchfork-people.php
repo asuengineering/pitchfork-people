@@ -6,15 +6,7 @@
  * Author:          Steve Ryan
  * Author URI:      https://engineering.asu.edu
  * Text Domain:     pitchfork_people
-<<<<<<< HEAD
-<<<<<<< HEAD
  * Version:         1.3.1
-=======
- * Version:         1.2
->>>>>>> develop
-=======
- * Version:         1.3.0
->>>>>>> try-reduce-api-calls
  *
  * @package         pitchfork_people
  *
