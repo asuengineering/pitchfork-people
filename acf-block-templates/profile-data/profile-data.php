@@ -8,10 +8,33 @@
  */
 
 /**
- * Get ACF fields and profile data from Search endpoint.
+ * Get ACF fields.
  */
 $asurite = get_field( 'uds_profiledata_asuriteid' );
-$asurite_details = get_asu_search_single_profile_results($asurite);
+
+/**
+ * Determine where to gather information about the profile.
+ * If block has block context and the correct API results are returned, use the returned results.
+ * Otherwise, fall back to calling the API for the single profile info.
+ */
+
+$api_results = $context['acf/fields']['uds_profiles_query_results'];
+$results = maybe_unserialize($api_results);
+
+$needle = -1;
+foreach ($results as $index => $result) {
+	if (isset($result->asurite_id->raw) && $result->asurite_id->raw === $asurite) {
+		$needle = $index;
+	}
+}
+
+if ($needle !== -1) {
+	// do_action('qm/debug', 'Found in haystack. Saved an API call.');
+	$asurite_details = $results[$needle];
+} else {
+	// do_action('qm/debug', 'Results need to be obtained individually.');
+	$asurite_details = get_asu_search_single_profile_results($asurite);
+}
 
 /**
  * Retrieve spacing settings from editor.

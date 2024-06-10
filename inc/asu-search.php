@@ -6,6 +6,61 @@
  * @package pitchfork_people
  */
 
+ function get_asu_directory_people_list($dept_string) {
+
+	// Get Search data from ASURITE ID.
+	$search_json = 'https://search.asu.edu/api/v1/webdir-profiles/faculty-staff/filtered?dept_ids=' . $dept_string . '&size=999&client=pitchfork_people';
+
+	$args = array(
+		'timeout'     => 45,
+	);
+	$search_request = wp_safe_remote_get( $search_json, $args );
+
+	// Error check for invalid JSON.
+	if ( is_wp_error( $search_request ) ) {
+		return false; // Bail early.
+	}
+
+	$search_body   = wp_remote_retrieve_body( $search_request );
+	$search_data   = json_decode( $search_body );
+
+	if ( ! empty( $search_data ) ) {
+		$path = $search_data->results;
+		// $path = $search_data;
+	}
+
+	return $path;
+}
+
+function get_asu_search_profile_results($asurite_string) {
+
+	do_action('qm/debug', $asurite_string);
+
+	// Get Search data from ASURITE ID.
+	$search_json = 'https://search.asu.edu/api/v1/webdir-profiles/faculty-staff/filtered?asurite_ids=' . $asurite_string . '&client=pitchfork_people';
+
+	$args = array(
+		'timeout'     => 45,
+	);
+	$search_request = wp_safe_remote_get( $search_json, $args );
+
+	// Error check for invalid JSON.
+	if ( is_wp_error( $search_request ) ) {
+		return false; // Bail early.
+	}
+
+	// Error check for invalid JSON.
+	if ( is_wp_error( $search_request ) ) {
+		return false; // Bail early.
+	}
+
+	$search_body   = wp_remote_retrieve_body( $search_request );
+	$search_data   = json_decode( $search_body, true );
+
+	return $search_data;
+
+}
+
 function get_asu_search_single_profile_results($asurite) {
 
 	// Get Search data from ASURITE ID.
@@ -95,3 +150,38 @@ function pfpeople_remote_image_file_exists( $url ) {
 	$response = wp_remote_head( $url );
 	return 200 === wp_remote_retrieve_response_code( $response );
 }
+
+
+/**
+ * Function for render_block_data hook for acf/profiles block.
+ * Used to update ACF field prior to render with results from ASU Search API.
+ */
+function profiles_update_block_meta_with_search_api($parsed_block) {
+
+    if ($parsed_block['blockName'] === 'acf/profiles') {
+
+		$inners = array();
+		$query = array();
+		$people_list = '';
+
+		$inners = $parsed_block['innerBlocks'];
+
+		/**
+		 * Gather field information for each of the inner blocks within this profiles collection.
+		 * Specifically, build a comma separated list of ASURITE IDs for the API query.
+		 */
+
+		foreach ( $inners as $inner ) {
+			$query[] = $inner['attrs']['data']['uds_profiledata_asuriteid'];
+		}
+
+		$people_list = implode(',' , $query);
+
+		// Grab returned value from search results and store it in ACF field.
+		$parsed_block['attrs']['data']['uds_profiles_query_results'] = get_asu_search_profile_results($people_list);
+    }
+
+    return $parsed_block;
+}
+add_filter( 'render_block_data', 'profiles_update_block_meta_with_search_api' );
+

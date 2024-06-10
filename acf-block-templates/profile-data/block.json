@@ -29,5 +29,8 @@
 			"text": false,
 			"link": false
 		}
-	}
+	},
+	"usesContext": [
+		"acf/fields"
+	]
 }

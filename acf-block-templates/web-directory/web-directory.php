@@ -40,10 +40,23 @@ if ( $alpha ) {
 	$data_attributes .=  ' data-alphaFilter="false"';
 }
 
+$api_results = get_asu_directory_people_list($dept_string);
+
+$namestring = '';
+foreach ($api_results as $result) {
+	$namestring .= $result->display_name->raw . ' (' . $result->asurite_id->raw . '), ';
+	// do_action('qm/debug', $result->asurite_id->raw);
+	// do_action('qm/debug', $result->display_name->raw);
+}
+
+// do_action('qm/debug', $search_results);
+do_action('qm/debug', $namestring);
 
 // Echos either a placeholder graphic in the editor or the container div + data attributes for init.
 if (! $is_preview ) {
 	echo '<div id="pfpeople-web-directory" style="' . $spacing .'" ' . $data_attributes . '></div>';
 } else {
-	echo '<div class="web-directory-placeholder"><h2><span class="highlight-black">Web directory placeholder</span></h2></div>';
+	echo '<div class="web-directory-placeholder"><h2><span class="highlight-black">Web directory placeholder</span></h2>';
+	echo '<p class="lead">' . $namestring . '</p></div>';
+	// echo '<div id="pfpeople-web-directory" style="' . $spacing .'" ' . $data_attributes . '></div>';
 }
