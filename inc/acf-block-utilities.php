@@ -85,8 +85,8 @@ function pitchfork_people_acf_load_expertise_select( $field ) {
 
         foreach( $choices as $choice ) {
 			$value = $choice['name'];
-			$label = $choice['id'];
-            $field['choices'][ $label ] = $value;
+			// $label = $choice['id'];
+            $field['choices'][ $value ] = $value;
 
         }
 
@@ -116,8 +116,8 @@ function pitchfork_people_acf_load_employee_type_select( $field ) {
 
         foreach( $choices as $choice ) {
 			$value = $choice['name'];
-			$label = $choice['id'];
-            $field['choices'][ $label ] = $value;
+			// $label = $choice['id'];
+            $field['choices'][ $value ] = $value;
 
         }
 

@@ -7,18 +7,22 @@ window.addEventListener("DOMContentLoaded", event => {
 	const deptIDs = webDirTarget.dataset.depts;
 	const pagination = webDirTarget.dataset.pagination;
 	const alphaFilter = webDirTarget.dataset.alphafilter;
+	const exclude = webDirTarget.dataset.exclude;
+	const expertise = webDirTarget.dataset.expertise;
+	const employeeType = webDirTarget.dataset.employeeType;
+	const campus = webDirTarget.dataset.campus;
 
 	const display = {
 		defaultSort: "last_name",
-		doNotDisplayProfiles: "",
+		doNotDisplayProfiles: exclude,
 		profilesPerPage: pagination,
 		usePager: "1",
 	};
 	const filters = {
-		employee: "",
-		expertise: "",
+		employee: employeeType,
+		expertise: expertise,
 		title: "",
-		campuses: "",
+		campuses: campus,
 	};
 
 	webdirUI.initWebDirectory({
