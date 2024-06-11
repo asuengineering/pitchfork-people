@@ -86,10 +86,29 @@ function get_asu_search_single_profile_results($asurite) {
 	return $path;
 }
 
-function get_asu_search_webdir_departments() {
+function get_asu_search_webdir_data_assets($endpoint) {
 
-	// Get Search data from ASURITE ID.
-	$search_json = 'https://search.asu.edu/api/v1/webdir-departments?format=flat';
+	/**
+	 * Get data from ASU Search application.
+	 * Endpoint determined by option provided in the function call.
+	 */
+
+	switch ($endpoint) {
+		case 'departments':
+			$search_json = 'https://search.asu.edu/api/v1/webdir-departments?format=flat';
+			break;
+		case 'expertise':
+			$search_json = 'https://search.asu.edu/api/v1/webdir-expertise-areas';
+			break;
+		case 'employee_types':
+			$search_json = 'https://search.asu.edu/api/v1/webdir-employee-types';
+			break;
+		default:
+			do_action('qm/debug', 'Endpoint not specifed in ASU Search function.');
+			return;
+	}
+
+	// $search_json = 'https://search.asu.edu/api/v1/webdir-departments?format=flat';
 
 	$args = array(
 		'timeout'     => 45,

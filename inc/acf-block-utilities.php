@@ -42,7 +42,7 @@ function pitchfork_people_acf_load_directory_select( $field ) {
     $field['choices'] = array();
 
 	// Get the web directory data
-	$data = get_asu_search_webdir_departments();
+	$data = get_asu_search_webdir_data_assets('departments');
 
 	// Flatten the resulting data array
 	$choices = [];
@@ -65,3 +65,66 @@ function pitchfork_people_acf_load_directory_select( $field ) {
     return $field;
 
 }
+
+/**
+ * Add choices to ACF select field for filter by expertise
+ * Used within acf/web-directory block.
+ * Field ID: field_66676c7192b02
+ */
+add_filter('acf/load_field/key=field_66676c7192b02', 'pitchfork_people_acf_load_expertise_select');
+function pitchfork_people_acf_load_expertise_select( $field ) {
+
+    // reset choices
+    $field['choices'] = array();
+
+	// Get the web directory data
+	$choices = get_asu_search_webdir_data_assets('expertise');
+
+    // loop through array and add to field 'choices'
+    if( is_array($choices) ) {
+
+        foreach( $choices as $choice ) {
+			$value = $choice['name'];
+			$label = $choice['id'];
+            $field['choices'][ $label ] = $value;
+
+        }
+
+    }
+
+    // return the field
+    return $field;
+
+}
+
+/**
+ * Add choices to ACF select field for filter by expertise
+ * Used within acf/web-directory block.
+ * Field ID: field_66676d1492b03
+ */
+add_filter('acf/load_field/key=field_66676d1492b03', 'pitchfork_people_acf_load_employee_type_select');
+function pitchfork_people_acf_load_employee_type_select( $field ) {
+
+    // reset choices
+    $field['choices'] = array();
+
+	// Get the web directory data
+	$choices = get_asu_search_webdir_data_assets('employee_types');
+
+    // loop through array and add to field 'choices'
+    if( is_array($choices) ) {
+
+        foreach( $choices as $choice ) {
+			$value = $choice['name'];
+			$label = $choice['id'];
+            $field['choices'][ $label ] = $value;
+
+        }
+
+    }
+
+    // return the field
+    return $field;
+
+}
+
