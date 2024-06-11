@@ -70,25 +70,37 @@ if ( $alpha ) {
 $attributes = implode(' ', $data_attributes);
 
 /**
- * Secondary API call to obtain info for display within block editor.
+ * API call to obtain info for display within block editor.
+ * (The API call to display on the front end initated via React component.)
+ * Sort results alphabetical by last name
  */
 $api_results = get_asu_directory_people_list($dept_string);
+usort($api_results, function($a, $b) {
+	return strcmp($a->last_name->raw, $b->last_name->raw);
+});
 
-$namestring = '';
+/**
+ * Print results within the block editor.
+ * Format for easy scaning for exclude by name filter.
+ */
+$resultlist = '<div class="resultlist">';
 foreach ($api_results as $result) {
-	$namestring .= $result->display_name->raw . ' (' . $result->asurite_id->raw . '), ';
+	// $resultlist .= $result->display_name->raw . ' (' . $result->asurite_id->raw . '), ';
 	// do_action('qm/debug', $result->asurite_id->raw);
 	// do_action('qm/debug', $result->display_name->raw);
+	//
+	$resultlist .= '<div class="result"><h4>' . $result->display_name->raw . '</h4>';
+	$resultlist .= '<p>' . $result->asurite_id->raw . '</p></div>';
 }
 
 // do_action('qm/debug', $search_results);
-do_action('qm/debug', $namestring);
+// do_action('qm/debug', $resultlist);
 
 // Echos either a placeholder graphic in the editor or the container div + data attributes for init.
 if (! $is_preview ) {
 	echo '<div id="pfpeople-web-directory" style="' . $spacing .'" ' . $attributes . '></div>';
 } else {
 	echo '<div class="web-directory-placeholder"><h2><span class="highlight-black">Web directory placeholder</span></h2>';
-	echo '<p class="lead">' . $namestring . '</p></div>';
+	echo $resultlist . '</div>';
 	// echo '<div id="pfpeople-web-directory" style="' . $spacing .'" ' . $data_attributes . '></div>';
 }

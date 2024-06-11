@@ -80,3 +80,24 @@
 		}
 	}
 }
+
+/**
+ * Editor display of web directory lists of people.
+ */
+
+.editor-styles-wrapper .web-directory-placeholder {
+	.resultlist {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+		gap: .5rem;
+
+		.result {
+			border: 2px solid #191919;
+			padding: 0 1rem;
+
+			h4 {
+				margin-bottom: 0;
+			}
+		}
+	}
+}
