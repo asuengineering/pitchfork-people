@@ -95,9 +95,19 @@
 			border: 2px solid #191919;
 			padding: 0 1rem;
 
+			&.excluded {
+				border-color: red;
+			}
+
 			h4 {
 				margin-bottom: 0;
 			}
+		}
+
+		.grid-break {
+			grid-column: 1 / -1;
+			border-top: 1px dotted #191919;
+			margin: .5rem 0;
 		}
 	}
 }

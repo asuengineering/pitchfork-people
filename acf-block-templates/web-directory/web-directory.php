@@ -82,15 +82,35 @@ usort($api_results, function($a, $b) {
 /**
  * Print results within the block editor.
  * Format for easy scaning for exclude by name filter.
+ * Add visual separator to indicate pagination.
+ * Add color change to indicate filtered exclusion.
  */
 $resultlist = '<div class="resultlist">';
+$counter = 0;
+$exclude_array = explode(',', $exclude);
+
 foreach ($api_results as $result) {
 	// $resultlist .= $result->display_name->raw . ' (' . $result->asurite_id->raw . '), ';
 	// do_action('qm/debug', $result->asurite_id->raw);
 	// do_action('qm/debug', $result->display_name->raw);
-	//
-	$resultlist .= '<div class="result"><h4>' . $result->display_name->raw . '</h4>';
+
+	// Add classes to display to change color of filtered/excluded elements.
+	$classlist = array('result');
+	if ( in_array( $result->asurite_id->raw, $exclude_array ) ) {
+		$classlist[] = 'excluded';
+	}
+	$class = implode(' ' , $classlist);
+
+	$resultlist .= '<div class="' . $class . '"><h4>' . $result->display_name->raw . '</h4>';
 	$resultlist .= '<p>' . $result->asurite_id->raw . '</p></div>';
+
+	// Increment the counter
+	$counter++;
+
+	// Check if we need to insert a grid break
+	if ($counter % $pagination == 0) {
+		$resultlist .= '<div class="grid-break"></div>';
+	}
 }
 
 // do_action('qm/debug', $search_results);
