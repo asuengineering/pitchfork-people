@@ -95,7 +95,17 @@
 			border: 2px solid #191919;
 			padding: 0 1rem;
 
-			&.excluded {
+			&.filtered {
+				border-color: #bfbfbf;
+				color: #bfbfbf;
+
+				&.matched {
+					border-color: #191919;
+					color: #191919;
+				}
+			}
+
+			&.excluded-manual {
 				border-color: red;
 			}
 

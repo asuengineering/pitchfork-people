@@ -90,24 +90,77 @@ $counter = 0;
 $exclude_array = explode(',', $exclude);
 
 foreach ($api_results as $result) {
-	// $resultlist .= $result->display_name->raw . ' (' . $result->asurite_id->raw . '), ';
-	// do_action('qm/debug', $result->asurite_id->raw);
-	// do_action('qm/debug', $result->display_name->raw);
+	// do_action('qm/debug', $result);
+	// do_action('qm/debug', $result->primary_empl_class->raw);
+	// do_action('qm/debug', $employee_type);
 
-	// Add classes to display to change color of filtered/excluded elements.
 	$classlist = array('result');
-	if ( in_array( $result->asurite_id->raw, $exclude_array ) ) {
-		$classlist[] = 'excluded';
-	}
-	$class = implode(' ' , $classlist);
+	$tickcounter = true;
 
+	/**
+	 * Add classes to items that were excluded by filters or manually.
+	 * Check: Manually excluded
+	 * Check: Expert list
+	 * Check: Employee Type
+	 * Check: Campus location
+	*/
+
+	// Check if any filter is on at all. Reset all tiles to default off color.
+	if ( (!empty($expertise)) || (!empty($employee_type)) || (!empty($campus))) {
+		$classlist[] = 'filtered';
+		$tickcounter = false;
+	}
+
+	// Check: manually excluded list
+	if ( in_array( $result->asurite_id->raw, $exclude_array ) ) {
+		$classlist[] = 'excluded-manual';
+		$tickcounter = false;
+	}
+
+	// Check: expert list
+	if ( (is_array($result->expertise_areas->raw)) && (is_array($expertise)) ) {
+		$check_expert = array_intersect($result->expertise_areas->raw, $expertise);
+		if (! empty($check_expert)) {
+			$classlist[] = 'matched';
+			$tickcounter = true;
+		}
+	}
+
+	// Check: employee type
+	if ( (property_exists($result, 'primary_empl_class')) && (is_array($result->primary_empl_class->raw)) && (is_array($employee_type)) ) {
+		$check_type = array_intersect($result->primary_empl_class->raw, $employee_type);
+		// do_action('qm/debug', $check_type);
+		if (! empty($check_type)) {
+			$classlist[] = 'matched';
+			$tickcounter = true;
+		}
+	}
+
+	// Check: campus location
+	if ( (property_exists($result, 'primary_job_campus')) && (is_array($result->primary_job_campus->raw)) ) {
+		$check_campus = in_array($campus, $result->primary_job_campus->raw);
+		if ($check_campus) {
+			$classlist[] = 'matched';
+			$tickcounter = true;
+		}
+	}
+
+	/**
+	 * Create CSS class list and echo markup for each tile.
+	 */
+	$class = implode(' ', $classlist);
 	$resultlist .= '<div class="' . $class . '"><h4>' . $result->display_name->raw . '</h4>';
 	$resultlist .= '<p>' . $result->asurite_id->raw . '</p></div>';
 
-	// Increment the counter
-	$counter++;
 
-	// Check if we need to insert a grid break
+	/**
+	 * Increment counter for pagination based on what is filtered.
+	 * Check if a page break indication is needed.
+	 */
+	// do_action('qm/debug', $tickcounter);
+	// do_action('qm/debug', $counter);
+	// if ($tickcounter) $counter++;
+	$counter++;
 	if ($counter % $pagination == 0) {
 		$resultlist .= '<div class="grid-break"></div>';
 	}
@@ -120,7 +173,17 @@ foreach ($api_results as $result) {
 if (! $is_preview ) {
 	echo '<div id="pfpeople-web-directory" style="' . $spacing .'" ' . $attributes . '></div>';
 } else {
-	echo '<div class="web-directory-placeholder"><h2><span class="highlight-black">Web directory placeholder</span></h2>';
-	echo $resultlist . '</div>';
+	if ( 'departments' === $display ) {
+		$display_label = "Web directory";
+	} else {
+		$display_label = "Faculty Rank Directory";
+	}
+
+	echo '<div class="uds-tabbed-panels"><div class="nav nav-tabs" id="nav-tab">';
+	echo '<span class="nav-item nav-link active">' . $display_label . '</span>';
+	echo '<span class="nav-item nav-link">';
+	echo '<svg style="width:2rem;height:2rem;margin-right:.5rem;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M96 48a48 48 0 1 1 96 0A48 48 0 1 1 96 48zM84.7 128H104h88 14.4l9.5 10.7 58.7 66.1 43.6 16.3 15.9-43.7L256 148.4 308.8 0 388 29.5l9.9-27.1L443 18.8 433 46.2l79 29.4L459.2 224l-80-29.8-45 123.7-8.2 22.6L280.8 324l8.2-22.6 7.3-20.1L244.8 262l-7.4-2.8-5.3-5.9L216 235.2v77.3l36.6 73.2 3.4 6.8V400v80 32H192V480 407.6L164.2 352H144V480v32H80V480 273.7L60.3 311 3.7 281l72-136 9-17z"/></svg>';
+	echo $counter . ' people</span></div></div>';
+	echo '<div class="web-directory-placeholder">' . $resultlist . '</div>';
 	// echo '<div id="pfpeople-web-directory" style="' . $spacing .'" ' . $data_attributes . '></div>';
 }
