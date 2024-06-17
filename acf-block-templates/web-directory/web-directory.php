@@ -25,6 +25,7 @@ $exclude			= get_field( 'uds_webdir_filter_exclude' );
 $expertise			= get_field( 'uds_webdir_filter_expertise' );
 $employee_type		= get_field( 'uds_webdir_filter_employee_type' );
 $campus				= get_field( 'uds_webdir_filter_campus' );
+$showfilter			= get_field( 'uds_webdir_filter_display');
 
 $spacing = pitchfork_people_acf_calculate_spacing( $block );
 
@@ -49,6 +50,7 @@ if ( ! empty ( $exclude ) ) {
 
 if ( ! empty ( $expertise_string ) ) {
 	$data_attributes[] = 'data-expertise="' . $expertise_string . '"';
+
 }
 
 if ( ! empty ( $employee_string ) ) {
@@ -95,7 +97,7 @@ foreach ($api_results as $result) {
 	// do_action('qm/debug', $employee_type);
 
 	$classlist = array('result');
-	$tickcounter = true;
+	$show_pages = true;
 
 	/**
 	 * Add classes to items that were excluded by filters or manually.
@@ -105,16 +107,17 @@ foreach ($api_results as $result) {
 	 * Check: Campus location
 	*/
 
+	// Check: manually excluded list.
+	// Decrement the counter variable early, counteracted by increment at bottom.
+	if ( in_array( $result->asurite_id->raw, $exclude_array ) ) {
+		$classlist[] = 'excluded-manual';
+		$counter--;
+	}
+
 	// Check if any filter is on at all. Reset all tiles to default off color.
 	if ( (!empty($expertise)) || (!empty($employee_type)) || (!empty($campus))) {
 		$classlist[] = 'filtered';
-		$tickcounter = false;
-	}
-
-	// Check: manually excluded list
-	if ( in_array( $result->asurite_id->raw, $exclude_array ) ) {
-		$classlist[] = 'excluded-manual';
-		$tickcounter = false;
+		$show_pages = false;
 	}
 
 	// Check: expert list
@@ -122,7 +125,6 @@ foreach ($api_results as $result) {
 		$check_expert = array_intersect($result->expertise_areas->raw, $expertise);
 		if (! empty($check_expert)) {
 			$classlist[] = 'matched';
-			$tickcounter = true;
 		}
 	}
 
@@ -132,7 +134,6 @@ foreach ($api_results as $result) {
 		// do_action('qm/debug', $check_type);
 		if (! empty($check_type)) {
 			$classlist[] = 'matched';
-			$tickcounter = true;
 		}
 	}
 
@@ -141,29 +142,54 @@ foreach ($api_results as $result) {
 		$check_campus = in_array($campus, $result->primary_job_campus->raw);
 		if ($check_campus) {
 			$classlist[] = 'matched';
-			$tickcounter = true;
 		}
 	}
+
+	/**
+	 * Build filter display for any indicated value that COULD be filtered.
+	 * Check: Expert list
+	 * Check: Employee type
+	 * Check: Campus location
+	 */
+
+	$filter_display = '<ul class="filters">';
+
+	// Employee Type
+	if ( (property_exists($result, 'primary_empl_class')) && (is_array($result->primary_empl_class->raw))) {
+		$filter_display .= '<li><strong>Employee Type:</strong> ' . implode(', ', $result->primary_empl_class->raw) . '</li>';
+	}
+
+	if ( (is_array($result->expertise_areas->raw)) ) {
+		$filter_display .= '<li><strong>Expertise:</strong> ' . implode(', ', $result->expertise_areas->raw) . '</li>';
+	}
+
+	if ( (property_exists($result, 'primary_job_campus')) && (is_array($result->primary_job_campus->raw)) ) {
+		$filter_display .= '<li><strong>Campus:</strong> ' . implode(', ', $result->primary_job_campus->raw) . '</li>';
+	}
+
+	$filter_display .= '</ul>';
 
 	/**
 	 * Create CSS class list and echo markup for each tile.
 	 */
 	$class = implode(' ', $classlist);
 	$resultlist .= '<div class="' . $class . '"><h4>' . $result->display_name->raw . '</h4>';
-	$resultlist .= '<p>' . $result->asurite_id->raw . '</p></div>';
+	$resultlist .= '<p>' . $result->asurite_id->raw . '</p>';
+	if ($showfilter) { $resultlist .= $filter_display;}
+	$resultlist .= '</div>';
 
 
 	/**
-	 * Increment counter for pagination based on what is filtered.
+	 * Increment counter for pagination based on what is displayed / filtered.
 	 * Check if a page break indication is needed.
 	 */
-	// do_action('qm/debug', $tickcounter);
-	// do_action('qm/debug', $counter);
-	// if ($tickcounter) $counter++;
 	$counter++;
-	if ($counter % $pagination == 0) {
-		$resultlist .= '<div class="grid-break"></div>';
+	if ($show_pages) {
+		if ($counter % $pagination == 0) {
+			$resultlist .= '<div class="grid-break"></div>';
+		}
 	}
+
 }
 
 // do_action('qm/debug', $search_results);
@@ -182,8 +208,9 @@ if (! $is_preview ) {
 	echo '<div class="uds-tabbed-panels"><div class="nav nav-tabs" id="nav-tab">';
 	echo '<span class="nav-item nav-link active">' . $display_label . '</span>';
 	echo '<span class="nav-item nav-link">';
-	echo '<svg style="width:2rem;height:2rem;margin-right:.5rem;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M96 48a48 48 0 1 1 96 0A48 48 0 1 1 96 48zM84.7 128H104h88 14.4l9.5 10.7 58.7 66.1 43.6 16.3 15.9-43.7L256 148.4 308.8 0 388 29.5l9.9-27.1L443 18.8 433 46.2l79 29.4L459.2 224l-80-29.8-45 123.7-8.2 22.6L280.8 324l8.2-22.6 7.3-20.1L244.8 262l-7.4-2.8-5.3-5.9L216 235.2v77.3l36.6 73.2 3.4 6.8V400v80 32H192V480 407.6L164.2 352H144V480v32H80V480 273.7L60.3 311 3.7 281l72-136 9-17z"/></svg>';
-	echo $counter . ' people</span></div></div>';
+	echo '<svg style="width:2rem;height:2rem;margin-right:.5rem;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M128 128A64 64 0 1 0 128 0a64 64 0 1 0 0 128zm-22.4 32c-41.6 0-76.3 31.9-79.7 73.4l-4.1 49.3c-2.5 29.8 15.7 56.1 42.2 65.6V464c0 26.5 21.5 48 48 48h32c26.5 0 48-21.5 48-48V348.3c26.5-9.5 44.7-35.8 42.2-65.6l-4.1-49.3C226.7 191.9 192 160 150.4 160H105.6zM384 128A64 64 0 1 0 384 0a64 64 0 1 0 0 128zm-15.7 32c-28.6 0-53.7 18.9-61.5 46.4L267.7 343.2c-5.8 20.4 9.5 40.8 30.8 40.8H320v80c0 26.5 21.5 48 48 48h32c26.5 0 48-21.5 48-48V384h21.6c21.3 0 36.6-20.3 30.8-40.8L461.3 206.4c-7.8-27.5-33-46.4-61.5-46.4H368.3z"/></svg>';
+	// echo '<svg style="width:2rem;height:2rem;margin-right:.5rem;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M96 48a48 48 0 1 1 96 0A48 48 0 1 1 96 48zM84.7 128H104h88 14.4l9.5 10.7 58.7 66.1 43.6 16.3 15.9-43.7L256 148.4 308.8 0 388 29.5l9.9-27.1L443 18.8 433 46.2l79 29.4L459.2 224l-80-29.8-45 123.7-8.2 22.6L280.8 324l8.2-22.6 7.3-20.1L244.8 262l-7.4-2.8-5.3-5.9L216 235.2v77.3l36.6 73.2 3.4 6.8V400v80 32H192V480 407.6L164.2 352H144V480v32H80V480 273.7L60.3 311 3.7 281l72-136 9-17z"/></svg>';
+	echo count($api_results) . ' people</span></div></div>';
 	echo '<div class="web-directory-placeholder">' . $resultlist . '</div>';
 	// echo '<div id="pfpeople-web-directory" style="' . $spacing .'" ' . $data_attributes . '></div>';
 }

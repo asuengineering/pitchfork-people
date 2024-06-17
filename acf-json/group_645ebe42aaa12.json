@@ -204,6 +204,7 @@
                 "1402": "Academic Senate (1402)",
                 "159372": "Academic Support Network (159372)",
                 "444101": "Access and mobility (444101)",
+                "N1718241629": "Accessibility (N1718241629)",
                 "238367": "Acquisitions and Accounting (238367)",
                 "N1679004966": "Action Nexus (N1679004966)",
                 "N1676928465": "Adjuncts (N1676928465)",
@@ -1314,6 +1315,7 @@
                 "2036": "Sun Devil Fitness Tempe (2036)",
                 "1811": "Surplus Property (1811)",
                 "1801": "Sustainability Practices (1801)",
+                "N1718145712": "Sustainability Practices (N1718145712)",
                 "N1707332657": "Sustainability Scientists and Scholars (N1707332657)",
                 "N1662578326": "Sustainability Teachers’ Academy (N1662578326)",
                 "374815": "Sustainable Cities Network (374815)",
@@ -1499,6 +1501,26 @@
             "open": 0,
             "multi_expand": 0,
             "endpoint": 0
+        },
+        {
+            "key": "field_66708f56b8396",
+            "label": "Display filterable data?",
+            "name": "uds_webdir_filter_display",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "Enable to help filter your list correctly. Results will not display on published page.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "",
+            "default_value": 0,
+            "ui_on_text": "Show",
+            "ui_off_text": "Hide",
+            "ui": 1
         },
         {
             "key": "field_66676c7192b02",
@@ -3583,5 +3605,5 @@
     "active": true,
     "description": "Contains UI elements for basic web directory configuration.",
     "show_in_rest": 0,
-    "modified": 1718140267
+    "modified": 1718653079
 }
