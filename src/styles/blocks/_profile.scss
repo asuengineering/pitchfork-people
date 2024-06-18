@@ -156,7 +156,7 @@ For now, this is what works for all size/column combos.
 			grid-template-columns: minmax(0, 800px)
 		}
 
-		&.col-two-hundred,
+		&.col-two,
 		&.col-three {
 			grid-template-columns: repeat(2, 1fr);
 		}
