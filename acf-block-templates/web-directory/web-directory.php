@@ -92,9 +92,6 @@ $counter = 0;
 $exclude_array = explode(',', $exclude);
 
 foreach ($api_results as $result) {
-	// do_action('qm/debug', $result);
-	// do_action('qm/debug', $result->primary_empl_class->raw);
-	// do_action('qm/debug', $employee_type);
 
 	$classlist = array('result');
 	$show_pages = true;
@@ -131,7 +128,6 @@ foreach ($api_results as $result) {
 	// Check: employee type
 	if ( (property_exists($result, 'primary_empl_class')) && (is_array($result->primary_empl_class->raw)) && (is_array($employee_type)) ) {
 		$check_type = array_intersect($result->primary_empl_class->raw, $employee_type);
-		// do_action('qm/debug', $check_type);
 		if (! empty($check_type)) {
 			$classlist[] = 'matched';
 		}
@@ -191,9 +187,6 @@ foreach ($api_results as $result) {
 	}
 
 }
-
-// do_action('qm/debug', $search_results);
-// do_action('qm/debug', $resultlist);
 
 // Echos either a placeholder graphic in the editor or the container div + data attributes for init.
 if (! $is_preview ) {
