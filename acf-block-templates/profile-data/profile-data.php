@@ -52,7 +52,6 @@ if (strlen($asurite) >= 4 ) {
 } else {
 	// The ASURITE ID ACF field failed to meet parameters.
 	do_action('qm/debug', 'This is the parameter fail logic.');
-
 	$asurite_details = pfpeople_fake_asurite_data();
 }
 

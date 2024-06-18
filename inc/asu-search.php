@@ -35,7 +35,7 @@
 function get_asu_search_profile_results($asurite_string) {
 
 	// Get Search data from ASURITE ID.
-	$search_json = 'https://search.asu.edu/api/v1/webdir-profiles/faculty-staff/filtered?asurite_ids=' . $asurite_string . '&client=pitchfork_people';
+	$search_json = 'https://search.asu.edu/api/v1/webdir-profiles/faculty-staff/filtered?asurite_ids=' . $asurite_string . '&size=999&client=pitchfork_people';
 
 	$args = array(
 		'timeout'     => 45,
@@ -199,6 +199,7 @@ function profiles_update_block_meta_with_search_api($parsed_block) {
 		$people_list = implode(',' , $query);
 
 		// Grab returned value from search results and store it in ACF field.
+		do_action('qm/debug', 'Search API call for: ' . $people_list);
 		$parsed_block['attrs']['data']['uds_profiles_query_results'] = get_asu_search_profile_results($people_list);
     }
 
