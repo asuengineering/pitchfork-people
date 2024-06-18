@@ -156,17 +156,17 @@ For now, this is what works for all size/column combos.
 			grid-template-columns: minmax(0, 800px)
 		}
 
-		&.col-two,
-		&.col-three,
-		{
-		grid-template-columns: repeat(2, 1fr);
-	}
+		&.col-two-hundred,
+		&.col-three {
+			grid-template-columns: repeat(2, 1fr);
+		}
 
-	// Four columns is too much here, even with vertical layouts.
-	&.col-four {
-		grid-template-columns: repeat(3, 1fr);
+
+		// Four columns is too much here, even with vertical layouts.
+		&.col-four {
+			grid-template-columns: repeat(3, 1fr);
+		}
 	}
-}
 }
 
 // At the $lg breakpoint, the .small size still breaks the layout.
