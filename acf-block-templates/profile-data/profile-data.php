@@ -35,16 +35,16 @@ if (strlen($asurite) >= 4 ) {
 	}
 
 	if ($needle !== -1) {
-		// do_action('qm/debug', 'Found in haystack. Saved an API call.');
+		do_action('qm/debug', 'Found in haystack. Saved an API call.');
 		$asurite_details = $results[$needle];
 	} else {
-		// do_action('qm/debug', 'Results need to be obtained individually.');
+		do_action('qm/debug', 'Results need to be obtained individually.');
 		$asurite_details = get_asu_search_single_profile_results($asurite);
 	}
 
 } else {
 	// The ASURITE ID ACF field failed to meet parameters.
-	// do_action('qm/debug', 'This is the parameter fail logic.');
+	do_action('qm/debug', 'This is the parameter fail logic.');
 
 	$asurite_details = pfpeople_fake_asurite_data();
 }
