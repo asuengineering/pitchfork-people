@@ -232,3 +232,59 @@ function pfpeople_card_social_icons($data) {
 
 	return $social_list;
 }
+
+/**
+ * Return fake profile data for when ASURITE is incomplete or unknown.
+ */
+
+function pfpeople_fake_asurite_data() {
+	$fakeprofile = new stdClass();
+
+	$fakeprofile->asurite_id = new stdClass();
+	$fakeprofile->asurite_id->raw = 'sparky';
+
+	$fakeprofile->eid = new stdClass();
+	$fakeprofile->eid->raw = '9999999';
+
+	$fakeprofile->photo_url = new stdClass();
+	$fakeprofile->photo_url->raw = 'https://search.asu.edu/sites/default/files/default-headshot.png';
+
+	$fakeprofile->display_name = new stdClass();
+	$fakeprofile->display_name->raw = 'Unknown person';
+
+	$fakeprofile->working_title = new stdClass();
+	$fakeprofile->working_title->raw[0] = ' ';
+
+	$fakeprofile->primary_department = new stdClass();
+	$fakeprofile->primary_department->raw = 'Arizona State University';
+
+	$fakeprofile->email_address = new stdClass();
+	$fakeprofile->email_address->raw = 'pitchfork@asu.edu';
+
+	$fakeprofile->campus_address = new stdClass();
+	$fakeprofile->campus_address->raw = '';
+
+	$fakeprofile->phone = new stdClass();
+	$fakeprofile->phone->raw = '';
+
+	$fakeprofile->short_bio = new stdClass();
+	$fakeprofile->short_bio->raw = '';
+
+	$fakeprofile->bio = new stdClass();
+	$fakeprofile->bio->raw = '';
+
+	$fakeprofile->facebook = new stdClass();
+	$fakeprofile->facebook->raw = '';
+
+	$fakeprofile->twitter = new stdClass();
+	$fakeprofile->twitter->raw = '';
+
+	$fakeprofile->linkedin = new stdClass();
+	$fakeprofile->linkedin->raw = '';
+
+	$fakeprofile->website = new stdClass();
+	$fakeprofile->website->raw = '';
+
+	return $fakeprofile;
+
+}

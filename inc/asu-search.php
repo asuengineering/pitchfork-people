@@ -34,8 +34,6 @@
 
 function get_asu_search_profile_results($asurite_string) {
 
-	do_action('qm/debug', $asurite_string);
-
 	// Get Search data from ASURITE ID.
 	$search_json = 'https://search.asu.edu/api/v1/webdir-profiles/faculty-staff/filtered?asurite_ids=' . $asurite_string . '&client=pitchfork_people';
 
@@ -55,7 +53,7 @@ function get_asu_search_profile_results($asurite_string) {
 	}
 
 	$search_body   = wp_remote_retrieve_body( $search_request );
-	$search_data   = json_decode( $search_body, true );
+	$search_data   = json_decode( $search_body );
 
 	return $search_data;
 
@@ -65,7 +63,6 @@ function get_asu_search_single_profile_results($asurite) {
 
 	// Get Search data from ASURITE ID.
 	$search_json = 'https://search.asu.edu/api/v1/webdir-profiles/faculty-staff/filtered?asurite_ids=' . $asurite . '&size=1&client=pitchfork_people';
-
 	$args = array(
 		'timeout'     => 45,
 	);
@@ -79,8 +76,11 @@ function get_asu_search_single_profile_results($asurite) {
 	$search_body   = wp_remote_retrieve_body( $search_request );
 	$search_data   = json_decode( $search_body );
 
-	if ( ! empty( $search_data ) ) {
+	// Similar information: $search_data->meta->page->total_results = 0
+	if ( $search_data->meta->page->total_results <> 0 ) {
 		$path = $search_data->results[0];
+	} else {
+		$path = pfpeople_fake_asurite_data();
 	}
 
 	return $path;
@@ -191,7 +191,9 @@ function profiles_update_block_meta_with_search_api($parsed_block) {
 		 */
 
 		foreach ( $inners as $inner ) {
-			$query[] = $inner['attrs']['data']['uds_profiledata_asuriteid'];
+			if (!empty ($inner['attrs']['data']['uds_profiledata_asuriteid']) ) {
+				$query[] = $inner['attrs']['data']['uds_profiledata_asuriteid'];
+			}
 		}
 
 		$people_list = implode(',' , $query);
