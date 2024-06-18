@@ -23,22 +23,29 @@ $asurite = get_field( 'uds_profiledata_asuriteid' );
 if (strlen($asurite) >= 4 ) {
 
 	// Checking for block context.
-	$api_results = $context['acf/fields']['uds_profiles_query_results'];
-	$results = $api_results->results;
 
-	// Scan block context object and look for specific ASURITE ID.
 	$needle = -1;
-	foreach ($results as $index => $result) {
-		if (isset($result->asurite_id->raw) && $result->asurite_id->raw === $asurite) {
-			$needle = $index;
+
+	if (isset($context['acf/fields']['uds_profiles_query_results'])) {
+
+		$api_results = $context['acf/fields']['uds_profiles_query_results'];
+		$results = $api_results->results;
+
+		// Scan block context object and look for specific ASURITE ID.
+
+		foreach ($results as $index => $result) {
+			if (isset($result->asurite_id->raw) && $result->asurite_id->raw === $asurite) {
+				$needle = $index;
+			}
 		}
+
 	}
 
 	if ($needle !== -1) {
-		do_action('qm/debug', 'Found in haystack. Saved an API call.');
+		do_action('qm/debug', 'Found ' . $asurite . ' in haystack. Saved an API call.');
 		$asurite_details = $results[$needle];
 	} else {
-		do_action('qm/debug', 'Results need to be obtained individually.');
+		do_action('qm/debug', 'Results for ' . $asurite . ' need to be obtained individually.');
 		$asurite_details = get_asu_search_single_profile_results($asurite);
 	}
 
