@@ -126,8 +126,8 @@ foreach ($api_results as $result) {
 	}
 
 	// Check: employee type
-	if ( (property_exists($result, 'primary_empl_class')) && (is_array($result->primary_empl_class->raw)) && (is_array($employee_type)) ) {
-		$check_type = array_intersect($result->primary_empl_class->raw, $employee_type);
+	if ( (property_exists($result, 'empl_classes')) && (is_array($result->empl_classes->raw)) && (is_array($employee_type)) ) {
+		$check_type = array_intersect($result->empl_classes->raw, $employee_type);
 		if (! empty($check_type)) {
 			$classlist[] = 'matched';
 		}
@@ -150,10 +150,24 @@ foreach ($api_results as $result) {
 
 	$filter_display = '<ul class="filters">';
 
-	// Employee Type
-	if ( (property_exists($result, 'primary_empl_class')) && (is_array($result->primary_empl_class->raw))) {
-		$filter_display .= '<li><strong>Employee Type:</strong> ' . implode(', ', $result->primary_empl_class->raw) . '</li>';
+	/**
+	 * Employee type display.
+	 * Check array in results, eliminate null values and duplicates.
+	 * Return a string only if there are results to display.
+	 */
+	if ((property_exists($result, 'empl_classes')) && (is_array($result->empl_classes->raw))) {
+
+		// Filter out null values and remove duplicates
+		$emp_classes_filtered = array_filter(array_unique($result->empl_classes->raw), function($value) {
+			return !is_null($value);
+		});
+
+		// Check if the filtered array is not empty
+		if (!empty($emp_classes_filtered)) {
+			$filter_display .= '<li><strong>Employee Type:</strong> ' . implode(', ', $emp_classes_filtered) . '</li>';
+		}
 	}
+
 
 	if ( (is_array($result->expertise_areas->raw)) ) {
 		$filter_display .= '<li><strong>Expertise:</strong> ' . implode(', ', $result->expertise_areas->raw) . '</li>';
@@ -181,7 +195,7 @@ foreach ($api_results as $result) {
 	 */
 	$counter++;
 	if ($show_pages) {
-		if ($counter % $pagination == 0) {
+		if (($counter % $pagination == 0) && ($counter > 0)) {
 			$resultlist .= '<div class="grid-break"></div>';
 		}
 	}
