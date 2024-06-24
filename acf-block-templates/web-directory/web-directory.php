@@ -82,130 +82,15 @@ usort($api_results, function($a, $b) {
 });
 
 /**
- * Print results within the block editor.
- * Format for easy scaning for exclude by name filter.
- * Add visual separator to indicate pagination.
- * Add color change to indicate filtered exclusion.
+ * Early if/then statement for displaying the intended result.
+ * Either output the empty div + data attributes for the React component.
+ * Or, continue and output the display for the end user within the block editor.
  */
-$resultlist = '<div class="resultlist">';
-$counter = 0;
-$exclude_array = explode(',', $exclude);
-
-foreach ($api_results as $result) {
-
-	$classlist = array('result');
-	$show_pages = true;
-
-	/**
-	 * Add classes to items that were excluded by filters or manually.
-	 * Check: Manually excluded
-	 * Check: Expert list
-	 * Check: Employee Type
-	 * Check: Campus location
-	*/
-
-	// Check: manually excluded list.
-	// Decrement the counter variable early, counteracted by increment at bottom.
-	if ( in_array( $result->asurite_id->raw, $exclude_array ) ) {
-		$classlist[] = 'excluded-manual';
-		$counter--;
-	}
-
-	// Check if any filter is on at all. Reset all tiles to default off color.
-	if ( (!empty($expertise)) || (!empty($employee_type)) || (!empty($campus))) {
-		$classlist[] = 'filtered';
-		$show_pages = false;
-	}
-
-	// Check: expert list
-	if ( (is_array($result->expertise_areas->raw)) && (is_array($expertise)) ) {
-		$check_expert = array_intersect($result->expertise_areas->raw, $expertise);
-		if (! empty($check_expert)) {
-			$classlist[] = 'matched';
-		}
-	}
-
-	// Check: employee type
-	if ( (property_exists($result, 'empl_classes')) && (is_array($result->empl_classes->raw)) && (is_array($employee_type)) ) {
-		$check_type = array_intersect($result->empl_classes->raw, $employee_type);
-		if (! empty($check_type)) {
-			$classlist[] = 'matched';
-		}
-	}
-
-	// Check: campus location
-	if ( (property_exists($result, 'primary_job_campus')) && (is_array($result->primary_job_campus->raw)) ) {
-		$check_campus = in_array($campus, $result->primary_job_campus->raw);
-		if ($check_campus) {
-			$classlist[] = 'matched';
-		}
-	}
-
-	/**
-	 * Build filter display for any indicated value that COULD be filtered.
-	 * Check: Expert list
-	 * Check: Employee type
-	 * Check: Campus location
-	 */
-
-	$filter_display = '<ul class="filters">';
-
-	/**
-	 * Employee type display.
-	 * Check array in results, eliminate null values and duplicates.
-	 * Return a string only if there are results to display.
-	 */
-	if ((property_exists($result, 'empl_classes')) && (is_array($result->empl_classes->raw))) {
-
-		// Filter out null values and remove duplicates
-		$emp_classes_filtered = array_filter(array_unique($result->empl_classes->raw), function($value) {
-			return !is_null($value);
-		});
-
-		// Check if the filtered array is not empty
-		if (!empty($emp_classes_filtered)) {
-			$filter_display .= '<li><strong>Employee Type:</strong> ' . implode(', ', $emp_classes_filtered) . '</li>';
-		}
-	}
-
-
-	if ( (is_array($result->expertise_areas->raw)) ) {
-		$filter_display .= '<li><strong>Expertise:</strong> ' . implode(', ', $result->expertise_areas->raw) . '</li>';
-	}
-
-	if ( (property_exists($result, 'primary_job_campus')) && (is_array($result->primary_job_campus->raw)) ) {
-		$filter_display .= '<li><strong>Campus:</strong> ' . implode(', ', $result->primary_job_campus->raw) . '</li>';
-	}
-
-	$filter_display .= '</ul>';
-
-	/**
-	 * Create CSS class list and echo markup for each tile.
-	 */
-	$class = implode(' ', $classlist);
-	$resultlist .= '<div class="' . $class . '"><h4>' . $result->display_name->raw . '</h4>';
-	$resultlist .= '<p>' . $result->asurite_id->raw . '</p>';
-	if ($showfilter) { $resultlist .= $filter_display;}
-	$resultlist .= '</div>';
-
-
-	/**
-	 * Increment counter for pagination based on what is displayed / filtered.
-	 * Check if a page break indication is needed.
-	 */
-	$counter++;
-	if ($show_pages) {
-		if (($counter % $pagination == 0) && ($counter > 0)) {
-			$resultlist .= '<div class="grid-break"></div>';
-		}
-	}
-
-}
-
-// Echos either a placeholder graphic in the editor or the container div + data attributes for init.
 if (! $is_preview ) {
 	echo '<div id="pfpeople-web-directory" style="' . $spacing .'" ' . $attributes . '></div>';
+
 } else {
+
 	if ( 'departments' === $display ) {
 		$display_label = "Web directory";
 	} else {
@@ -216,8 +101,140 @@ if (! $is_preview ) {
 	echo '<span class="nav-item nav-link active">' . $display_label . '</span>';
 	echo '<span class="nav-item nav-link">';
 	echo '<svg style="width:2rem;height:2rem;margin-right:.5rem;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M128 128A64 64 0 1 0 128 0a64 64 0 1 0 0 128zm-22.4 32c-41.6 0-76.3 31.9-79.7 73.4l-4.1 49.3c-2.5 29.8 15.7 56.1 42.2 65.6V464c0 26.5 21.5 48 48 48h32c26.5 0 48-21.5 48-48V348.3c26.5-9.5 44.7-35.8 42.2-65.6l-4.1-49.3C226.7 191.9 192 160 150.4 160H105.6zM384 128A64 64 0 1 0 384 0a64 64 0 1 0 0 128zm-15.7 32c-28.6 0-53.7 18.9-61.5 46.4L267.7 343.2c-5.8 20.4 9.5 40.8 30.8 40.8H320v80c0 26.5 21.5 48 48 48h32c26.5 0 48-21.5 48-48V384h21.6c21.3 0 36.6-20.3 30.8-40.8L461.3 206.4c-7.8-27.5-33-46.4-61.5-46.4H368.3z"/></svg>';
-	// echo '<svg style="width:2rem;height:2rem;margin-right:.5rem;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M96 48a48 48 0 1 1 96 0A48 48 0 1 1 96 48zM84.7 128H104h88 14.4l9.5 10.7 58.7 66.1 43.6 16.3 15.9-43.7L256 148.4 308.8 0 388 29.5l9.9-27.1L443 18.8 433 46.2l79 29.4L459.2 224l-80-29.8-45 123.7-8.2 22.6L280.8 324l8.2-22.6 7.3-20.1L244.8 262l-7.4-2.8-5.3-5.9L216 235.2v77.3l36.6 73.2 3.4 6.8V400v80 32H192V480 407.6L164.2 352H144V480v32H80V480 273.7L60.3 311 3.7 281l72-136 9-17z"/></svg>';
 	echo count($api_results) . ' people</span></div></div>';
-	echo '<div class="web-directory-placeholder">' . $resultlist . '</div>';
-	// echo '<div id="pfpeople-web-directory" style="' . $spacing .'" ' . $data_attributes . '></div>';
+
+	/**
+	 * Handles initial state of block when no dept ID is supplied.
+	 * Query returned is dept_id = 9999, set within function call for API results.
+	 */
+	if (empty ($api_results)) {
+		echo '<div class="web-directory-placeholder"><h4>Select a department to continue.</h4></div>';
+	} else {
+
+		/**
+		 * Print results within the block editor.
+		 * Format for easy scaning for exclude by name filter.
+		 * Add visual separator to indicate pagination.
+		 * Add color change to indicate filtered exclusion.
+		 */
+		$resultlist = '<div class="resultlist">';
+		$counter = 0;
+		$exclude_array = explode(',', $exclude);
+
+		foreach ($api_results as $result) {
+
+			$classlist = array('result');
+			$show_pages = true;
+
+			/**
+			 * Add classes to items that were excluded by filters or manually.
+			 * Check: Manually excluded
+			 * Check: Expert list
+			 * Check: Employee Type
+			 * Check: Campus location
+			*/
+
+			// Check: manually excluded list.
+			// Decrement the counter variable early, counteracted by increment at bottom.
+			if ( in_array( $result->asurite_id->raw, $exclude_array ) ) {
+				$classlist[] = 'excluded-manual';
+				$counter--;
+			}
+
+			// Check if any filter is on at all. Reset all tiles to default off color.
+			if ( (!empty($expertise)) || (!empty($employee_type)) || (!empty($campus))) {
+				$classlist[] = 'filtered';
+				$show_pages = false;
+			}
+
+			// Check: expert list
+			if ( (is_array($result->expertise_areas->raw)) && (is_array($expertise)) ) {
+				$check_expert = array_intersect($result->expertise_areas->raw, $expertise);
+				if (! empty($check_expert)) {
+					$classlist[] = 'matched';
+				}
+			}
+
+			// Check: employee type
+			if ( (property_exists($result, 'empl_classes')) && (is_array($result->empl_classes->raw)) && (is_array($employee_type)) ) {
+				$check_type = array_intersect($result->empl_classes->raw, $employee_type);
+				if (! empty($check_type)) {
+					$classlist[] = 'matched';
+				}
+			}
+
+			// Check: campus location
+			if ( (property_exists($result, 'primary_job_campus')) && (is_array($result->primary_job_campus->raw)) ) {
+				$check_campus = in_array($campus, $result->primary_job_campus->raw);
+				if ($check_campus) {
+					$classlist[] = 'matched';
+				}
+			}
+
+			/**
+			 * Build filter display for any indicated value that COULD be filtered.
+			 * Check: Expert list
+			 * Check: Employee type
+			 * Check: Campus location
+			 */
+
+			$filter_display = '<ul class="filters">';
+
+			/**
+			 * Employee type display.
+			 * Check array in results, eliminate null values and duplicates.
+			 * Return a string only if there are results to display.
+			 */
+			if ((property_exists($result, 'empl_classes')) && (is_array($result->empl_classes->raw))) {
+
+				// Filter out null values and remove duplicates
+				$emp_classes_filtered = array_filter(array_unique($result->empl_classes->raw), function($value) {
+					return !is_null($value);
+				});
+
+				// Check if the filtered array is not empty
+				if (!empty($emp_classes_filtered)) {
+					$filter_display .= '<li><strong>Employee Type:</strong> ' . implode(', ', $emp_classes_filtered) . '</li>';
+				}
+			}
+
+
+			if ( (is_array($result->expertise_areas->raw)) ) {
+				$filter_display .= '<li><strong>Expertise:</strong> ' . implode(', ', $result->expertise_areas->raw) . '</li>';
+			}
+
+			if ( (property_exists($result, 'primary_job_campus')) && (is_array($result->primary_job_campus->raw)) ) {
+				$filter_display .= '<li><strong>Campus:</strong> ' . implode(', ', $result->primary_job_campus->raw) . '</li>';
+			}
+
+			$filter_display .= '</ul>';
+
+			/**
+			 * Create CSS class list and echo markup for each tile.
+			 */
+			$class = implode(' ', $classlist);
+			$resultlist .= '<div class="' . $class . '"><h4>' . $result->display_name->raw . '</h4>';
+			$resultlist .= '<p>' . $result->asurite_id->raw . '</p>';
+			if ($showfilter) { $resultlist .= $filter_display;}
+			$resultlist .= '</div>';
+
+
+			/**
+			 * Increment counter for pagination based on what is displayed / filtered.
+			 * Check if a page break indication is needed.
+			 */
+			$counter++;
+			if ($show_pages) {
+				if (($counter % $pagination == 0) && ($counter > 0)) {
+					$resultlist .= '<div class="grid-break"></div>';
+				}
+			}
+
+		}
+
+		// Echo the result list.
+		echo '<div class="web-directory-placeholder">' . $resultlist . '</div>';
+	}
+
 }
+

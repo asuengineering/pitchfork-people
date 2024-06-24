@@ -8,6 +8,14 @@
 
  function get_asu_directory_people_list($dept_string) {
 
+	/**
+	 * Quick check for an unset or empty department selection.
+	 * Dept ID = 9999 should return zero results (June 2024)
+	 */
+	if (empty($dept_string)) {
+		$dept_string = '9999';
+	}
+
 	// Get Search data from ASURITE ID.
 	$search_json = 'https://search.asu.edu/api/v1/webdir-profiles/faculty-staff/filtered?dept_ids=' . $dept_string . '&size=999&client=pitchfork_people';
 
