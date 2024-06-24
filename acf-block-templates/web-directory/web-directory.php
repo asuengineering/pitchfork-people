@@ -87,7 +87,24 @@ usort($api_results, function($a, $b) {
  * Or, continue and output the display for the end user within the block editor.
  */
 if (! $is_preview ) {
-	echo '<div id="pfpeople-web-directory" style="' . $spacing .'" ' . $attributes . '></div>';
+
+	/**
+	 * Render alert box on front end of the site if department ID not set and page published.
+	 */
+	if (empty($department_ids)) {
+		$alert_message = 'Web directory block is missing a department ID.';
+
+		echo '<div class="wp-block-alert alert alert-dismissable">';
+		echo '<div class="alert-icon"><span class="fas fa-exclamation-triangle"></span></div>';
+		echo '<div class="alert-content"><div class="acf-innerblocks-container">';
+		echo '<p>' . $alert_message . '</p>';
+		echo '</div></div><div class="alert-close">';
+		echo '<button type="button" class="btn btn-circle btn-circle-alt-black close" data-bs-dismiss="alert" aria-label="Close">';
+		echo '<span class="fas fa-times"></span></button></div></div>';
+	} else {
+		echo '<div id="pfpeople-web-directory" style="' . $spacing .'" ' . $attributes . '></div>';
+	}
+
 
 } else {
 
