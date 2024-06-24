@@ -13,7 +13,7 @@ window.addEventListener("DOMContentLoaded", event => {
   const alphaFilter = webDirTarget.dataset.alphafilter;
   const exclude = webDirTarget.dataset.exclude;
   const expertise = webDirTarget.dataset.expertise;
-  const employeeType = webDirTarget.dataset.employeeType;
+  const employeeType = webDirTarget.dataset.employeetype;
   const campus = webDirTarget.dataset.campus;
   const display = {
     defaultSort: "last_name",

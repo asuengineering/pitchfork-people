@@ -47,12 +47,12 @@ if ( ! empty ( $exclude ) ) {
 	$data_attributes[] = 'data-exclude="' . $exclude . '"';
 }
 
-if ( ! empty ( $expertise_string ) ) {
+if ( ! empty ( $expertise ) ) {
 	$expertise_string = implode(',' , $expertise);
 	$data_attributes[] = 'data-expertise="' . $expertise_string . '"';
 }
 
-if ( ! empty ( $employee_string ) ) {
+if ( ! empty ( $employee_type ) ) {
 	$employee_string = implode(',' , $employee_type);
 	$data_attributes[] = 'data-employeeType="' . $employee_string . '"';
 }
