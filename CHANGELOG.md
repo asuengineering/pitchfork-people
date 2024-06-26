@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+### Version 1.4
+
+- UPDATE: Performance improvements for `profile-data` blocks. Blocks that are grouped together within the same `profiles` block are now included in the same API call to ASU Search. That results in a faster page load time for both the editor and the front end of the site.
+- ADD: The `web-directory` block now displays results of initial department query within the block editor.
+- ADD: The `web-directory` block also now supports filtering of a returned set of profiles by expertise, employee type and campus.
+- ADD: The `web-directory` block now allows for an arbitrary list of people to be excluded from the results returned on the front end.
+
+**Package Versions**
+
+| Package         | Old version | Updated Version |
+| --------------- | ----------- | --------------- |
+| `app-webdir-ui` | 3.4.0       | 3.5.0           |
+
 ### Version 1.3
 
 This release updates the app-webdir-ui package from the ASU Unity project. This release increments the package to `"@asu/app-webdir-ui": "^3.4.0"`.
