@@ -15,8 +15,7 @@ function pfpeople_enqueue_block_styles() {
 	$plugin_version     = $the_version . '.' . filemtime( plugin_dir_path( __DIR__ ) . 'dist/css/pfpeople.css' );
 
 	// Main plugin stylesheet.
-	wp_enqueue_style( 'pfpeople-block-styles', plugin_dir_url( __DIR__ ) . 'dist/css/pfpeople.css', array( 'pitchfork-styles' ), $plugin_version );
-
+	wp_enqueue_style( 'pfpeople-block-styles', plugin_dir_url( __DIR__ ) . 'dist/css/pfpeople.css', array(), $plugin_version );
 }
 
 // Main styles/scripts enqueue. Block editor.
