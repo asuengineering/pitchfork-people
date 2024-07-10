@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+### Version 1.4.1
+
+This minor release addresses a compatability issue with the UDS WordPress theme from Knowledge Enterprise.
+
+- FIX: A dependency on a stylesheet from the Pitchfork theme was removed allowing this plugin to load its included stylesheet regardless of the theme in use.
+- CHANGE: Users may now create pages with more than one `web-directory` block per page. If more than one `web-directory` block is used on a page, each block is required to have a unique HTML anchor defined in the block settings panel.
+
+**Package Versions**
+
+| Package         | Old version | Updated Version |
+| --------------- | ----------- | --------------- |
+| `app-webdir-ui` | 3.5.0       | (no change)     |
+
 ### Version 1.4
 
 - UPDATE: Performance improvements for `profile-data` blocks. Blocks that are grouped together within the same `profiles` block are now included in the same API call to ASU Search. That results in a faster page load time for both the editor and the front end of the site.
