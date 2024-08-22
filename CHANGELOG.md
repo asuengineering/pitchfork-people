@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+### Version 1.4.2
+
+This minor release addresses a compatability issue with [Git Updater](https://git-updater.com/).
+
+- FIX: Added a primary branch indicator in main plugin file to allow Git Updater to pull updates from the correct branch.
+
 ### Version 1.4.1
 
 This minor release addresses a compatability issue with the UDS WordPress theme from Knowledge Enterprise.
