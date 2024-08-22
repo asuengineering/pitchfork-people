@@ -6,11 +6,13 @@
  * Author:          Steve Ryan
  * Author URI:      https://engineering.asu.edu
  * Text Domain:     pitchfork_people
- * Version:         1.4.1
+ * Version:         1.4.2
  *
  * @package         pitchfork_people
  *
  * GitHub Plugin URI: https://github.com/asuengineering/pitchfork-people
+ * Primary Branch: main
+ *
  */
 
 // If this file is called directly, abort.
