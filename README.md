@@ -26,18 +26,19 @@ License URI: https://www.gnu.org/licenses/gpl-2.0.html
 This plugin contains blocks that are constructed with the use of Advanced Custom Fields Pro.
 
 - The ACF Pro plugin is also required by the Pitchfork theme.
-- The theme contains a script which will prompt the user to install this plugin upon theme activation.
-- ASU Engineering provides a licensed copy of this plugin within its standard distribution of WordPress on the Pantheon hosting platform.
+- The Pitchfork theme contains a script which will prompt the user to install this plugin upon theme activation.
+- ASU Engineering provides a licensed copy of this plugin within its standard distribution of WordPress.
 
-Plugin updates can applied from the admin dashboard through the use of [WP Pusher](https://wppusher.com/) or GitHub Updater.
+Plugin updates can applied from the admin dashboard through the use of [WP Pusher](https://wppusher.com/) or [Git Updater](https://git-updater.com/).
 
 ## Includes
 
-- This plugin [conditionally loads the app-webdir-ui package](https://github.com/orgs/ASU/packages) from the Unity project as needed. All other styles are expected to be provided by the theme for WordPress theme (which ideally would load a copy of the `unity-bootstrap-theme` also found within the ASU package library).
+- This plugin conditionally loads the [app-webdir-ui package](https://github.com/orgs/ASU/packages) from the Unity project as needed.
+- All other styles are expected to be provided by the WordPress theme in use. (Which in turn would ideally load a copy of the `unity-bootstrap-theme` also found within the ASU package library).
 
 ## Development
 
-- SASS and JS compile & watch tasks are triggered via WP-Gulp and `npm start` from the project root.
+- SASS and JS compile & watch tasks are triggered via [Gulp WP](https://github.com/cr0ybot/gulp-wp) and `npx gulp-wp` from the project root.
 
 ## Release Notes
 
