@@ -123,7 +123,10 @@ if (! $is_preview ) {
 
 	if ( 'departments' === $display ) {
 		$display_label = "Web directory";
-	} else {
+	} else if ('people' === $display) {
+		$display_label = "Custom People Directory";
+	}
+	else {
 		$display_label = "Faculty Rank Directory";
 	}
 
