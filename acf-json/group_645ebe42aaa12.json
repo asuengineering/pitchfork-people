@@ -76,7 +76,15 @@
             "type": "select",
             "instructions": "",
             "required": 0,
-            "conditional_logic": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_6462bf7c8f6f7",
+                        "operator": "!=",
+                        "value": "people"
+                    }
+                ]
+            ],
             "wrapper": {
                 "width": "",
                 "class": "",
@@ -1346,6 +1354,7 @@
             "return_format": "value",
             "multiple": 1,
             "allow_null": 0,
+            "allow_in_bindings": 1,
             "ui": 1,
             "ajax": 0,
             "placeholder": ""
@@ -1420,6 +1429,7 @@
             },
             "default_value": "",
             "maxlength": "",
+            "allow_in_bindings": 1,
             "rows": 3,
             "placeholder": "",
             "new_lines": ""
@@ -3536,6 +3546,53 @@
             "ui": 1,
             "ajax": 1,
             "placeholder": ""
+        },
+        {
+            "key": "field_66fb1e5107fba",
+            "label": "Custom Profile List",
+            "name": "",
+            "aria-label": "",
+            "type": "accordion",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_6462bf7c8f6f7",
+                        "operator": "==",
+                        "value": "people"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "open": 0,
+            "multi_expand": 0,
+            "endpoint": 0
+        },
+        {
+            "key": "field_66fb1ca1f25bb",
+            "label": "Custom Profile List",
+            "name": "uds_webdir_custom_list",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "Enter ASURITEs in a comma seperated list, with the department ID of the title needed to display (user_name:dept_id). Example: \"apersky:unaffiliated,mmaggio1:35540,mcrow:454517\"",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "rows": 4,
+            "placeholder": "apersky:unaffiliated,mmaggio1:35540,mcrow:454517",
+            "new_lines": ""
         }
     ],
     "location": [
@@ -3556,5 +3613,5 @@
     "active": true,
     "description": "Contains UI elements for basic web directory configuration.",
     "show_in_rest": 0,
-    "modified": 1727729724
+    "modified": 1727733565
 }
