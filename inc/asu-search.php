@@ -6,7 +6,7 @@
  * @package pitchfork_people
  */
 
- function get_asu_directory_people_list($dept_string) {
+function get_asu_directory_people_list($dept_string) {
 
 	/**
 	 * Quick check for an unset or empty department selection.
@@ -38,6 +38,62 @@
 	}
 
 	return $path;
+}
+
+function get_asu_directory_custom_people_list($custom_list, $pagination) {
+	do_action('qm/debug', 'This custom list passed into function: ' . $custom_list);
+	do_action('qm/debug', 'This pageination: ' . $pagination);
+
+	$profiles = array();
+	$users = explode(',', $custom_list);
+	do_action('qm/debug', 'This $users: ' . $users[0]);
+
+	foreach ($users as $user) {
+		list($asurite_id, $dept_id) = explode(':', $user);
+		$profiles[] = array(
+			"asurite_id" => $asurite_id,
+			"dept_id" => $dept_id
+		);
+	do_action('qm/debug', 'This $asurite_id: ' . $asurite_id);
+	do_action('qm/debug', 'This $dept_id: ' . $dept_id);
+
+
+	}
+	do_action('qm/debug', 'This profile 1: ' . $profiles[0]["asurite_id"]);
+
+	$data = array(
+		"size" => $pagination,
+		"page" => 1,
+		"sort-by" => "last_name_asc",
+		"full_records" => true,
+		"profiles" => $profiles,
+		"last_init" => null,
+		"profiles_to_exclude" => null
+	);
+	do_action('qm/debug', 'This is our data array size: ' . $data["size"]);
+	do_action('qm/debug', 'This is our data array profiles: ' . $data["profiles"][0]["asurite_id"]);
+
+
+	$args = array(
+		'body'    => json_encode($data),
+		'headers' => array(
+			'Content-Type' => 'application/json',
+			'Accept' => '*/*',
+			'Connection' => 'keep-alive',
+			'Accept-Encoding' => 'gzip, deflate, br',
+			'User-Agent' => 'Pitchfork People Plugin',
+		),
+	);
+
+	$search_request = wp_safe_remote_post('https://search.asu.edu/api/v1/webdir-profiles/department', $args);
+	// Error check for invalid JSON.
+	if ( is_wp_error( $search_request ) ) {
+		return false; // Bail early.
+	}
+
+	$search_body   = wp_remote_retrieve_body( $search_request );
+	return json_decode( $search_body );
+
 }
 
 function get_asu_search_profile_results($asurite_string) {
