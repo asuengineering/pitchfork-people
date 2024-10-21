@@ -60,7 +60,7 @@ function get_asu_directory_custom_people_list($custom_list, $pagination) {
 
 	}
 	do_action('qm/debug', 'This profile 1: ' . $profiles[0]["asurite_id"]);
-
+	//test this sort by: faculty_rank
 	$data = array(
 		"size" => $pagination,
 		"page" => 1,
@@ -118,7 +118,7 @@ function get_asu_search_profile_results($asurite_string) {
 
 	$search_body   = wp_remote_retrieve_body( $search_request );
 	$search_data   = json_decode( $search_body );
-
+	do_action('qm/debug', 'This is our data array size: ' . $search_data);
 	return $search_data;
 
 }
