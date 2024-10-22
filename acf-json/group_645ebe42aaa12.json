@@ -3587,7 +3587,7 @@
             "name": "uds_webdir_custom_list",
             "aria-label": "",
             "type": "textarea",
-            "instructions": "Enter ASURITEs in a comma seperated list, with the department ID of the title needed to display (user_name:dept_id). Example: \"apersky:unaffiliated,mmaggio1:35540,mcrow:454517\"",
+            "instructions": "Enter ASURITEs in a comma seperated list, with the department ID of the title needed to display (user_name:dept_id). Example: \"mmaggio1:35540,mcrow:454517\"",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -3595,11 +3595,11 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "",
+            "default_value": "mmaggio1:35540,mcrow:454517",
             "maxlength": "",
             "allow_in_bindings": 0,
             "rows": 4,
-            "placeholder": "apersky:unaffiliated,mmaggio1:35540,mcrow:454517",
+            "placeholder": "",
             "new_lines": ""
         }
     ],
@@ -3621,5 +3621,5 @@
     "active": true,
     "description": "Contains UI elements for basic web directory configuration.",
     "show_in_rest": 0,
-    "modified": 1729540768
+    "modified": 1729618974
 }
