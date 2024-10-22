@@ -1374,6 +1374,13 @@
                         "operator": "==",
                         "value": "departments"
                     }
+                ],
+                [
+                    {
+                        "field": "field_6462bf7c8f6f7",
+                        "operator": "==",
+                        "value": "people"
+                    }
                 ]
             ],
             "wrapper": {
@@ -1383,6 +1390,7 @@
             },
             "message": "",
             "default_value": 1,
+            "allow_in_bindings": 1,
             "ui_on_text": "Include",
             "ui_off_text": "Remove",
             "ui": 1
@@ -3613,5 +3621,5 @@
     "active": true,
     "description": "Contains UI elements for basic web directory configuration.",
     "show_in_rest": 0,
-    "modified": 1727733565
+    "modified": 1729540768
 }
