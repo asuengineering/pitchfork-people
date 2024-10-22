@@ -40,11 +40,11 @@ function get_asu_directory_people_list($dept_string) {
 	return $path;
 }
 
-function get_asu_directory_custom_people_list($custom_list, $pagination) {
+function get_asu_directory_custom_people_list($custom_list) {
 	do_action('qm/debug', 'This custom list passed into function: ' . $custom_list);
-	do_action('qm/debug', 'This pageination: ' . $pagination);
 
 	$profiles = array();
+	$custom_list = substr($custom_list, 1);
 	$users = explode(',', $custom_list);
 	do_action('qm/debug', 'This $users: ' . $users[0]);
 
@@ -62,7 +62,7 @@ function get_asu_directory_custom_people_list($custom_list, $pagination) {
 	do_action('qm/debug', 'This profile 1: ' . $profiles[0]["asurite_id"]);
 	//test this sort by: faculty_rank
 	$data = array(
-		"size" => $pagination,
+		"size" => count($profiles),
 		"page" => 1,
 		"sort-by" => "last_name_asc",
 		"full_records" => true,
