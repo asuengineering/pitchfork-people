@@ -62,6 +62,12 @@ if ( ! empty ( $department_ids ) ) {
 
 }
 
+if ( ! empty ( $department_ids ) ) {
+	$dept_string = implode(',' , $department_ids);
+	$data_attributes[] = 'data-depts="' . $dept_string . '"';
+
+}
+
 if ( ! empty ( $exclude ) ) {
 	$data_attributes[] = 'data-exclude="' . $exclude . '"';
 }
@@ -81,6 +87,7 @@ if ( ! empty ( $campus ) ) {
 }
 
 if ( ! empty ( $custom_list ) ) {
+	$custom_list = "," . $custom_list;
 	$data_attributes[] = 'data-ids="' . $custom_list . '"';
 }
 
@@ -91,6 +98,11 @@ if ( $alpha ) {
 	$data_attributes[] = 'data-alphaFilter="false"';
 }
 
+//set dept id to 1466 if no dept id is selected
+if ($display === 'people') {
+	$dept_string = '1466';
+	$data_attributes[] = 'data-deptIds="' . $dept_string . '"';
+}
 // Prep for insertion into HTML output
 $attributes = implode(' ', $data_attributes);
 do_action('qm/debug', 'department ids: ' . $attributes);
@@ -109,7 +121,10 @@ if ($display === 'departments') {
 	}
 }
 if ($display === 'people') {
-$api_results = get_asu_directory_custom_people_list($custom_list, $pagination);
+do_action('qm/debug', 'department ids: ' . $custom_list);
+do_action('qm/debug', 'department ids: ' . $pagination);
+
+$api_results = get_asu_directory_custom_people_list($custom_list);
 }
 
 /**
