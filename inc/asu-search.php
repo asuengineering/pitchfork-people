@@ -41,12 +41,10 @@ function get_asu_directory_people_list($dept_string) {
 }
 
 function get_asu_directory_custom_people_list($custom_list) {
-	do_action('qm/debug', 'This custom list passed into function: ' . $custom_list);
 
 	$profiles = array();
 	$custom_list = substr($custom_list, 1);
 	$users = explode(',', $custom_list);
-	do_action('qm/debug', 'This $users: ' . $users[0]);
 
 	foreach ($users as $user) {
 		list($asurite_id, $dept_id) = explode(':', $user);
@@ -54,12 +52,8 @@ function get_asu_directory_custom_people_list($custom_list) {
 			"asurite_id" => $asurite_id,
 			"dept_id" => $dept_id
 		);
-	do_action('qm/debug', 'This $asurite_id: ' . $asurite_id);
-	do_action('qm/debug', 'This $dept_id: ' . $dept_id);
-
-
 	}
-	do_action('qm/debug', 'This profile 1: ' . $profiles[0]["asurite_id"]);
+	//do_action('qm/debug', 'This profile 1: ' . $profiles[0]["asurite_id"]);
 	//test this sort by: faculty_rank
 	$data = array(
 		"size" => count($profiles),
@@ -70,9 +64,6 @@ function get_asu_directory_custom_people_list($custom_list) {
 		"last_init" => null,
 		"profiles_to_exclude" => null
 	);
-	do_action('qm/debug', 'This is our data array size: ' . $data["size"]);
-	do_action('qm/debug', 'This is our data array profiles: ' . $data["profiles"][0]["asurite_id"]);
-
 
 	$args = array(
 		'body'    => json_encode($data),
@@ -118,7 +109,6 @@ function get_asu_search_profile_results($asurite_string) {
 
 	$search_body   = wp_remote_retrieve_body( $search_request );
 	$search_data   = json_decode( $search_body );
-	do_action('qm/debug', 'This is our data array size: ' . $search_data);
 	return $search_data;
 
 }

@@ -105,7 +105,6 @@ if ($display === 'people') {
 }
 // Prep for insertion into HTML output
 $attributes = implode(' ', $data_attributes);
-do_action('qm/debug', 'department ids: ' . $attributes);
 
 /**
  * API call to obtain info for display within block editor.
@@ -121,10 +120,7 @@ if ($display === 'departments') {
 	}
 }
 if ($display === 'people') {
-do_action('qm/debug', 'department ids: ' . $custom_list);
-do_action('qm/debug', 'department ids: ' . $pagination);
-
-$api_results = get_asu_directory_custom_people_list($custom_list);
+	$api_results = get_asu_directory_custom_people_list($custom_list);
 }
 
 /**
@@ -309,7 +305,6 @@ if (! $is_preview ) {
 			$counter = 0;
 
 			foreach ($api_results as $result) {
-			do_action('qm/debug', 'This a result: ' . $result->{'asurite_id'});
 				$classlist = array('result');
 				$show_pages = true;
 
