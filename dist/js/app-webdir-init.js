@@ -13,6 +13,7 @@ window.addEventListener("DOMContentLoaded", event => {
     const expertise = webDirTarget.dataset.expertise;
     const employeeType = webDirTarget.dataset.employeetype;
     const campus = webDirTarget.dataset.campus;
+    const ids = webDirTarget.dataset.ids;
     const display = {
       defaultSort: "last_name",
       doNotDisplayProfiles: exclude,
@@ -34,7 +35,8 @@ window.addEventListener("DOMContentLoaded", event => {
         searchApiVersion: 'api/v1/',
         filters: filters,
         display: display,
-        alphaFilter: alphaFilter
+        alphaFilter: alphaFilter,
+        ids: ids
       }
     });
   });
