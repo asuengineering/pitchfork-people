@@ -8,6 +8,7 @@
  */
 
 $columns = get_field( 'uds_profiles_columns' );
+$prefer_dept = get_field( 'uds_profiles_select_dept' );
 
 $spacing = pitchfork_people_acf_calculate_spacing( $block );
 
@@ -20,7 +21,7 @@ if ( ! empty( $block['className'] ) ) {
 	$block_classes[] = $block['className'];
 }
 
-// Sets InnerBlocks with a pair of foldable cards both containing an H4 and a paragraph.
+// Sets InnerBlocks with both a profile-manual and a profile-data card for duplication.
 $allowed_blocks = array( 'acf/profile-manual', 'acf/profile-data' );
 $template       = array(
 	array(
@@ -30,7 +31,7 @@ $template       = array(
 		),
 	),
 	array(
-		'acf/profile-manual',
+		'acf/profile-data',
 		array(
 			'backgroundColor' => 'fill-white',
 		),

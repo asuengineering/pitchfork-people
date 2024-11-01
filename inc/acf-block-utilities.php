@@ -32,10 +32,11 @@ function pitchfork_people_acf_calculate_spacing( $block ) {
 
 /**
  * Add choices to ACF select field for department name/ID.
- * Used within acf/web-directory block.
- * Field ID: field_645f173cb76ff
+ * Used within acf/web-directory block.  Field ID: field_645f173cb76ff
+ * Used within acf/profiles block. Field ID: field_67255470dc42e
  */
 add_filter('acf/load_field/key=field_645f173cb76ff', 'pitchfork_people_acf_load_directory_select');
+add_filter('acf/load_field/key=field_67255470dc42e', 'pitchfork_people_acf_load_directory_select');
 function pitchfork_people_acf_load_directory_select( $field ) {
 
     // reset choices
