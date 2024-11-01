@@ -212,20 +212,6 @@ function pfpeople_flatten_webdir_departments_json($json, &$result = [], $depth =
 }
 
 /**
- * Check if a remote image file exists.
- * Useful to validate if the returned URL for a profile portrait is actually a valid image.
- * See: https://kellenmace.com/check-if-a-remote-image-file-exists-in-wordpress/
- *
- * @param  string $url The url to the remote image.
- * @return bool        Whether the remote image exists.
- */
-function pfpeople_remote_image_file_exists( $url ) {
-	$response = wp_remote_head( $url );
-	return 200 === wp_remote_retrieve_response_code( $response );
-}
-
-
-/**
  * Function for render_block_data hook for acf/profiles block.
  * Used to update ACF field prior to render with results from ASU Search API.
  */

@@ -12,32 +12,22 @@
  * Check if there's a profile image and create the markup for it.
  * Also check for utility class of 'has-default-img' to add a CSS class to force a default image to display.
 */
-function pfpeople_disply_profile_image($data, $overwrite) {
+function pfpeople_disply_profile_image($data) {
 
 	$photo_url = $data->photo_url->raw;
-	$realphoto = pfpeople_remote_image_file_exists($photo_url);
 
 	$displayname = '';
 	$displayname 	= $data->display_name->raw;
 
-	$profileimg = '';
-
 	/**
 	 * $photo_url property will always return a URL. However, the URL might not aways point to a valid image.
-	 * Utility function call to pfpeople_remote_image_file_exists() returns true or false if the url is valid/invalid.
-	 *
-	 * If the 'has-default-img' string is included in the block class array (and passed in here), we also need this markup.
-	 */
-	if ( ( $realphoto ) || ( $overwrite ) ) {
+	 * Including '?blankImage2=1` at the end of the produced URL for the profile image will display either
+	 * the person's real image or the "missing-man.png" image. Magic via the ASU Search API.
+	*/
 
-		$profileimg = '<div class="profile-img-container"><div class="profile-img-placeholder">';
-
-		if ( $realphoto ) {
-			$profileimg .= '<img src="' . $photo_url . '" class="profile-img" alt="Portrait of ' . $displayname . '" decoding="async" loading="lazy">';
-		}
-
-		$profileimg .= '</div></div>';
-	}
+	$profileimg = '<div class="profile-img-container"><div class="profile-img-placeholder">';
+	$profileimg .= '<img src="' . $photo_url . '?blankImage2=1" class="profile-img" alt="Portrait of ' . $displayname . '" decoding="async" loading="lazy">';
+	$profileimg .= '</div></div>';
 
 	return $profileimg;
 }
