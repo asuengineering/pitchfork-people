@@ -157,12 +157,13 @@ if ( ! empty( $description ) ) {
 /**
  * Check if there's a profile image and create the markup for it.
 */
-$profileimg = '';
-if ( ( ! empty( $image ) ) || ( in_array( 'has-default-img', $block_classes ) ) ) {
-		$profileimg .= '<div class="profile-img-container"><div class="profile-img-placeholder">';
-		$profileimg .= wp_get_attachment_image( $image['ID'], 'thumbnail', false, array( 'class' => 'profile-img' ) );
-		$profileimg .= '</div></div>';
+$profileimg = '<div class="profile-img-container"><div class="profile-img-placeholder">';
+if ( ! empty( $image )) {
+	$profileimg .= wp_get_attachment_image( $image['ID'], 'thumbnail', false, array( 'class' => 'profile-img' ) );
+} else {
+	$profileimg .= '<img src="https://search.asu.edu/sites/default/files/default-headshot.png" class="profile-img" alt="Missing portrait" decoding="async" loading="lazy">';
 }
+$profileimg .= '</div></div>';
 
 /**
  * Render the block
