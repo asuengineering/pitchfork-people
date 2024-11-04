@@ -9,8 +9,8 @@
 
 
 /**
- * Check if there's a profile image and create the markup for it.
- * Also check for utility class of 'has-default-img' to add a CSS class to force a default image to display.
+ * Create markup for the profile image.
+ * See notes about how the default img is rendered.
 */
 function pfpeople_disply_profile_image($data) {
 
