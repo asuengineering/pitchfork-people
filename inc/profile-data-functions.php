@@ -37,21 +37,33 @@ function pfpeople_disply_profile_image($data) {
  * Build name, title and department strings.
  * Include .person-name and .person-profession wrappers.
  */
-function pfpeople_card_displayname($data, $display_size) {
+function pfpeople_card_displayname($data, $display_size, $dept_override) {
+
+	do_action('qm/debug', 'Override value:' . $dept_override);
 
 	// Get the ASURITE fields from the data source.
 	$asurite = $data->asurite_id->raw;
 	$eid = $data->eid->raw;
 
-	$displayname = '';
-	$title = '';
-	$dept = '';
-	$email = '';
-
 	$displayname 	= $data->display_name->raw ?? '';
-	$title  		= $data->working_title->raw[0] ?? '';
-	$dept			= $data->primary_department->raw ?? '';
 	$email			= $data->email_address->raw ?? '';
+
+	// Attempt to look for department and title that corresponds to the department override provided.
+	/**
+	 * Assign a department and a title.
+	 * Search for title/dept pair that matches override dept ID provided.
+	 * Otherwise default to working title and primary department.
+	*/
+	$deptids = $data->deptids->raw;
+	$dept_index = array_search($dept_override, $deptids);
+
+	if ( $dept_index ) {
+		$title  		= $data->titles->raw[$dept_index] ?? '';
+		$dept			= $data->departments->raw[$dept_index] ?? '';
+	} else {
+		$title  		= $data->working_title->raw[0] ?? '';
+		$dept			= $data->primary_department->raw ?? '';
+	}
 
 	$output = '';
 

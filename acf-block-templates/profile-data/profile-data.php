@@ -11,6 +11,7 @@
  * Get ACF fields.
  */
 $asurite = get_field( 'uds_profiledata_asuriteid' );
+// do_action('qm/debug', $context);
 
 /**
  * Determine where to gather information about the profile.
@@ -100,19 +101,23 @@ if ( ! empty( $block['backgroundColor'] ) ) {
 }
 
 /**
- * Render the block
+ * Begin process of rendering the block.
+ * Default profile image handled at the API level within function call.
  */
 $profile  = '<div class="' . implode( ' ', $block_classes ) . '" style="' . $spacing . '">';
-
-// Display a default image if there is none available. Omit if this class is missing.
-if ( in_array( 'has-default-img', $block_classes ) ) {
-	$profile .= pfpeople_disply_profile_image($asurite_details, true);
-} else {
-	$profile .= pfpeople_disply_profile_image($asurite_details, false);
-}
-
+$profile .= pfpeople_disply_profile_image($asurite_details);
 $profile .= '<div class="person">';
-$profile .= pfpeople_card_displayname($asurite_details, $display_size);
+
+/**
+ * Get name, title, department info.
+ * Department override selection comes from block context of parent acf/profiles block.
+ */
+if (isset($context['acf/fields']['uds_profiles_select_dept'])) {
+	$dept_override = $context['acf/fields']['uds_profiles_select_dept'];
+} else {
+	$dept_override = false;
+}
+$profile .= pfpeople_card_displayname($asurite_details, $display_size, $dept_override);
 
 /**
  * All profile sizes render: image, name, title, department, and email when
