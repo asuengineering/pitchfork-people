@@ -260,6 +260,9 @@ function pfpeople_fake_asurite_data() {
 	$fakeprofile->primary_department = new stdClass();
 	$fakeprofile->primary_department->raw = 'Arizona State University';
 
+	$fakeprofile->deptids = new stdClass();
+	$fakeprofile->deptids->raw[0] = '-1';
+
 	$fakeprofile->email_address = new stdClass();
 	$fakeprofile->email_address->raw = 'pitchfork@asu.edu';
 
