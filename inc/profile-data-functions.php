@@ -39,8 +39,6 @@ function pfpeople_disply_profile_image($data) {
  */
 function pfpeople_card_displayname($data, $display_size, $dept_override) {
 
-	do_action('qm/debug', 'Override value:' . $dept_override);
-
 	// Get the ASURITE fields from the data source.
 	$asurite = $data->asurite_id->raw;
 	$eid = $data->eid->raw;
@@ -67,12 +65,14 @@ function pfpeople_card_displayname($data, $display_size, $dept_override) {
 
 	$output = '';
 
-	// Add display name details + link to Seach if appropriate.
-	if ( 'default' !== $display_size ) {
-		$output .= '<h3 class="person-name"><a href="https://search.asu.edu/profile/' . $eid . '">' . $displayname . '</a></h3>';
-	} else {
-		// Large and micro sizes have no link on the contact person.
+	/**
+	 * Add display name details + link to Seach if appropriate.
+	 * Small display size uses a button instead of a linked title.
+	 */
+	if ( 'small' == $display_size ) {
 		$output .= '<h3 class="person-name">' . $displayname . '</h3>';
+	} else {
+		$output .= '<h3 class="person-name"><a href="https://search.asu.edu/profile/' . $eid . '">' . $displayname . '</a></h3>';
 	}
 
 	// Add title string. Results will always have a title of some kind but the 'working title' may be unset.
@@ -98,13 +98,9 @@ function pfpeople_card_displayname($data, $display_size, $dept_override) {
  * If not, return an empty string for the whole thing.
  *
  */
-function pfpeople_card_profile_contacts($data) {
+function pfpeople_card_profile_contacts($data, $show_location, $show_phone) {
 
 	// Get the ASURITE fields from the data source.
-	$email = '';
-	$phone = '';
-	$address = '';
-
 	$asurite 	 = $data->asurite_id->raw ?? '';
 	$email 		 = $data->email_address->raw ?? '';
 	$phone 		 = $data->phone->raw ?? '' ;
@@ -124,7 +120,15 @@ function pfpeople_card_profile_contacts($data) {
 	}
 
 	$contactlist = '';
-	$contactlist = $email . $phone . $address;
+	$contactlist .= $email;
+
+	if ( $show_phone ) {
+		$contactlist .= $phone;
+	}
+
+	if ( $show_location ) {
+		$contactlist .= $address;
+	}
 	if ( ! empty( $contactlist ) ) {
 		$contactlist = '<ul class="person-contact-info">' . $contactlist . '</ul>';
 	}
