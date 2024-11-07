@@ -7,7 +7,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Version 1.5.0
 
-This minor release add some performance updates and additional options to the `web-directory` and `profile-data` blocks.
+This minor release adds some performance updates and additional options to the `web-directory` and `profile-data` blocks. It will also officially deprecate a block style available in individual profile blocks.
+
+DEPRECATED: The "micro" block style for `profile-manual` and `profile-data` blocks has been removed from the UI.
+
+- Blocks currently deployed using that style will still be displayed correctly.
+- New blocks will no longer have the "micro" block style as an option in the WordPress block editor.
+- If still needed, the micro block style can be manually re-enabled by applying `is-style-micro` as a manual CSS class in the block.
+- Consider using the new "vertical" block style for similar content density.
 
 **`/web-directory`**
 
