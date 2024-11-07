@@ -53,7 +53,11 @@ function pfpeople_card_displayname($data, $display_size, $dept_override) {
 	 * Otherwise default to working title and primary department.
 	*/
 	$deptids = $data->deptids->raw;
-	$dept_index = array_search($dept_override, $deptids);
+	$dept_index = false;
+
+	if (is_array($deptids)) {
+		$dept_index = array_search($dept_override, $deptids);
+	}
 
 	if ( $dept_index ) {
 		$title  		= $data->titles->raw[$dept_index] ?? '';

@@ -15,8 +15,6 @@ $show_phone 	= get_field( 'uds_profiledata_show_phone' );
 $show_location 	= get_field( 'uds_profiledata_show_location' );
 $show_social 	= get_field( 'uds_profiledata_show_social' );
 
-do_action('qm/debug', $show_social);
-
 /**
  * Determine where to gather information about the profile.
  *
