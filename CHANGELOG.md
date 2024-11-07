@@ -5,15 +5,44 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+### Version 1.5.0
+
+This minor release add some performance updates and additional options to the `web-directory` and `profile-data` blocks.
+
+**`/web-directory`**
+
+- ADD: The `web-directory` block now supports an ad-hoc configuration to add unrelated profiles from ASU Search into the component.
+- ADD: The ad-hoc configuration for the web directory block also allows for the selection of a preferred title for added profiles.
+
+Props to [@jkcox](https://github.com/jkcox) for the web directory ad-hoc configuration development. :tada:
+
+**`/profile-data`**
+
+- ADD: There will now be a default image assigned to a profile block without the need for an added CSS class to enable the feature.
+- FIX: Additional API calls to ASU Search to determine the availability of a profile image were eliminated.
+- ADD: Display options to show/hide social media links, the phone number and location details.
+
+**`/profiles`**
+
+- ADD: A preferred department selection field was added to the wrapping `profiles` block.
+
+Selecting the preferred department will align all data profile blocks within the wrapper to use the selected department and affiliated title within the display. Profiles that are unaffiliated with the selected department will continue to use their default title and departments.
+
+**Package Versions**
+
+| Package         | Old version | Updated Version |
+| --------------- | ----------- | --------------- |
+| `app-webdir-ui` | 3.5.0       | 3.6.3           |
+
 ### Version 1.4.2
 
-This minor release addresses a compatability issue with [Git Updater](https://git-updater.com/).
+This patch release addresses a compatability issue with [Git Updater](https://git-updater.com/).
 
 - FIX: Added a primary branch indicator in main plugin file to allow Git Updater to pull updates from the correct branch.
 
 ### Version 1.4.1
 
-This minor release addresses a compatability issue with the UDS WordPress theme from Knowledge Enterprise.
+This patch minor release addresses a compatability issue with the UDS WordPress theme from Knowledge Enterprise.
 
 - FIX: A dependency on a stylesheet from the Pitchfork theme was removed allowing this plugin to load its included stylesheet regardless of the theme in use.
 - CHANGE: Users may now create pages with more than one `web-directory` block per page. If more than one `web-directory` block is used on a page, each block is required to have a unique HTML anchor defined in the block settings panel.
