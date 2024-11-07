@@ -36,7 +36,8 @@
             },
             "choices": {
                 "departments": "Departments",
-                "faculty_rank": "Faculty Rank"
+                "faculty_rank": "Faculty Rank",
+                "people": "Custom"
             },
             "default_value": "departments",
             "return_format": "value",
@@ -75,7 +76,15 @@
             "type": "select",
             "instructions": "",
             "required": 0,
-            "conditional_logic": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_6462bf7c8f6f7",
+                        "operator": "!=",
+                        "value": "people"
+                    }
+                ]
+            ],
             "wrapper": {
                 "width": "",
                 "class": "",
@@ -1186,7 +1195,6 @@
                 "N1659649552": "School of Manufacturing Systems and Networks (N1659649552)",
                 "96259": "School of Mathematical and Natural Sciences (96259)",
                 "2243": "School of Mathematical and Statistical Sciences (2243)",
-                "N1730313775": "School of Medicine and Advanced Medical Engineering (N1730313775)",
                 "1734": "School of Molecular Sciences (1734)",
                 "392823": "School of Music, Dance and Theatre (392823)",
                 "N1662572787": "School of Ocean Futures (N1662572787)",
@@ -1346,6 +1354,7 @@
             "return_format": "value",
             "multiple": 1,
             "allow_null": 0,
+            "allow_in_bindings": 1,
             "ui": 1,
             "ajax": 0,
             "placeholder": ""
@@ -1365,6 +1374,13 @@
                         "operator": "==",
                         "value": "departments"
                     }
+                ],
+                [
+                    {
+                        "field": "field_6462bf7c8f6f7",
+                        "operator": "==",
+                        "value": "people"
+                    }
                 ]
             ],
             "wrapper": {
@@ -1374,6 +1390,7 @@
             },
             "message": "",
             "default_value": 1,
+            "allow_in_bindings": 1,
             "ui_on_text": "Include",
             "ui_off_text": "Remove",
             "ui": 1
@@ -1386,7 +1403,15 @@
             "type": "accordion",
             "instructions": "",
             "required": 0,
-            "conditional_logic": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_6462bf7c8f6f7",
+                        "operator": "!=",
+                        "value": "people"
+                    }
+                ]
+            ],
             "wrapper": {
                 "width": "",
                 "class": "",
@@ -1412,6 +1437,7 @@
             },
             "default_value": "",
             "maxlength": "",
+            "allow_in_bindings": 1,
             "rows": 3,
             "placeholder": "",
             "new_lines": ""
@@ -1424,7 +1450,15 @@
             "type": "accordion",
             "instructions": "",
             "required": 0,
-            "conditional_logic": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_6462bf7c8f6f7",
+                        "operator": "!=",
+                        "value": "people"
+                    }
+                ]
+            ],
             "wrapper": {
                 "width": "",
                 "class": "",
@@ -3520,6 +3554,53 @@
             "ui": 1,
             "ajax": 1,
             "placeholder": ""
+        },
+        {
+            "key": "field_66fb1e5107fba",
+            "label": "Custom Profile List",
+            "name": "",
+            "aria-label": "",
+            "type": "accordion",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_6462bf7c8f6f7",
+                        "operator": "==",
+                        "value": "people"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "open": 0,
+            "multi_expand": 0,
+            "endpoint": 0
+        },
+        {
+            "key": "field_66fb1ca1f25bb",
+            "label": "Custom Profile List",
+            "name": "uds_webdir_custom_list",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "Enter ASURITEs in a comma seperated list, with the department ID of the title needed to display (user_name:dept_id). Example: \"mmaggio1:35540,mcrow:454517\"",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "mmaggio1:35540,mcrow:454517",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "rows": 4,
+            "placeholder": "",
+            "new_lines": ""
         }
     ],
     "location": [
@@ -3540,5 +3621,5 @@
     "active": true,
     "description": "Contains UI elements for basic web directory configuration.",
     "show_in_rest": 0,
-    "modified": 1730499704
+    "modified": 1729618974
 }
