@@ -79,9 +79,11 @@ function pfpeople_card_displayname($data, $display_size, $dept_override) {
 		$output .= '<h3 class="person-name"><a href="https://search.asu.edu/profile/' . $eid . '">' . $displayname . '</a></h3>';
 	}
 
-	// Add title string. Results will always have a title of some kind but the 'working title' may be unset.
+	// Add title string. Results will mostly have a title of some kind but the 'working title' may be unset.
 	if ( ! empty( $title ) ) {
 		$output .= '<div class="person-profession"><h4><span>' . $title . '</span></h4>';
+	} else {
+		$output .= '<div class="person-profession">';
 	}
 
 	// Add department name or email address (no link) if display is micro.
