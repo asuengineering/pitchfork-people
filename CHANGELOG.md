@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+### Version 1.5.1
+
+This patch release addresses a display issue for ASU Search profiles for courtsey affiliates and other employment statuses.
+
+- FIX: The absence of a working title will no longer result in a display error for a single `profile-data` block.
+
 ### Version 1.5.0
 
 This minor release adds some performance updates and additional options to the `web-directory` and `profile-data` blocks. It will also officially deprecate a block style available in individual profile blocks.
