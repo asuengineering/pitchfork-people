@@ -14,6 +14,7 @@ $asurite 		= get_field( 'uds_profiledata_asuriteid' );
 $show_phone 	= get_field( 'uds_profiledata_show_phone' );
 $show_location 	= get_field( 'uds_profiledata_show_location' );
 $show_social 	= get_field( 'uds_profiledata_show_social' );
+$show_email 	= get_field( 'uds_profiledata_show_email' );
 
 /**
  * Determine where to gather information about the profile.
@@ -132,12 +133,12 @@ $profile .= pfpeople_card_displayname($asurite_details, $display_size, $dept_ove
 switch ($display_size) {
 	case 'small':
 		// 'Small' is the normal size and adds full contact and short bio information.
-		$profile .= pfpeople_card_profile_contacts($asurite_details, $show_location, $show_phone);
+		$profile .= pfpeople_card_profile_contacts($asurite_details, $show_location, $show_phone, $show_email);
 		$profile .= pfpeople_card_description( $asurite_details, $display_size );
 		break;
 	case 'large':
 		// 'Large' is the deluxe and adds full contact, short bio, and social media links.
-		$profile .= pfpeople_card_profile_contacts($asurite_details, $show_location, $show_phone);
+		$profile .= pfpeople_card_profile_contacts($asurite_details, $show_location, $show_phone, $show_email);
 		$profile .= pfpeople_card_description( $asurite_details, $display_size );
 		if ( $show_social ) {
 			$profile .= pfpeople_card_social_icons( $asurite_details );
