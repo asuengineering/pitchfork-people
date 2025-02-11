@@ -27,6 +27,7 @@ $employee_type		= get_field( 'uds_webdir_filter_employee_type' );
 $campus				= get_field( 'uds_webdir_filter_campus' );
 $showfilter			= get_field( 'uds_webdir_filter_display');
 $custom_list 		= get_field( 'uds_webdir_custom_list' );
+$grid               = get_field( 'uds_webdir_grid' );
 
 $spacing = pitchfork_people_acf_calculate_spacing( $block );
 
@@ -96,6 +97,12 @@ if ( $alpha ) {
 	$data_attributes[] = 'data-alphaFilter="true"';
 } else {
 	$data_attributes[] = 'data-alphaFilter="false"';
+}
+
+if ( $grid ) {
+	$data_attributes[] = 'data-grid="true"';
+} else {
+	$data_attributes[] = 'data-grid="false"';
 }
 
 //set dept id to 1466 if no dept id is selected

@@ -14,11 +14,13 @@ window.addEventListener("DOMContentLoaded", event => {
     const employeeType = webDirTarget.dataset.employeetype;
     const campus = webDirTarget.dataset.campus;
     const ids = webDirTarget.dataset.ids;
+    const grid = webDirTarget.dataset.grid;
     const display = {
       defaultSort: "last_name",
       doNotDisplayProfiles: exclude,
       profilesPerPage: pagination,
-      usePager: "1"
+      usePager: "1",
+      grid: grid
     };
     const filters = {
       employee: employeeType,
