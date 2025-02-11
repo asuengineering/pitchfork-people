@@ -46,7 +46,7 @@
             "name": "",
             "aria-label": "",
             "type": "accordion",
-            "instructions": "Show or hide content parts within the profile.",
+            "instructions": "",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -59,8 +59,50 @@
             "endpoint": 0
         },
         {
+            "key": "field_67a3df3d067e2",
+            "label": "Title override",
+            "name": "uds_profiledata_title_override",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Looking for a title associated with a different department? Try setting the department in the <code>UDS Profiles<\/code> wrapper block instead.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_67a253eb30553",
+            "label": "Display email?",
+            "name": "uds_profiledata_show_email",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "",
+            "default_value": 1,
+            "allow_in_bindings": 0,
+            "ui_on_text": "Show",
+            "ui_off_text": "Hide",
+            "ui": 1
+        },
+        {
             "key": "field_672bc26606a33",
-            "label": "Phone number",
+            "label": "Display phone number?",
             "name": "uds_profiledata_show_phone",
             "aria-label": "",
             "type": "true_false",
@@ -81,7 +123,7 @@
         },
         {
             "key": "field_672bc3c406a34",
-            "label": "Location",
+            "label": "Display location details?",
             "name": "uds_profiledata_show_location",
             "aria-label": "",
             "type": "true_false",
@@ -102,7 +144,7 @@
         },
         {
             "key": "field_672bc3e606a35",
-            "label": "Social media",
+            "label": "Display social media links?",
             "name": "uds_profiledata_show_social",
             "aria-label": "",
             "type": "true_false",
@@ -120,66 +162,6 @@
             "ui_on_text": "Show",
             "ui_off_text": "Hide",
             "ui": 1
-        },
-        {
-            "key": "field_67a253eb30553",
-            "label": "Email",
-            "name": "uds_profiledata_show_email",
-            "aria-label": "",
-            "type": "true_false",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "message": "",
-            "default_value": 1,
-            "allow_in_bindings": 0,
-            "ui_on_text": "Show",
-            "ui_off_text": "Hide",
-            "ui": 1
-        },
-        {
-            "key": "field_67a3d387067e0",
-            "label": "Title",
-            "name": "",
-            "aria-label": "",
-            "type": "accordion",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "open": 0,
-            "multi_expand": 0,
-            "endpoint": 0
-        },
-        {
-            "key": "field_67a3df3d067e2",
-            "label": "Title Override",
-            "name": "uds_profiledata_title_override",
-            "aria-label": "",
-            "type": "text",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "",
-            "maxlength": "",
-            "allow_in_bindings": 0,
-            "placeholder": "",
-            "prepend": "",
-            "append": ""
         }
     ],
     "location": [
@@ -200,5 +182,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1738794194
+    "modified": 1739296915
 }
