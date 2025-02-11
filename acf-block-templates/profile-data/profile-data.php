@@ -15,6 +15,7 @@ $show_phone 	= get_field( 'uds_profiledata_show_phone' );
 $show_location 	= get_field( 'uds_profiledata_show_location' );
 $show_social 	= get_field( 'uds_profiledata_show_social' );
 $show_email 	= get_field( 'uds_profiledata_show_email' );
+$title_override = get_field( 'uds_profiledata_title_override' );
 
 /**
  * Determine where to gather information about the profile.
@@ -120,7 +121,7 @@ if (isset($context['acf/fields']['uds_profiles_select_dept'])) {
 } else {
 	$dept_override = false;
 }
-$profile .= pfpeople_card_displayname($asurite_details, $display_size, $dept_override);
+$profile .= pfpeople_card_displayname($asurite_details, $display_size, $dept_override, $title_override);
 
 /**
  * All profile sizes render: image, name, title, department, and email when

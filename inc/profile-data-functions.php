@@ -37,7 +37,7 @@ function pfpeople_disply_profile_image($data) {
  * Build name, title and department strings.
  * Include .person-name and .person-profession wrappers.
  */
-function pfpeople_card_displayname($data, $display_size, $dept_override) {
+function pfpeople_card_displayname($data, $display_size, $dept_override, $title_override) {
 
 	// Get the ASURITE fields from the data source.
 	$asurite = $data->asurite_id->raw;
@@ -62,9 +62,15 @@ function pfpeople_card_displayname($data, $display_size, $dept_override) {
 	if ( $dept_index ) {
 		$title  		= $data->titles->raw[$dept_index] ?? '';
 		$dept			= $data->departments->raw[$dept_index] ?? '';
+		if ( ! empty( $title_override ) ) {
+			$title = $title_override;
+		}
 	} else {
 		$title  		= $data->working_title->raw[0] ?? '';
 		$dept			= $data->primary_department->raw ?? '';
+		if ( ! empty( $title_override ) ) {
+			$title = $title_override;
+		}
 	}
 
 	$output = '';
