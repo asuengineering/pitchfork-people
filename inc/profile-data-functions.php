@@ -104,7 +104,7 @@ function pfpeople_card_displayname($data, $display_size, $dept_override) {
  * If not, return an empty string for the whole thing.
  *
  */
-function pfpeople_card_profile_contacts($data, $show_location, $show_phone) {
+function pfpeople_card_profile_contacts($data, $show_location, $show_phone, $show_email) {
 
 	// Get the ASURITE fields from the data source.
 	$asurite 	 = $data->asurite_id->raw ?? '';
@@ -112,8 +112,10 @@ function pfpeople_card_profile_contacts($data, $show_location, $show_phone) {
 	$phone 		 = $data->phone->raw ?? '' ;
 	$address 	 = $data->campus_address->raw ?? '';
 
-	if ( ! empty( $email ) ) {
+	if ( ! empty( $email ) && $show_email ) {
 		$email = '<li><a href="mailto:' . $email . '" aria-label="Email user" data-ga-event="link" data-ga-action="click" data-ga-name="onclick" data-ga-type="internal link" data-ga-region="main content" data-ga-section="' . $asurite . '" data-ga="' . $email . '">' . $email . '</a></li>';
+	} else {
+		$email = '';
 	}
 
 	if ( ! empty( $phone ) ) {
