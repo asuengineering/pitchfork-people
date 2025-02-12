@@ -5,6 +5,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+### Version 1.6.0
+
+This release adds new features to the `profile-data` and `web-directory` blocks.
+
+- ADD: Users can now toggle the display of an email addrtess within a `profile-data` block.
+- ADD: Users can also override the working title within a `profile-data` block.
+- ADD: The `web-directory` component now supports a grid view in addition to the traditional single column listing. Block controls were added to allow for the initial view of the block to be set to either "grid view" or "list view."
+
+Props to [@jkcox](https://github.com/jkcox) for implementing all of the above features. :tada:
+
+**Package Versions**
+
+The new grid view options within the `web-directory` block require a corresponding update of the `unity-bootstrap-theme` package to at least v1.20.0 in order to display correctly.
+
+| Package         | Old version | Updated Version |
+| --------------- | ----------- | --------------- |
+| `app-webdir-ui` | 3.6.3       | 5.0.0           |
+
 ### Version 1.5.1
 
 This patch release addresses a display issue for ASU Search profiles for courtsey affiliates and other employment statuses.
