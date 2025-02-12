@@ -8,9 +8,9 @@
   "license": "MIT",
   "scripts": {},
   "dependencies": {
-    "@asu/app-webdir-ui": "^4.1.2",
-    "@asu/components-core": "^4.1.1",
-    "@asu/unity-bootstrap-theme": "^1.20.2",
-    "gulp-wp": "^0.6.10"
+    "@asu/app-webdir-ui": "^5.0.0",
+    "@asu/unity-react-core": "^1.0.0",
+    "@asu/unity-bootstrap-theme": "^1.21.0",
+    "gulp-wp": "^0.6.9"
   }
 }
