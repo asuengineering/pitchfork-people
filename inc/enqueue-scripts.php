@@ -37,8 +37,9 @@ function pfpeople_enqueue_block_editor_styles() {
 add_action( 'enqueue_block_assets', 'pfpeople_enqueue_webdir_block_styles' );
 function pfpeople_enqueue_webdir_block_styles() {
 
-	// app-webdir-ui + init.
+	// unity-react-core, app-webdir-ui + init.
+	wp_register_script ( 'unity-react-core', plugin_dir_url( __DIR__ ) . 'src/unity-react-core/js/unityReactCore.umd.js', array('wp-element', 'wp-components'), null, false );
 	wp_register_script ( 'app-webdir', plugin_dir_url( __DIR__ ) . 'src/app-webdir-ui/js/webdirUI.umd.js', array( 'wp-element', 'wp-components' ), null, false );
-	wp_register_script ( 'app-webdir-init', plugin_dir_url( __DIR__ ) . 'dist/js/app-webdir-init.js', array( 'app-webdir' ), null, false );
+	wp_register_script ( 'app-webdir-init', plugin_dir_url( __DIR__ ) . 'dist/js/app-webdir-init.js', array('unity-react-core', 'app-webdir' ), null, false );
 
 }
