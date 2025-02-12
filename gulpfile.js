@@ -22,7 +22,7 @@ gulp.task("upboot", function (done) {
 	/** ----------------------------------------------------------
 	Part 1. Assembling the assets for UDS Bootstrap design kit.
 	------------------------------------------------------------- */
-	// Copy UDS SCSS files from the node /src folder.
+	// Copy UDS SCSS variable file from the node /src folder.
 	gulp
 		.src(paths.node + "/@asu/unity-bootstrap-theme/src/scss/_custom-asu-variables.scss")
 		.pipe(gulp.dest(paths.dev + "/styles/unity-bootstrap-theme"));
@@ -32,10 +32,10 @@ gulp.task("upboot", function (done) {
 		.src(paths.node + "/@asu/app-webdir-ui/dist/*.js")
 		.pipe(gulp.dest(paths.dev + "/app-webdir-ui/js"));
 
-	// Copy components core JS files
+	// Copy unity-react-core JS files
 	gulp
-		.src(paths.node + "/@asu/components-core/dist/*.js")
-		.pipe(gulp.dest(paths.dev + "/components-core/js"));
+		.src(paths.node + "/@asu/unity-react-core/dist/*.js")
+		.pipe(gulp.dest(paths.dev + "/unity-react-core/js"));
 
 	done();
 });
