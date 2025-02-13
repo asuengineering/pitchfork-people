@@ -17,11 +17,11 @@ Props to [@jkcox](https://github.com/jkcox) for implementing all of the above fe
 
 **Package Versions**
 
-The new grid view options within the `web-directory` block require a corresponding update of the `unity-bootstrap-theme` package to at least v1.20.0 in order to display correctly.
+The new grid view options within the `web-directory` block require styles that were added to a corresponding update of the `unity-bootstrap-theme`. Be sure your theme is running at least v1.20.0 of the Bootstrap package in order to display correctly.
 
 | Package         | Old version | Updated Version |
 | --------------- | ----------- | --------------- |
-| `app-webdir-ui` | 3.6.3       | 5.0.0           |
+| `app-webdir-ui` | 3.6.3       | 4.1.2           |
 
 ### Version 1.5.1
 
