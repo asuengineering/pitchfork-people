@@ -19,6 +19,8 @@ function get_asu_directory_people_list($dept_string) {
 	// Get Search data from ASURITE ID.
 	$search_json = 'https://search.asu.edu/api/v1/webdir-profiles/faculty-staff/filtered?dept_ids=' . $dept_string . '&size=999&client=pitchfork_people';
 
+	do_action('qm/debug', $search_json);
+
 	$args = array(
 		'timeout'     => 45,
 	);

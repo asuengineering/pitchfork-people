@@ -115,19 +115,21 @@ $attributes = implode(' ', $data_attributes);
 
 /**
  * API call to obtain info for display within block editor.
- * (The API call to display on the front end initated via React component.)
- * Sort results alphabetical by last name
+ * (The API call to display on the front end is initated via React component.)
+ *
+ * Departments and Facukty Rank use slightly different API endpoint than the 'people' list does.
+ * Sort results alphabetical by last name if department or faculty_rank
  */
-if ($display === 'departments') {
+if ($display === 'people') {
+	$api_results = get_asu_directory_custom_people_list($custom_list);
+} else {
+	// $display = 'departments' or 'faculty_rank'
 	$api_results = get_asu_directory_people_list($dept_string);
 	if(!empty($api_results)) {
 		usort($api_results, function($a, $b) {
 			return strcmp($a->last_name->raw, $b->last_name->raw);
 		});
 	}
-}
-if ($display === 'people') {
-	$api_results = get_asu_directory_custom_people_list($custom_list);
 }
 
 /**
@@ -182,11 +184,41 @@ if (! $is_preview ) {
 	if (empty ($api_results)) {
 		echo '<div class="web-directory-placeholder"><h4>Select a department or add a user to continue.</h4></div>';
 	} else {
-			if($display === 'departments') {
+
+		if ( $display === 'people' ) {
+
+			$resultlist = '<div class="resultlist">';
+			$counter = 0;
+
+			foreach ($api_results as $result) {
+				$classlist = array('result');
+				$show_pages = true;
+
+				/**
+				 * Create CSS class list and echo markup for each tile.
+				 */
+				$class = implode(' ', $classlist);
+				$resultlist .= '<div class="' . $class . '"><h4>' . $result->{'display_name'} . '</h4>';
+				$resultlist .= '<p>' . $result->{'asurite_id'} . '</p>';
+				$resultlist .= '</div>';
+
+
+				/**
+				 * Increment counter for pagination based on what is displayed / filtered.
+				 * Check if a page break indication is needed.
+				 */
+				$counter++;
+				if ($show_pages) {
+					if (($counter % $pagination == 0) && ($counter > 0)) {
+						$resultlist .= '<div class="grid-break"></div>';
+					}
+				}
+			}
+		} else {
 
 			/**
-			 * Print results within the block editor.
-			 * Format for easy scaning for exclude by name filter.
+			 * $display === 'people' or 'faculty_rank'
+			 * Format results for easy scaning for exclude by name filter.
 			 * Add visual separator to indicate pagination.
 			 * Add color change to indicate filtered exclusion.
 			 */
@@ -304,38 +336,9 @@ if (! $is_preview ) {
 				}
 
 			}
-
-			// Echo the result list.
-			echo '<div class="web-directory-placeholder">' . $resultlist . '</div>';
-		} else if ($display === 'people') {
-			$resultlist = '<div class="resultlist">';
-			$counter = 0;
-
-			foreach ($api_results as $result) {
-				$classlist = array('result');
-				$show_pages = true;
-
-							/**
-				 * Create CSS class list and echo markup for each tile.
-				 */
-				$class = implode(' ', $classlist);
-				$resultlist .= '<div class="' . $class . '"><h4>' . $result->{'display_name'} . '</h4>';
-				$resultlist .= '<p>' . $result->{'asurite_id'} . '</p>';
-				$resultlist .= '</div>';
-
-
-				/**
-				 * Increment counter for pagination based on what is displayed / filtered.
-				 * Check if a page break indication is needed.
-				 */
-				$counter++;
-				if ($show_pages) {
-					if (($counter % $pagination == 0) && ($counter > 0)) {
-						$resultlist .= '<div class="grid-break"></div>';
-					}
-				}
-			}
-			echo '<div class="web-directory-placeholder">' . $resultlist . '</div>';
 		}
+
+		// Result list completed, echo to the screen.
+		echo '<div class="web-directory-placeholder">' . $resultlist . '</div>';
 	}
 }
