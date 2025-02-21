@@ -117,15 +117,18 @@ $attributes = implode(' ', $data_attributes);
  * API call to obtain info for display within block editor.
  * (The API call to display on the front end is initated via React component.)
  *
- * Departments and Facukty Rank use slightly different API endpoint than the 'people' list does.
- * Sort results alphabetical by last name if department or faculty_rank
+ * Departments and faculty rank use slightly different API endpoint than the 'people' list does.
+ * Sort results alphabetical by last name if 'departments' or 'faculty_rank'
  */
 if ($display === 'people') {
 	$api_results = get_asu_directory_custom_people_list($custom_list);
 } else {
 	// $display = 'departments' or 'faculty_rank'
 	$api_results = get_asu_directory_people_list($dept_string);
-	if(!empty($api_results)) {
+
+	// Sort the results alphabetically. Default returned list is unsorted.
+	// TODO: Implement actual sorting by faculty rank in the results when called for.
+	if ( ! empty ( $api_results ) ) {
 		usort($api_results, function($a, $b) {
 			return strcmp($a->last_name->raw, $b->last_name->raw);
 		});
@@ -214,6 +217,7 @@ if (! $is_preview ) {
 					}
 				}
 			}
+
 		} else {
 
 			/**
