@@ -1,11 +1,93 @@
 <?php
 /**
- * Utility function to return data from the ASU Search API.
- * - Pulls individual profile results. Possible to adjust results to pull multiple IDs within the same call.
+ * Utility functions to return data and format from the ASU Search API.
  *
  * @package pitchfork_people
  */
 
+/**
+ * Populate ACF controls with data from ASU Search.
+ * Used by: acf/web-directory, acf/profiles.
+ * API endpoint determined by $endpoint option
+ */
+function get_asu_search_webdir_data_assets($endpoint) {
+
+	/**
+	 * Get data from ASU Search application.
+	 * Endpoint determined by option provided in the function call.
+	 */
+
+	switch ($endpoint) {
+		case 'departments':
+			$search_json = 'https://search.asu.edu/api/v1/webdir-departments?format=flat';
+			break;
+		case 'expertise':
+			$search_json = 'https://search.asu.edu/api/v1/webdir-expertise-areas';
+			break;
+		case 'employee_types':
+			$search_json = 'https://search.asu.edu/api/v1/webdir-employee-types';
+			break;
+		default:
+			do_action('qm/debug', 'Endpoint not specifed in ASU Search function.');
+			return;
+	}
+
+	$args = array(
+		'timeout'     => 45,
+	);
+	$search_request = wp_safe_remote_get( $search_json, $args );
+
+	// Error check for invalid JSON.
+	if ( is_wp_error( $search_request ) ) {
+		return false; // Bail early.
+	}
+
+	$search_body   = wp_remote_retrieve_body( $search_request );
+	$search_data   = json_decode( $search_body, true );
+
+	return $search_data;
+}
+
+/**
+ * Utility function to returned a flattened set of options from a JSON feed.
+ * Used to provide formatted data to ACF multiselect controls.
+ * See: pitchfork_people_acf_load_directory_select()
+ */
+function pfpeople_flatten_webdir_departments_json($json, &$result = [], $depth = 0) {
+
+	// if $json variable is called when empty, it will be false. Bail early.
+	if (! is_array($json)) {
+		return;
+	}
+
+	// Loop through each node in the JSON object
+	foreach ($json as $node) {
+
+		// Check if the node has children
+		if (isset($node['children'])) {
+			// If the node has children, recursively call the flatten_json function
+			// with the children array, incrementing the depth by 1
+			pfpeople_flatten_webdir_departments_json($node['children'], $result, $depth + 1);
+		}
+
+		// Add the current node to the result array, with its depth and any other attributes you want to include
+		$result[] = [
+			'name' => $node['name'] . ' (' . $node['dept_id'] . ')',
+			'id' => $node['dept_id'],
+			'depth' => $depth,
+		];
+	}
+
+	// Sort the result array by name
+	usort($result, function($a, $b) {
+		return strcmp($a['name'], $b['name']);
+	});
+}
+
+/**
+ * Called when web directory block is rendered within web-directory.php
+ * Conditions: Display type = either "faculty_rank" or "directory"
+ */
 function get_asu_directory_people_list($dept_string) {
 
 	/**
@@ -18,6 +100,8 @@ function get_asu_directory_people_list($dept_string) {
 
 	// Get Search data from ASURITE ID.
 	$search_json = 'https://search.asu.edu/api/v1/webdir-profiles/faculty-staff/filtered?dept_ids=' . $dept_string . '&size=999&client=pitchfork_people';
+
+	do_action('qm/debug', $search_json);
 
 	$args = array(
 		'timeout'     => 45,
@@ -40,6 +124,10 @@ function get_asu_directory_people_list($dept_string) {
 	return $path;
 }
 
+/**
+ * Called when web directory block is rendered within web-directory.php
+ * Conditions: Display type = "people"
+ */
 function get_asu_directory_custom_people_list($custom_list) {
 
 	$profiles = array();
@@ -53,7 +141,7 @@ function get_asu_directory_custom_people_list($custom_list) {
 			"dept_id" => $dept_id
 		);
 	}
-	//do_action('qm/debug', 'This profile 1: ' . $profiles[0]["asurite_id"]);
+
 	//test this sort by: faculty_rank
 	$data = array(
 		"size" => count($profiles),
@@ -87,129 +175,6 @@ function get_asu_directory_custom_people_list($custom_list) {
 
 }
 
-function get_asu_search_profile_results($asurite_string) {
-
-	// Get Search data from ASURITE ID.
-	$search_json = 'https://search.asu.edu/api/v1/webdir-profiles/faculty-staff/filtered?asurite_ids=' . $asurite_string . '&size=999&client=pitchfork_people';
-
-	$args = array(
-		'timeout'     => 45,
-	);
-	$search_request = wp_safe_remote_get( $search_json, $args );
-
-	// Error check for invalid JSON.
-	if ( is_wp_error( $search_request ) ) {
-		return false; // Bail early.
-	}
-
-	// Error check for invalid JSON.
-	if ( is_wp_error( $search_request ) ) {
-		return false; // Bail early.
-	}
-
-	$search_body   = wp_remote_retrieve_body( $search_request );
-	$search_data   = json_decode( $search_body );
-	return $search_data;
-
-}
-
-function get_asu_search_single_profile_results($asurite) {
-
-	// Get Search data from ASURITE ID.
-	$search_json = 'https://search.asu.edu/api/v1/webdir-profiles/faculty-staff/filtered?asurite_ids=' . $asurite . '&size=1&client=pitchfork_people';
-	$args = array(
-		'timeout'     => 45,
-	);
-	$search_request = wp_safe_remote_get( $search_json, $args );
-
-	// Error check for invalid JSON.
-	if ( is_wp_error( $search_request ) ) {
-		return false; // Bail early.
-	}
-
-	$search_body   = wp_remote_retrieve_body( $search_request );
-	$search_data   = json_decode( $search_body );
-
-	// Similar information: $search_data->meta->page->total_results = 0
-	if ( $search_data->meta->page->total_results <> 0 ) {
-		$path = $search_data->results[0];
-	} else {
-		$path = pfpeople_fake_asurite_data();
-	}
-
-	return $path;
-}
-
-function get_asu_search_webdir_data_assets($endpoint) {
-
-	/**
-	 * Get data from ASU Search application.
-	 * Endpoint determined by option provided in the function call.
-	 */
-
-	switch ($endpoint) {
-		case 'departments':
-			$search_json = 'https://search.asu.edu/api/v1/webdir-departments?format=flat';
-			break;
-		case 'expertise':
-			$search_json = 'https://search.asu.edu/api/v1/webdir-expertise-areas';
-			break;
-		case 'employee_types':
-			$search_json = 'https://search.asu.edu/api/v1/webdir-employee-types';
-			break;
-		default:
-			do_action('qm/debug', 'Endpoint not specifed in ASU Search function.');
-			return;
-	}
-
-	// $search_json = 'https://search.asu.edu/api/v1/webdir-departments?format=flat';
-
-	$args = array(
-		'timeout'     => 45,
-	);
-	$search_request = wp_safe_remote_get( $search_json, $args );
-
-	// Error check for invalid JSON.
-	if ( is_wp_error( $search_request ) ) {
-		return false; // Bail early.
-	}
-
-	$search_body   = wp_remote_retrieve_body( $search_request );
-	$search_data   = json_decode( $search_body, true );
-
-	return $search_data;
-}
-
-function pfpeople_flatten_webdir_departments_json($json, &$result = [], $depth = 0) {
-
-	// if $json variable is called when empty, it will be false. Bail early.
-	if (! is_array($json)) {
-		return;
-	}
-
-	// Loop through each node in the JSON object
-	foreach ($json as $node) {
-
-		// Check if the node has children
-		if (isset($node['children'])) {
-			// If the node has children, recursively call the flatten_json function
-			// with the children array, incrementing the depth by 1
-			pfpeople_flatten_webdir_departments_json($node['children'], $result, $depth + 1);
-		}
-
-		// Add the current node to the result array, with its depth and any other attributes you want to include
-		$result[] = [
-			'name' => $node['name'] . ' (' . $node['dept_id'] . ')',
-			'id' => $node['dept_id'],
-			'depth' => $depth,
-		];
-	}
-
-	// Sort the result array by name
-	usort($result, function($a, $b) {
-		return strcmp($a['name'], $b['name']);
-	});
-}
 
 /**
  * Function for render_block_data hook for acf/profiles block.
@@ -246,4 +211,66 @@ function profiles_update_block_meta_with_search_api($parsed_block) {
     return $parsed_block;
 }
 add_filter( 'render_block_data', 'profiles_update_block_meta_with_search_api' );
+
+/**
+ * This function is used within acf/profiles block to actually retrieve data from ASU Search API.
+ * Is called directly from profiles_update_block_meta_with_search_api().
+ */
+function get_asu_search_profile_results($asurite_string) {
+
+	// Get Search data from ASURITE ID.
+	$search_json = 'https://search.asu.edu/api/v1/webdir-profiles/faculty-staff/filtered?asurite_ids=' . $asurite_string . '&size=999&client=pitchfork_people';
+
+	$args = array(
+		'timeout'     => 45,
+	);
+	$search_request = wp_safe_remote_get( $search_json, $args );
+
+	// Error check for invalid JSON.
+	if ( is_wp_error( $search_request ) ) {
+		return false; // Bail early.
+	}
+
+	// Error check for invalid JSON.
+	if ( is_wp_error( $search_request ) ) {
+		return false; // Bail early.
+	}
+
+	$search_body   = wp_remote_retrieve_body( $search_request );
+	$search_data   = json_decode( $search_body );
+	return $search_data;
+
+}
+
+/**
+ * This function is called by the singular acf/profile-data block when:
+ * - The set of data found in the wrapping acf/profiles block doesn't contain this individual profile
+ * - Or, there is no acf/profiles block present and therefore we need data.
+ */
+function get_asu_search_single_profile_results($asurite) {
+
+	// Get Search data from ASURITE ID.
+	$search_json = 'https://search.asu.edu/api/v1/webdir-profiles/faculty-staff/filtered?asurite_ids=' . $asurite . '&size=1&client=pitchfork_people';
+	$args = array(
+		'timeout'     => 45,
+	);
+	$search_request = wp_safe_remote_get( $search_json, $args );
+
+	// Error check for invalid JSON.
+	if ( is_wp_error( $search_request ) ) {
+		return false; // Bail early.
+	}
+
+	$search_body   = wp_remote_retrieve_body( $search_request );
+	$search_data   = json_decode( $search_body );
+
+	// Similar information: $search_data->meta->page->total_results = 0
+	if ( $search_data->meta->page->total_results <> 0 ) {
+		$path = $search_data->results[0];
+	} else {
+		$path = pfpeople_fake_asurite_data();
+	}
+
+	return $path;
+}
 
