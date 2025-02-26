@@ -5,7 +5,6 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-<<<<<<< Updated upstream
 =======
 ### Version 1.6.1
 
@@ -13,7 +12,6 @@ This fast-follower release contains one additional bug fix that had remained unp
 
 - FIX: The admin display of the web-directory block now shows the returned list of faculty members when displaying a faculty_rank list.
 
->>>>>>> Stashed changes
 ### Version 1.6.0
 
 This release adds new features to the `profile-data` and `web-directory` blocks.
