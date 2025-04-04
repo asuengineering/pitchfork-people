@@ -118,6 +118,10 @@ function pfpeople_card_profile_contacts($data, $show_location, $show_phone, $sho
 	$phone 		 = $data->phone->raw ?? '' ;
 	$address 	 = $data->campus_address->raw ?? '';
 
+	// Phone numbers from ASU Search sometimes contain a slash between the area code and ohone number.
+	// Change that to a dash instead for formatting to match @app-webdir results.
+	$phone = str_replace('/', '-', $phone);
+
 	if ( ! empty( $email ) && $show_email ) {
 		$email = '<li><a href="mailto:' . $email . '" aria-label="Mail to: ' . $email . '" data-ga-event="link" data-ga-action="click" data-ga-name="onclick" data-ga-type="internal link" data-ga-region="main content" data-ga-section="' . $asurite . '" data-ga="' . $email . '">' . $email . '</a></li>';
 	} else {
