@@ -96,7 +96,7 @@ function pfpeople_card_displayname($data, $display_size, $dept_override, $title_
 	if ( 'micro' !== $display_size ) {
 		$output .= '<h4><span>' . $dept . '</span></h4></div>';
 	} else {
-		$output .= '<h4><a href="mailto:' . $email . '" aria-label="Email user" data-ga-event="link" data-ga-action="click" data-ga-name="onclick" data-ga-type="internal link" data-ga-region="main content" data-ga-section="' . $displayname . '" data-ga="' . $email . '">' . $email . '</a></h4></div>';
+		$output .= '<h4><a href="mailto:' . $email . '" aria-label="Mail to: ' . $email . '" data-ga-event="link" data-ga-action="click" data-ga-name="onclick" data-ga-type="internal link" data-ga-region="main content" data-ga-section="' . $displayname . '" data-ga="' . $email . '">' . $email . '</a></h4></div>';
 	}
 
 	return $output;
@@ -119,13 +119,13 @@ function pfpeople_card_profile_contacts($data, $show_location, $show_phone, $sho
 	$address 	 = $data->campus_address->raw ?? '';
 
 	if ( ! empty( $email ) && $show_email ) {
-		$email = '<li><a href="mailto:' . $email . '" aria-label="Email user" data-ga-event="link" data-ga-action="click" data-ga-name="onclick" data-ga-type="internal link" data-ga-region="main content" data-ga-section="' . $asurite . '" data-ga="' . $email . '">' . $email . '</a></li>';
+		$email = '<li><a href="mailto:' . $email . '" aria-label="Mail to: ' . $email . '" data-ga-event="link" data-ga-action="click" data-ga-name="onclick" data-ga-type="internal link" data-ga-region="main content" data-ga-section="' . $asurite . '" data-ga="' . $email . '">' . $email . '</a></li>';
 	} else {
 		$email = '';
 	}
 
 	if ( ! empty( $phone ) ) {
-		$phone = '<li><a href="tel:' . $phone . '" aria-label="Call user" data-ga-event="link" data-ga-action="click" data-ga-name="onclick" data-ga-type="internal link" data-ga-region="main content" data-ga-section="' . $asurite . '" data-ga="' . $phone . '">' . $phone . '</a></li>';
+		$phone = '<li><a href="tel:' . $phone . '" aria-label="User phone number: ' . $phone . '" data-ga-event="link" data-ga-action="click" data-ga-name="onclick" data-ga-type="internal link" data-ga-region="main content" data-ga-section="' . $asurite . '" data-ga="' . $phone . '">' . $phone . '</a></li>';
 	}
 
 	// Not linked at all. Can be an address or a room/building number.
@@ -160,7 +160,7 @@ function pfpeople_card_email_only ( $data ) {
 	$asurite 	 	= $data->asurite_id->raw ?? '';
 
 	if ( ! empty( $email ) ) {
-		$contact_data = '<a href="mailto:' . $email . '" aria-label="Email user" data-ga-event="link" data-ga-action="click" data-ga-name="onclick" data-ga-type="internal link" data-ga-region="main content" data-ga-section="' . $asurite . '" data-ga="' . $email . '">' . $email . '</a>';
+		$contact_data = '<a href="mailto:' . $email . '" aria-label="Mail to: ' . $email . '" data-ga-event="link" data-ga-action="click" data-ga-name="onclick" data-ga-type="internal link" data-ga-region="main content" data-ga-section="' . $asurite . '" data-ga="' . $email . '">' . $email . '</a>';
 	}
 
 	return $contact_data;

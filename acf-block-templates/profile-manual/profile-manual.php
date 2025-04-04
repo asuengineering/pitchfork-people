@@ -71,12 +71,12 @@ if ( ! empty( $block['backgroundColor'] ) ) {
  */
 
 if ( ! empty( $email ) ) {
-	$email = '<li><a href="mailto:' . $email . '" aria-label="Email user" data-ga-event="link" data-ga-action="click" data-ga-name="onclick" data-ga-type="internal link" data-ga-region="main content" data-ga-section="' . $displayname . '" data-ga="' . $email . '">' . $email . '</a></li>';
+	$email = '<li><a href="mailto:' . $email . '" aria-label="Mail to: ' . $email . '" data-ga-event="link" data-ga-action="click" data-ga-name="onclick" data-ga-type="internal link" data-ga-region="main content" data-ga-section="' . $displayname . '" data-ga="' . $email . '">' . $email . '</a></li>';
 }
 
 
 if ( ! empty( $phone ) ) {
-	$phone = '<li><a href="tel:' . $phone . '" aria-label="Call user" data-ga-event="link" data-ga-action="click" data-ga-name="onclick" data-ga-type="internal link" data-ga-region="main content" data-ga-section="' . $displayname . '" data-ga="' . $phone . '">' . $phone . '</a></li>';
+	$phone = '<li><a href="tel:' . $phone . '" aria-label="User phone number: ' . $phone . '" data-ga-event="link" data-ga-action="click" data-ga-name="onclick" data-ga-type="internal link" data-ga-region="main content" data-ga-section="' . $displayname . '" data-ga="' . $phone . '">' . $phone . '</a></li>';
 }
 
 // Address field: No way to validate what kind of information will happen within this text box.
