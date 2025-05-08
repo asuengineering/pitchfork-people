@@ -5,7 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-=======
+---
+
+### Version 1.7.0
+
+Update packages from the Unity Design Project and address one accessibility issue.
+
+- FIX: Adjust ARIA labels for `tel:` and `mailto:` links to properly relay the purpose of the link via adaptive technology.
+- FIX: Replace backslash `/` character with a `-` dash character in output of `profile-data` blocks.
+
+| Package         | Old version | Updated Version |
+| --------------- | ----------- | --------------- |
+| `app-webdir-ui` | 4.1.2       | 5.0.3           |
+
 ### Version 1.6.1
 
 This fast-follower release contains one additional bug fix that had remained unpatched between the 1.4.2 and 1.5 versions.
