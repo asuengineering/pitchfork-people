@@ -215,31 +215,42 @@ add_filter( 'render_block_data', 'profiles_update_block_meta_with_search_api' );
 /**
  * This function is used within acf/profiles block to actually retrieve data from ASU Search API.
  * Is called directly from profiles_update_block_meta_with_search_api().
+ * Execute request up to 3 times with a 1.5 second delay between requests.
  */
 function get_asu_search_profile_results($asurite_string) {
-
-	// Get Search data from ASURITE ID.
 	$search_json = 'https://search.asu.edu/api/v1/webdir-profiles/faculty-staff/filtered?asurite_ids=' . $asurite_string . '&size=999&client=pitchfork_people';
 
 	$args = array(
-		'timeout'     => 45,
+		'timeout' => 45,
 	);
-	$search_request = wp_safe_remote_get( $search_json, $args );
 
-	// Error check for invalid JSON.
-	if ( is_wp_error( $search_request ) ) {
-		return false; // Bail early.
+	$max_retries = 3;
+	$retry_delay_us = 1500000; // 1.5 second in microseconds
+
+	do_action('qm/debug', 'Grabbing search data about multiple profiles.');
+	for ($attempt = 0; $attempt <= $max_retries; $attempt++) {
+		do_action('qm/debug', 'Attempt #' . $attempt);
+		$search_request = wp_safe_remote_get($search_json, $args);
+
+		if (is_wp_error($search_request)) {
+			return false; // Bail early on error
+		}
+
+		$search_body = wp_remote_retrieve_body($search_request);
+		$search_data = json_decode($search_body);
+
+		if (!empty($search_data->meta->page->total_results)) {
+			return $search_data;
+		}
+
+		// If not last attempt, wait before retrying
+		if ($attempt < $max_retries) {
+			usleep($retry_delay_us);
+		}
 	}
 
-	// Error check for invalid JSON.
-	if ( is_wp_error( $search_request ) ) {
-		return false; // Bail early.
-	}
-
-	$search_body   = wp_remote_retrieve_body( $search_request );
-	$search_data   = json_decode( $search_body );
-	return $search_data;
-
+	// All retries failed or no results found
+	return false;
 }
 
 /**
@@ -247,30 +258,42 @@ function get_asu_search_profile_results($asurite_string) {
  * - The set of data found in the wrapping acf/profiles block doesn't contain this individual profile
  * - Or, there is no acf/profiles block present and therefore we need data.
  */
-function get_asu_search_single_profile_results($asurite) {
+function get_asu_search_single_profile_results( $asurite ) {
+	$search_json = 'https://search.asu.edu/api/v1/webdir-profiles/faculty-staff/filtered?asurite_ids=' . urlencode( $asurite ) . '&size=1&client=pitchfork_people';
 
-	// Get Search data from ASURITE ID.
-	$search_json = 'https://search.asu.edu/api/v1/webdir-profiles/faculty-staff/filtered?asurite_ids=' . $asurite . '&size=1&client=pitchfork_people';
 	$args = array(
-		'timeout'     => 45,
+		'timeout' => 45,
 	);
-	$search_request = wp_safe_remote_get( $search_json, $args );
 
-	// Error check for invalid JSON.
-	if ( is_wp_error( $search_request ) ) {
-		return false; // Bail early.
+	$max_retries = 3;
+	$retry_delay_us = 1500000; // 1.5 seconds in microseconds
+
+	do_action( 'qm/debug', 'Grabbing search data about a single profile: ' . $asurite );
+
+	for ( $attempt = 0; $attempt <= $max_retries; $attempt++ ) {
+		do_action( 'qm/debug', 'Attempt #' . $attempt . ' for ASURITE: ' . $asurite );
+
+		$search_request = wp_safe_remote_get( $search_json, $args );
+
+		if ( is_wp_error( $search_request ) ) {
+			return false; // Bail early on request error
+		}
+
+		$search_body = wp_remote_retrieve_body( $search_request );
+		$search_data = json_decode( $search_body );
+
+		if ( ! empty( $search_data->meta->page->total_results ) ) {
+			return $search_data->results[0]; // Success
+		}
+
+		// Wait before next attempt if this isn't the last
+		if ( $attempt < $max_retries ) {
+			usleep( $retry_delay_us );
+		}
 	}
 
-	$search_body   = wp_remote_retrieve_body( $search_request );
-	$search_data   = json_decode( $search_body );
-
-	// Similar information: $search_data->meta->page->total_results = 0
-	if ( $search_data->meta->page->total_results <> 0 ) {
-		$path = $search_data->results[0];
-	} else {
-		$path = pfpeople_fake_asurite_data();
-	}
-
-	return $path;
+	// All retries failed or no results — fallback
+	do_action( 'qm/debug', 'All attempts failed for ASURITE: ' . $asurite . ', using fallback.' );
+	return pfpeople_fake_asurite_data();
 }
 

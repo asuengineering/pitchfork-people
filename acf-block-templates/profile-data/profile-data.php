@@ -44,6 +44,8 @@ if (strlen($asurite) >= 4 ) {
 			}
 		}
 
+	} else {
+		do_action('qm/debug', 'No data found in block context.');
 	}
 
 	if ($needle !== -1) {
