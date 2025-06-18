@@ -30,6 +30,7 @@
 		}
 	},
 	"providesContext": {
+		"uds_profiles/query_cache_key": "uds_profiles_query_cache_key",
 		"acf/fields": "data"
 	}
 }

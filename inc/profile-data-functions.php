@@ -16,6 +16,7 @@ function pfpeople_disply_profile_image($data) {
 
 	$photo_url = $data->photo_url->raw;
 
+
 	$displayname = '';
 	$displayname 	= $data->display_name->raw;
 

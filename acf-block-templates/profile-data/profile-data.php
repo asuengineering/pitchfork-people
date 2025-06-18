@@ -1,6 +1,6 @@
 <?php
 /**
- * UDS Profile (Manual)
+ * UDS Profile (Data)
  * - All fields are represented in the block, except individual social media icons.
  * - The rendered profile size is controled by block style panel.
  *
@@ -25,43 +25,66 @@ $title_override = get_field( 'uds_profiledata_title_override' );
  * 3. Otherwise, fall back to calling the API for the single profile info.
  */
 
-if (strlen($asurite) >= 4 ) {
+$asurite_details = array();
 
-	// Checking for block context.
+if (strlen($asurite) < 4 ) {
 
-	$needle = -1;
-
-	if (isset($context['acf/fields']['uds_profiles_query_results'])) {
-
-		$api_results = $context['acf/fields']['uds_profiles_query_results'];
-		$results = $api_results->results;
-
-		// Scan block context object and look for specific ASURITE ID.
-
-		foreach ($results as $index => $result) {
-			if (isset($result->asurite_id->raw) && $result->asurite_id->raw === $asurite) {
-				$needle = $index;
-			}
-		}
-
-	} else {
-		do_action('qm/debug', 'No data found in block context.');
-	}
-
-	if ($needle !== -1) {
-		do_action('qm/debug', 'Found ' . $asurite . ' in haystack. Saved an API call.');
-		$asurite_details = $results[$needle];
-	} else {
-		do_action('qm/debug', 'Results for ' . $asurite . ' need to be obtained individually.');
-		$asurite_details = get_asu_search_single_profile_results($asurite);
-	}
+	// Not enough information to render an actual profile.
+	$asurite_details = pfpeople_fake_asurite_data();
 
 } else {
-	// The ASURITE ID ACF field failed to meet parameters.
-	do_action('qm/debug', 'This is the parameter fail logic.');
-	$asurite_details = pfpeople_fake_asurite_data();
-}
 
+	if ( $is_preview ) {
+
+		// Data stored in the transient is possibly not available in preview mode.
+		// Go ahead and render this single block using a direct API call.
+
+		do_action('qm/debug', 'Preview mode. Getting profile details for ' . $asurite . ' directly.');
+		$asurite_details = get_asu_search_single_profile_results($asurite);
+
+	} else {
+
+		// Fancy rendering from transient if there's data available. Saves API calls.
+
+		$cache_key = $context['uds_profiles/query_cache_key'] ?? '';
+
+		if ( $cache_key ) {
+
+			$cached_results = get_transient( $cache_key );
+
+			// Scan transient object and look for specific ASURITE ID.
+			if ( ! empty( $cached_results->results ) && is_array( $cached_results->results ) ) {
+
+				foreach ($cached_results->results as $index => $result) {
+					if (isset($result->asurite_id->raw) && $result->asurite_id->raw === $asurite) {
+						do_action('qm/debug', 'Found ' . $asurite . ' in haystack at position ' . $index . '. Saved an API call.');
+						$asurite_details = $result;
+						break; // Stop searching
+					}
+				}
+
+				// Results not found in transient data. Go get it individually.
+				if (empty($asurite_details)) {
+					do_action('qm/debug', 'Results for ' . $asurite . ' not found in transient data. Fetching individually.');
+					$asurite_details = get_asu_search_single_profile_results($asurite);
+				}
+
+
+			} else {
+
+					do_action('qm/debug', 'Transient data could not be processed? Running individual query.');
+					$asurite_details = get_asu_search_single_profile_results($asurite);
+
+			}
+
+		} else {
+
+			do_action('qm/debug', 'No cache key available. Possibly no parent block? Getting individual results.');
+			$asurite_details = get_asu_search_single_profile_results($asurite);
+
+		}
+	}
+}
 
 /**
  * Retrieve spacing settings from editor.
