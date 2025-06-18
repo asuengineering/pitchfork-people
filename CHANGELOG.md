@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ---
 
+### Version 1.8.0 - RC1
+
+Refactored code which interacted with ASU Search API results directly to produce `profile-data` blocks.
+
+- ADD: API calls now implement proper rate limiting delays when API calls return a 429 error.
+- ADD: Results from API calls are now cached at the individual level (singular `/profile-data` blocks) and when multiple blocks are grouped within a `profiles` block.
+
 ### Version 1.7.0
 
 Update packages from the Unity Design Project and address one accessibility issue.

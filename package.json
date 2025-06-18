@@ -1,6 +1,6 @@
 {
   "name": "pitchfork-people",
-  "version": "1.7.0",
+  "version": "1.8.0",
   "description": "Pitchfork People delivers blocks for ad-hoc people organization and ASU Search directory integration to WordPress.",
   "repository": "https://github.com/asuengineering/pitchfork-people",
   "main": ".eslintrc.js",
