@@ -273,46 +273,6 @@ function get_asu_search_profile_results($asurite_string) {
  * - The set of data found in the wrapping acf/profiles block doesn't contain this individual profile
  * - Or, there is no acf/profiles block present and therefore we need data.
  */
-// function get_asu_search_single_profile_results( $asurite ) {
-// 	$search_json = 'https://search.asu.edu/api/v1/webdir-profiles/faculty-staff/filtered?asurite_ids=' . urlencode( $asurite ) . '&size=1&client=pitchfork_people';
-
-// 	$args = array(
-// 		'timeout' => 45,
-// 	);
-
-// 	$max_retries = 3;
-// 	$retry_delay_us = 1500000; // 1.5 seconds in microseconds
-
-// 	do_action( 'qm/debug', 'Getting search data about a single profile: ' . $asurite );
-
-// 	for ( $attempt = 0; $attempt <= $max_retries; $attempt++ ) {
-// 		do_action( 'qm/debug', 'Attempt #' . $attempt . ' for ASURITE: ' . $asurite );
-
-// 		$search_request = wp_safe_remote_get( $search_json, $args );
-
-// 		if ( is_wp_error( $search_request ) ) {
-// 			return false; // Bail early on request error
-// 		}
-
-// 		$search_body = wp_remote_retrieve_body( $search_request );
-// 		$search_data = json_decode( $search_body );
-
-// 		if ( ! empty( $search_data->meta->page->total_results ) ) {
-// 			return $search_data->results[0]; // Success
-// 		}
-
-// 		// Wait before next attempt if this isn't the last
-// 		if ( $attempt < $max_retries ) {
-// 			usleep( $retry_delay_us );
-// 		}
-// 	}
-
-// 	// All retries failed or no results — fallback
-// 	do_action( 'qm/debug', 'All attempts failed for ASURITE: ' . $asurite . ', using fallback.' );
-// 	return pfpeople_fake_asurite_data();
-// }
-
-
 function get_asu_search_single_profile_results( $asurite ) {
 
 	$transient_key = 'pfpeople_single_profile_' . md5( $asurite );
