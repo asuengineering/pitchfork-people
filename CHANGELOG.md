@@ -7,12 +7,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ---
 
-### Version 1.8.0 - RC1
+### Version 2.0
 
-Refactored code which interacted with ASU Search API results directly to produce `profile-data` blocks.
+Refactored code which interacted with ASU Search API results to produce `profile-data` blocks. Added caching layer and a plugin options page to allow for best configuration of data storage for each site.
 
-- ADD: API calls now implement proper rate limiting delays when API calls return a 429 error.
-- ADD: Results from API calls are now cached at the individual level (singular `/profile-data` blocks) and when multiple blocks are grouped within a `profiles` block.
+- FIX: API calls now implement proper rate limiting delays when API calls return a 429 error.
+- FIX: Data results are no longer stored as block meta which posed challenges when recalling the data for block rendering.
+- ADD: Results from API calls are now cached individually (singular `/profile-data` blocks) and when multiple blocks are grouped within a `profiles` block.
+- ADD: Site administrators can now set the length of time that profile data is cached by the site. Default time length is 30 days.
+- ADD: Site administrators can now clear all cached data or clear the stored results from individual profiles from a theme options page in the dashboard.
 
 ### Version 1.7.0
 
