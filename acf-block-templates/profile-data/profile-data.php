@@ -36,52 +36,43 @@ if (strlen($asurite) < 4 ) {
 
 	if ( $is_preview ) {
 
-		// Data stored in the transient is possibly not available in preview mode.
-		// Go ahead and render this single block using a direct API call.
+		// During preview mode in the editor, go ahead and render this single block using a direct API call.
 
-		do_action('qm/debug', 'Preview mode. Getting profile details for ' . $asurite . ' directly.');
+		do_action('qm/debug', 'Preview/editor mode. Getting profile details for ' . $asurite . ' directly.');
 		$asurite_details = get_asu_search_single_profile_results($asurite);
 
 	} else {
 
 		// Fancy rendering from transient if there's data available. Saves API calls.
-
 		$cache_key = $context['uds_profiles/query_cache_key'] ?? '';
 
 		if ( $cache_key ) {
 
 			$cached_results = get_transient( $cache_key );
 
-			// Scan transient object and look for specific ASURITE ID.
-			if ( ! empty( $cached_results->results ) && is_array( $cached_results->results ) ) {
+			if ( is_array( $cached_results ) && isset( $cached_results['data'] ) ) {
 
-				foreach ($cached_results->results as $index => $result) {
-					if (isset($result->asurite_id->raw) && $result->asurite_id->raw === $asurite) {
-						do_action('qm/debug', 'Found ' . $asurite . ' in haystack at position ' . $index . '. Saved an API call.');
+				foreach ( $cached_results['data'] as $index => $result ) {
+					if ( isset( $result->asurite_id->raw ) && $result->asurite_id->raw === $asurite ) {
+						do_action( 'qm/debug', 'Found ' . $asurite . ' in cache at index ' . $index );
 						$asurite_details = $result;
-						break; // Stop searching
+						break;
 					}
 				}
 
-				// Results not found in transient data. Go get it individually.
-				if (empty($asurite_details)) {
-					do_action('qm/debug', 'Results for ' . $asurite . ' not found in transient data. Fetching individually.');
-					$asurite_details = get_asu_search_single_profile_results($asurite);
+				if ( empty( $asurite_details ) ) {
+					do_action( 'qm/debug', 'ASURITE ' . $asurite . ' not found in cache. Fetching directly.' );
+					$asurite_details = get_asu_search_single_profile_results( $asurite );
 				}
 
-
 			} else {
-
-					do_action('qm/debug', 'Transient data could not be processed? Running individual query.');
-					$asurite_details = get_asu_search_single_profile_results($asurite);
-
+				do_action( 'qm/debug', 'Invalid cache format or empty data. Fetching directly.' );
+				$asurite_details = get_asu_search_single_profile_results( $asurite );
 			}
 
 		} else {
-
-			do_action('qm/debug', 'No cache key available. Possibly no parent block? Getting individual results.');
-			$asurite_details = get_asu_search_single_profile_results($asurite);
-
+			do_action( 'qm/debug', 'No cache key available. Possibly no parent block? Fetching directly.' );
+			$asurite_details = get_asu_search_single_profile_results( $asurite );
 		}
 	}
 }

@@ -181,7 +181,7 @@ function get_asu_directory_custom_people_list($custom_list) {
  * Used to update ACF field prior to render with results from ASU Search API.
  */
 
-function profiles_update_block_meta_with_search_api( $parsed_block ) {
+function profiles_update_block_meta_with_search_api( $context, $parsed_block ) {
 
 	if ( $parsed_block['blockName'] === 'acf/profiles' ) {
 
@@ -202,30 +202,42 @@ function profiles_update_block_meta_with_search_api( $parsed_block ) {
 		// Sort for consistent cache keys
 		sort( $query_ids );
 		$people_list = implode( ',', $query_ids );
-		$cache_key = 'uds_profiles_' . md5( $people_list );
+		$transient_key = 'pfpeople_multiple_profiles_' . md5( $people_list );
 
 		// Check if results already cached
-		$results = get_transient( $cache_key );
-		do_action('qm/debug', 'Key: ' . $cache_key);
+		$results = get_transient( $transient_key );
 
 		if ( false === $results ) {
 
+			do_action('qm/debug', 'Key not found: ' . $transient_key);
 			do_action( 'qm/debug', 'Search API call for: ' . $people_list );
+
 			$results = get_asu_search_profile_results( $people_list );
-			set_transient( $cache_key, $results, HOUR_IN_SECONDS ); // Cache for 1 hour
+			$cache_value = [
+				'data' => $results->results,
+				'source_post_id' => get_the_ID(),
+				'asurite_list' => $people_list,
+				'saved_at' => time(),
+			];
+
+			$expiration = pfpeople_get_block_cache_expiration();
+			set_transient( $transient_key, $cache_value, $expiration );
 
 		} else {
+
+			do_action('qm/debug', 'Key found! ' . $transient_key);
 			do_action( 'qm/debug', 'Using cached results for: ' . $people_list );
+
 		}
 
-		// Only pass the cache key — avoid storing large data in block attrs
-		$parsed_block['attrs']['uds_profiles_query_cache_key'] = $cache_key;
+		// Pass the transient key via block context hook
+		$context['uds_profiles/query_cache_key'] = $transient_key;
 
 	}
 
-	return $parsed_block;
+	return $context;
 }
-add_filter( 'render_block_data', 'profiles_update_block_meta_with_search_api' );
+add_filter( 'render_block_context', 'profiles_update_block_meta_with_search_api', 10, 2 );
 
 /**
  * This function is used within acf/profiles block to actually retrieve data from ASU Search API.
@@ -270,17 +282,19 @@ function get_asu_search_profile_results($asurite_string) {
 
 /**
  * This function is called by the singular acf/profile-data block when:
- * - The set of data found in the wrapping acf/profiles block doesn't contain this individual profile
- * - Or, there is no acf/profiles block present and therefore we need data.
+ * - The user is in the block editor and is manipulating a single profile block.
+ * - When a set of data found in the wrapping acf/profiles block doesn't contain this individual profile.
+ * - Or, where there is no acf/profiles block present and therefore we need data.
  */
 function get_asu_search_single_profile_results( $asurite ) {
 
 	$transient_key = 'pfpeople_single_profile_' . md5( $asurite );
 	$cached = get_transient( $transient_key );
 
-	if ( $cached ) {
-		do_action( 'qm/debug', 'Transient hit for ' . $asurite );
-		return $cached;
+	if ( is_array( $cached ) && isset( $cached['data'] ) ) {
+		do_action( 'qm/debug', 'Profile data loaded from transient for: ' . $cached['asurite'] );
+
+		return $cached['data'];
 	}
 
 	$url = 'https://search.asu.edu/api/v1/webdir-profiles/faculty-staff/filtered?asurite_ids=' . urlencode( $asurite ) . '&size=1&client=pitchfork_people';
@@ -309,13 +323,26 @@ function get_asu_search_single_profile_results( $asurite ) {
 		if ( $code === 200 && isset( $data->meta->page->total_results ) ) {
 
 			if ( $data->meta->page->total_results > 0 ) {
+
 				$result = $data->results[0];
-				set_transient( $transient_key, $result, HOUR_IN_SECONDS );
+				$cache_value = [
+					'data' => $result,
+					'source_post_id' => get_the_ID(),
+					'asurite' => $asurite,
+					'saved_at' => time(),
+				];
+				$expiration = pfpeople_get_block_cache_expiration();
+				set_transient( $transient_key, $cache_value, $expiration );
+
 				do_action( 'qm/debug', 'Profile data stored in transient for: ' . $asurite );
+
 				return $result;
+
 			} else {
+
 				do_action( 'qm/debug', 'Zero results for ASURITE: ' . $asurite );
-				return pfpeople_fake_asurite_data(); // Optional: or return null if you want to handle empty state
+				return pfpeople_fake_asurite_data();
+
 			}
 		}
 
