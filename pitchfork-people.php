@@ -27,6 +27,9 @@ define( 'PITCHFORK_PEOPLE_BASE_PATH', plugin_dir_path( __FILE__ ) );
 // Function: Deactivate.
 // Function: Execute plugin.
 
+// Register options page.
+require_once PITCHFORK_PEOPLE_BASE_PATH . '/inc/options-page.php';
+
 // TGM Plugin Activation Script. Checks for Advanced Custom Fields.
 require_once PITCHFORK_PEOPLE_BASE_PATH . '/tgmpa/class-tgm-plugin-activation.php';
 require_once PITCHFORK_PEOPLE_BASE_PATH . '/tgmpa/dependency-check.php';
@@ -40,32 +43,7 @@ require_once PITCHFORK_PEOPLE_BASE_PATH . '/inc/asu-search.php';
 // Functions used to render the profile-data block correctly.
 require_once PITCHFORK_PEOPLE_BASE_PATH . '/inc/profile-data-functions.php';
 
-// Functions used to render the profile-data block correctly.
-// require_once PITCHFORK_PEOPLE_BASE_PATH . '/inc/profile-data-functions.php';
-
-// Create CPT for Pitchfork People
-// require_once PITCHFORK_PEOPLE_BASE_PATH . '/inc/cpt-people.php';
-
 // ACF configurations.
 require_once PITCHFORK_PEOPLE_BASE_PATH . '/inc/acf-config.php';
 require_once PITCHFORK_PEOPLE_BASE_PATH . '/inc/acf-block-utilities.php';
 require_once PITCHFORK_PEOPLE_BASE_PATH . '/inc/acf-register-blocks.php';
-
-/**
- * ACF field extensions.
- * Included here as a fallback in case this plugin is being used outside of the Pitchfork theme.
- *
- * Default mode is to check for the existence of the class and if not found, instantiate it.
- *
- * (ACF_Field_Unique_ID.php)
- * Adds field that assigns a random ID to a block.
- * Initalized by following init() function.
- * See: https://github.com/philipnewcomer/ACF-Unique-ID-Field
- * - Used in PF People - acf/profiles, acf/profile-data
- */
-
-// if (class_exists('ASUEngineering\ACF_Unique_ID_Field\ACF_Field_Unique_ID')) {
-//     require PITCHFORK_PEOPLE_BASE_PATH . '/inc/ACF_Field_Unique_ID.php';
-// 	ASUEngineering\ACF_Unique_ID_Field\ACF_Field_Unique_ID::init();
-// }
-
