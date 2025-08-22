@@ -47,31 +47,33 @@ function pfpeople_card_displayname($data, $display_size, $dept_override, $title_
 	$displayname 	= $data->display_name->raw ?? '';
 	$email			= $data->email_address->raw ?? '';
 
-	// Attempt to look for department and title that corresponds to the department override provided.
+	//
 	/**
-	 * Assign a department and a title.
-	 * Search for title/dept pair that matches override dept ID provided.
+	 * Attempt to look for department and title that corresponds to the department override provided.
 	 * Otherwise default to working title and primary department.
-	*/
-	$deptids = $data->deptids->raw;
-	$dept_index = false;
+	 */
 
-	if (is_array($deptids)) {
-		$dept_index = array_search($dept_override, $deptids);
+	// Normalize inputs
+	$deptids     = is_array($data->deptids->raw ?? null) ? $data->deptids->raw : [];
+	$titles      = is_array($data->titles->raw ?? null) ? $data->titles->raw : [];
+	$departments = is_array($data->departments->raw ?? null) ? $data->departments->raw : [];
+
+	// Find matching index (strict comparison on value/type)
+	$dept_index = array_search($dept_override, $deptids, true);
+
+	// Choose base title & dept
+	if ($dept_index !== false) {
+		$title = $titles[$dept_index] ?? '';
+		$dept  = $departments[$dept_index] ?? '';
+	} else {
+		// Fall back to working title (index 0) and primary department
+		$title = $data->working_title->raw[0] ?? '';
+		$dept  = $data->primary_department->raw ?? '';
 	}
 
-	if ( $dept_index ) {
-		$title  		= $data->titles->raw[$dept_index] ?? '';
-		$dept			= $data->departments->raw[$dept_index] ?? '';
-		if ( ! empty( $title_override ) ) {
-			$title = $title_override;
-		}
-	} else {
-		$title  		= $data->working_title->raw[0] ?? '';
-		$dept			= $data->primary_department->raw ?? '';
-		if ( ! empty( $title_override ) ) {
-			$title = $title_override;
-		}
+	// Apply optional title override once
+	if (isset($title_override) && $title_override !== '') {
+		$title = $title_override;
 	}
 
 	$output = '';
