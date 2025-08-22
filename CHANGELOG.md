@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ---
 
+### Version 2.1
+
+Updated packages from Unity Design System and fix one logic bug.
+
+- FIX: Address logic bug when department override field from `profiles` wrapper block is set to the first array index position.
+
+| Package         | Old version | Updated Version |
+| --------------- | ----------- | --------------- |
+| `app-webdir-ui` | 5.0.3       | 5.0.4           |
+
 ### Version 2.0
 
 Refactored code which interacted with ASU Search API results to produce `profile-data` blocks. Added caching layer and a plugin options page to allow for best configuration of data storage for each site.
